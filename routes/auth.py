@@ -41,9 +41,6 @@ from datetime import datetime
 auth = Blueprint("auth", __name__)
 
 
-# ============================================================
-# CONFIGURAÇÕES
-# ============================================================
 
 DIAS_VALIDOS = {
     "1",
@@ -79,9 +76,7 @@ LIMITE_NUMERO = 20
 LIMITE_COMPLEMENTO = 100
 
 
-# ============================================================
 # SLUG
-# ============================================================
 
 def gerar_slug(nome):
     texto = unicodedata.normalize(
@@ -135,9 +130,7 @@ def gerar_slug_unico(cursor, nome):
     return slug
 
 
-# ============================================================
-# UPLOAD DE IMAGENS
-# ============================================================
+
 
 def imagem_valida(arquivo, extensao):
     """
@@ -248,10 +241,6 @@ def salvar_imagem(arquivo, pasta):
     ).replace("\\", "/")
 
 
-# ============================================================
-# ENDEREÇO
-# ============================================================
-
 def montar_endereco(form):
     partes = []
 
@@ -328,9 +317,7 @@ def montar_endereco(form):
     return ", ".join(partes)
 
 
-# ============================================================
-# VALIDAÇÃO DE HORÁRIOS
-# ============================================================
+
 
 def horario_valido(horario):
     """
@@ -456,10 +443,6 @@ def validar_horarios(form):
     return True, None
 
 
-# ============================================================
-# CADASTRO
-# ============================================================
-
 @auth.route(
     "/cadastro",
     methods=["GET", "POST"]
@@ -523,9 +506,7 @@ def cadastro():
         "termos"
     )
 
-    # --------------------------------------------------------
-    # VALIDAÇÕES BÁSICAS
-    # --------------------------------------------------------
+
 
     if not nome:
         return render_template(
@@ -614,9 +595,6 @@ def cadastro():
             erro="Este e-mail já está cadastrado."
         )
 
-    # --------------------------------------------------------
-    # VALIDAÇÃO DOS HORÁRIOS
-    # --------------------------------------------------------
 
     horarios_validos, erro_horarios = validar_horarios(
         request.form
@@ -628,9 +606,7 @@ def cadastro():
             erro=erro_horarios
         )
 
-    # --------------------------------------------------------
-    # ENDEREÇO
-    # --------------------------------------------------------
+
 
     cep = request.form.get("cep", "").strip()
     estado = request.form.get("estado", "").strip()
@@ -693,27 +669,22 @@ def cadastro():
 
     try:
 
-        # ----------------------------------------------------
+        
         # TRANSAÇÃO
-        # ----------------------------------------------------
 
         conexao = get_connection()
         conexao.start_transaction()
 
         cursor = conexao.cursor()
 
-        # ----------------------------------------------------
         # SLUG
-        # ----------------------------------------------------
 
         slug = gerar_slug_unico(
             cursor,
             nome_estabelecimento
         )
 
-        # ----------------------------------------------------
         # LOGO
-        # ----------------------------------------------------
 
         logo = salvar_imagem(
             request.files.get("logo"),
@@ -725,9 +696,7 @@ def cadastro():
                 logo
             )
 
-        # ----------------------------------------------------
         # IMAGEM DE CAPA
-        # ----------------------------------------------------
 
         imagem_capa = salvar_imagem(
             request.files.get("imagemCapa"),
@@ -739,9 +708,8 @@ def cadastro():
                 imagem_capa
             )
 
-        # ----------------------------------------------------
+        
         # ESTABELECIMENTO
-        # ----------------------------------------------------
 
         cursor.execute(
             """
@@ -774,9 +742,7 @@ def cadastro():
 
         estabelecimento_id = cursor.lastrowid
 
-        # ----------------------------------------------------
-        # USUÁRIO
-        # ----------------------------------------------------
+       
 
         senha_hash = generate_password_hash(
             senha
@@ -804,9 +770,7 @@ def cadastro():
 
         usuario_id = cursor.lastrowid
 
-        # ----------------------------------------------------
-        # HORÁRIOS
-        # ----------------------------------------------------
+    
 
         dias = request.form.getlist(
             "dias_funcionamento"
@@ -876,23 +840,17 @@ def cadastro():
                     )
                 )
 
-        # ----------------------------------------------------
-        # FINALIZA TRANSAÇÃO
-        # ----------------------------------------------------
+  
 
         conexao.commit()
 
-        # ----------------------------------------------------
-        # INVALIDA TOKENS ANTERIORES
-        # ----------------------------------------------------
+       
 
         invalidar_tokens_confirmacao(
             usuario_id
         )
 
-        # ----------------------------------------------------
-        # GERA TOKEN DE CONFIRMAÇÃO
-        # ----------------------------------------------------
+  
 
         token_confirmacao = criar_token_confirmacao(
             usuario_id
@@ -904,9 +862,7 @@ def cadastro():
             _external=True
         )
 
-        # ----------------------------------------------------
-        # ENVIA E-MAIL
-        # ----------------------------------------------------
+        
 
         try:
 
@@ -932,9 +888,7 @@ def cadastro():
                 )
             )
 
-        # ----------------------------------------------------
-        # NÃO CRIA SESSÃO
-        # ----------------------------------------------------
+        
 
         session.clear()
 
@@ -943,9 +897,6 @@ def cadastro():
             email=email
         )
 
-    # --------------------------------------------------------
-    # ERRO
-    # --------------------------------------------------------
 
     except Exception as erro:
 
@@ -984,9 +935,7 @@ def cadastro():
 
         if conexao:
             conexao.close()
-# ============================================================
-# CONFIRMAÇÃO DO CADASTRO
-# ============================================================
+
 @auth.route(
     "/confirmar-cadastro/<token>",
     methods=["GET", "POST"]
@@ -1018,9 +967,7 @@ def confirmar_cadastro(token):
             mensagem="Este link de confirmação expirou."
         )
 
-    # --------------------------------------------------------
-    # ABERTURA DO LINK
-    # --------------------------------------------------------
+  
 
     if request.method == "GET":
 
@@ -1030,9 +977,7 @@ def confirmar_cadastro(token):
             mensagem=None
         )
 
-    # --------------------------------------------------------
-    # CONFIRMAÇÃO
-    # --------------------------------------------------------
+
 
     token_csrf = request.form.get(
         "csrf_token"
@@ -1050,9 +995,7 @@ def confirmar_cadastro(token):
         conexao = get_connection()
         cursor = conexao.cursor()
 
-        # ----------------------------------------------------
-        # CONFERE NOVAMENTE O USUÁRIO
-        # ----------------------------------------------------
+
 
         cursor.execute(
             """
@@ -1078,9 +1021,7 @@ def confirmar_cadastro(token):
                 mensagem="Usuário não encontrado."
             )
 
-        # ----------------------------------------------------
-        # JÁ CONFIRMADO
-        # ----------------------------------------------------
+       
 
         if usuario[1]:
 
@@ -1099,9 +1040,7 @@ def confirmar_cadastro(token):
                 )
             )
 
-        # ----------------------------------------------------
-        # CONFIRMA E-MAIL
-        # ----------------------------------------------------
+       
 
         cursor.execute(
             """
@@ -1130,17 +1069,13 @@ def confirmar_cadastro(token):
 
         conexao.commit()
 
-        # ----------------------------------------------------
-        # INVALIDA O TOKEN
-        # ----------------------------------------------------
+      
 
         marcar_token_confirmacao_usado(
             registro["id"]
         )
 
-        # ----------------------------------------------------
-        # SUCESSO
-        # ----------------------------------------------------
+     
 
         return render_template(
             "auth/confirmacao_email.html",
