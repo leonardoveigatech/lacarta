@@ -1,10 +1,6 @@
 from database.connection import get_connection
 
 
-# ==========================================================
-# BUSCAR APARÊNCIA
-# ==========================================================
-
 def buscar_por_estabelecimento(estabelecimento_id):
 
     conexao = get_connection()
@@ -51,9 +47,7 @@ def buscar_por_estabelecimento(estabelecimento_id):
         conexao.close()
 
 
-# ==========================================================
 # CRIAR APARÊNCIA
-# ==========================================================
 
 def criar(
     estabelecimento_id,
@@ -147,9 +141,7 @@ def criar(
         conexao.close()
 
 
-# ==========================================================
 # ATUALIZAR APARÊNCIA
-# ==========================================================
 
 def atualizar(
     estabelecimento_id,
