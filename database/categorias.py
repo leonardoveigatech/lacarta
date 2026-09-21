@@ -1,9 +1,6 @@
 from database.connection import get_connection
 
-
-# ==========================================================
 # BUSCAR CATEGORIAS DO ESTABELECIMENTO
-# ==========================================================
 
 def buscar_por_estabelecimento(estabelecimento_id):
 
@@ -40,9 +37,7 @@ def buscar_por_estabelecimento(estabelecimento_id):
     return categorias
 
 
-# ==========================================================
 # BUSCAR CATEGORIA POR ID
-# ==========================================================
 
 def buscar_por_id(
     categoria_id,
@@ -82,10 +77,7 @@ def buscar_por_id(
         cursor.close()
         conexao.close()
 
-
-# ==========================================================
 # CRIAR CATEGORIA
-# ==========================================================
 
 def criar_categoria(
     estabelecimento_id,
@@ -137,9 +129,7 @@ def criar_categoria(
         conexao.close()
 
 
-# ==========================================================
 # ATUALIZAR CATEGORIA
-# ==========================================================
 
 def atualizar_categoria(
     categoria_id,
@@ -185,9 +175,7 @@ def atualizar_categoria(
         conexao.close()
 
 
-# ==========================================================
 # ALTERAR DISPONIBILIDADE
-# ==========================================================
 
 def alterar_disponibilidade_categoria(
     categoria_id,
@@ -229,9 +217,7 @@ def alterar_disponibilidade_categoria(
         conexao.close()
 
 
-# ==========================================================
 # EXCLUIR CATEGORIA
-# ==========================================================
 
 def excluir_categoria(
     categoria_id,
@@ -242,10 +228,6 @@ def excluir_categoria(
     cursor = conexao.cursor()
 
     try:
-
-        # --------------------------------------------------
-        # VERIFICAR PRODUTOS
-        # --------------------------------------------------
 
         query = """
             SELECT COUNT(*) AS total
@@ -269,11 +251,7 @@ def excluir_categoria(
         if total_produtos > 0:
 
             return False
-
-        # --------------------------------------------------
         # EXCLUIR SUBCATEGORIAS
-        # --------------------------------------------------
-
         query = """
             DELETE FROM subcategorias
             WHERE categoria_id = %s
@@ -288,9 +266,7 @@ def excluir_categoria(
             )
         )
 
-        # --------------------------------------------------
         # EXCLUIR CATEGORIA
-        # --------------------------------------------------
 
         query = """
             DELETE FROM categorias
@@ -321,9 +297,7 @@ def excluir_categoria(
         conexao.close()
 
 
-# ==========================================================
 # CARDÁPIO PÚBLICO
-# ==========================================================
 
 def buscar_cardapio_por_estabelecimento(
     estabelecimento_id
@@ -402,11 +376,7 @@ def buscar_cardapio_por_estabelecimento(
 
     return list(categorias.values())
 
-
-# ==========================================================
 # CATEGORIA COM PRODUTOS
-# ==========================================================
-
 def buscar_categoria_com_produtos(
     categoria_id,
     estabelecimento_id
@@ -417,9 +387,7 @@ def buscar_categoria_com_produtos(
 
     try:
 
-        # --------------------------------------------------
         # CATEGORIA
-        # --------------------------------------------------
 
         query_categoria = """
             SELECT
@@ -445,10 +413,7 @@ def buscar_categoria_com_produtos(
 
         if categoria is None:
             return None
-
-        # --------------------------------------------------
         # SUBCATEGORIAS
-        # --------------------------------------------------
 
         query_subcategorias = """
             SELECT
@@ -473,9 +438,7 @@ def buscar_categoria_com_produtos(
 
         subcategorias = cursor.fetchall()
 
-        # --------------------------------------------------
         # PRODUTOS DIRETOS DA CATEGORIA
-        # --------------------------------------------------
 
         query_produtos = """
             SELECT
@@ -513,10 +476,7 @@ def buscar_categoria_com_produtos(
 
     return categoria
 
-
-# ==========================================================
 # SUBCATEGORIA COM PRODUTOS
-# ==========================================================
 
 def buscar_subcategoria_com_produtos(
     subcategoria_id,
@@ -562,10 +522,6 @@ def buscar_subcategoria_com_produtos(
 
         if subcategoria is None:
             return None
-
-        # --------------------------------------------------
-        # PRODUTOS
-        # --------------------------------------------------
 
         query_produtos = """
             SELECT
