@@ -33,7 +33,6 @@ def _formatar_hora(hora):
     if not valor:
         return ""
 
-    # Caso venha como HH:MM:SS
     if len(valor) >= 5 and ":" in valor:
         partes = valor.split(":")
 
@@ -78,7 +77,6 @@ def buscar_por_estabelecimento(estabelecimento_id):
 
         horarios = cursor.fetchall()
 
-        # Normaliza os horários para HH:MM.
         for horario in horarios:
 
             horario["hora_abertura"] = _formatar_hora(
@@ -133,7 +131,6 @@ def salvar_horarios(
 
     try:
 
-        # Processa SEMPRE os 7 dias.
         for dia in range(1, 8):
 
             periodos = horarios.get(
@@ -150,7 +147,6 @@ def salvar_horarios(
                 ]
             )
 
-            # Garante exatamente dois períodos.
             while len(periodos) < 2:
                 periodos.append({
                     "abertura": "",
@@ -173,10 +169,6 @@ def salvar_horarios(
                     or ""
                 ).strip()
 
-                # --------------------------------------------------
-                # BUSCA O PERÍODO ATUAL
-                # --------------------------------------------------
-
                 cursor.execute(
                     """
                     SELECT id
@@ -194,10 +186,6 @@ def salvar_horarios(
                 )
 
                 existente = cursor.fetchone()
-
-                # --------------------------------------------------
-                # PERÍODO VAZIO
-                # --------------------------------------------------
 
                 if not abertura and not fechamento:
 
@@ -228,9 +216,6 @@ def salvar_horarios(
                         "precisa ter abertura e fechamento."
                     )
 
-                # --------------------------------------------------
-                # ATUALIZA
-                # --------------------------------------------------
 
                 if existente:
 
@@ -251,9 +236,6 @@ def salvar_horarios(
                         )
                     )
 
-                # --------------------------------------------------
-                # CRIA
-                # --------------------------------------------------
 
                 else:
 
