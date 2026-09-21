@@ -34,9 +34,6 @@ def buscar_por_estabelecimento(estabelecimento_id):
         conexao.close()
 
 
-# ==========================================================
-# BUSCAR REDE SOCIAL POR ID
-# ==========================================================
 
 def buscar_por_id(
     rede_id,
@@ -76,9 +73,6 @@ def buscar_por_id(
         conexao.close()
 
 
-# ==========================================================
-# CRIAR REDE SOCIAL
-# ==========================================================
 
 def criar(
     estabelecimento_id,
@@ -128,9 +122,6 @@ def criar(
         conexao.close()
 
 
-# ==========================================================
-# ATUALIZAR REDE SOCIAL
-# ==========================================================
 
 def atualizar(
     rede_id,
@@ -175,10 +166,6 @@ def atualizar(
         cursor.close()
         conexao.close()
 
-
-# ==========================================================
-# EXCLUIR REDE SOCIAL
-# ==========================================================
 
 def excluir(
     rede_id,
