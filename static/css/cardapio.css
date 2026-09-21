@@ -1,0 +1,536 @@
+@charset "UTF-8"; /* CATEGORIAS */
+.menuCategorias {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  padding: 2rem 1.2rem;
+}
+.menuCategorias a {
+  padding: 4rem 1.2rem;
+  border-radius: 28px;
+  background-color: #2c0404;
+  color: #e7dac4;
+  text-decoration: none;
+  text-align: center;
+  font-family: "Cormorant", serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  font-variant: small-caps;
+}
+.menuCategorias a:hover {
+  background-color: #5f2f2ff6;
+  font-weight: 700;
+}
+.menuProdutos {
+  display: none;
+}
+.menuPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} /* PRODUTOS */
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  width: 100%;
+}
+.produto {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  background-color: #2c0404;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(29, 2, 2, 0.12);
+}
+.produto img {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+}
+.produto > div {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.9rem 1.2rem;
+}
+.produto h3 {
+  font-family: "Cormorant", serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #e8c992;
+  margin: 0;
+}
+.produto p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 300;
+  line-height: 1.45;
+  color: rgba(245, 245, 245, 0.7);
+  margin-top: 0.45rem;
+}
+.produto strong {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: whitesmoke;
+  margin-top: 0.7rem;
+} /* SEÇÃO DO MENU */
+.menuSection {
+  width: 100%;
+  padding: 1.5rem 1.2rem 2rem;
+}
+.menuSection h2 {
+  font-family: "Cormorant", serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c0404;
+  margin-bottom: 1.2rem;
+} /* PÁGINA DE CATEGORIA */
+.categoriaPagina {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.2rem 2rem;
+  align-items: flex-end;
+  text-align: left;
+} /* CABEÇALHO DA CATEGORIA */
+.menuHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2rem;
+  margin-left: 2rem;
+  gap: 3rem;
+}
+.menuHeader .label {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #2c0404;
+  opacity: 0.7;
+  margin-bottom: 0.35rem;
+}
+.menuHeader h1 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.8rem;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #2c0404;
+} /* PRODUTOS DA CATEGORIA */ /* PRODUTOS */
+.produtos,
+.categoriaPagina .listaProdutos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  width: 100%;
+}
+.produto,
+.cardProdutoCategoria {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  background-color: #2c0404;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(29, 2, 2, 0.12);
+}
+.produto img,
+.imagemProdutoCategoria {
+  display: block;
+  width: 100%;
+  height: 135px;
+  object-fit: cover;
+}
+.produto > div,
+.infoProdutoCategoria {
+  display: flex;
+  flex-direction: column;
+  padding: 0.9rem 0.8rem 1.1rem;
+}
+.produto h3,
+.infoProdutoCategoria h2 {
+  min-height: 2.4em;
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #e8c992;
+  line-height: 1.2;
+}
+.produto p,
+.descricaoProdutoCategoria {
+  line-height: 1.4;
+  min-height: 2.8em;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.72rem;
+  color: rgba(245, 245, 245, 0.774);
+  margin-top: 0.35rem;
+}
+.informacoesAdicionaisCategoria {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.68rem;
+  color: rgba(232, 201, 146, 0.75);
+  margin-top: 0.3rem;
+}
+.produto strong,
+.precoProdutoCategoria {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: whitesmoke;
+  margin-top: 0.6rem;
+} /* ESTABELECIMENTO */
+.paginaEstabelecimento {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  height: 70%;
+  padding-bottom: 50px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+}
+.heroEstabelecimento {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.heroImagem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+} /* .heroOverlay { position: absolute; inset: 0; background-color: rgb(44, 4, 4); border-radius: 40px; border: none; width: 90%; margin: auto; } */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  width: 100%; /* ALTERADO — antes era 90% */
+  height: 100%; /* ALTERADO — garante cobertura total */
+  margin: 0; /* ALTERADO — remove o espaço criado pelo margin:auto */
+  background-color: rgba(44, 4, 4, 0.45); /* ALTERADO — overlay translúcido */
+  border-radius: 30px; /* ALTERADO — remove os cantos arredondados */
+  border: none;
+}
+.heroConteudo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 3rem 1.5rem 3.5rem;
+  gap: 1.2rem;
+}
+.logoHero {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #e8c992;
+  background-color: #2c0404;
+}
+.descricaoHero {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(245, 245, 245, 0.8);
+  max-width: 400px;
+  width: 70%;
+} /* HORÁRIOS */
+.horariosHero {
+  width: 80%;
+  max-width: 340px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(232, 201, 146, 0.2);
+  border-radius: 18px;
+  padding: 0 1.4rem;
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+.horariosHero[open] {
+  padding-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+.horariosHero summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  list-style: none;
+  cursor: pointer;
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #e8c992;
+  padding: 0.5rem 1rem;
+}
+.horariosHero summary::-webkit-details-marker {
+  display: none;
+}
+.horariosHero summary::after {
+  content: "+";
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #1d0202;
+  background-color: #e8c992;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+.horariosHero[open] summary::after {
+  transform: rotate(45deg);
+}
+.horariosHero[open] summary {
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.2);
+  margin-bottom: 0.4rem;
+}
+.diaHorario {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.4rem 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.78rem;
+}
+.diaHorario strong {
+  font-weight: 500;
+  color: whitesmoke;
+  text-align: left;
+}
+.periodosHorario {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+.periodosHorario span {
+  font-weight: 300;
+  color: rgba(245, 245, 245, 0.65);
+  white-space: nowrap;
+} /* BOTÃO VER CARDÁPIO */
+.botaoVerCardapio {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border-radius: 999px;
+  padding: 1rem 2.4rem;
+  margin-top: 0.4rem;
+  transition: transform 0.15s ease;
+}
+.botaoVerCardapio:active {
+  transform: scale(0.97);
+} /* BUSCA */
+.paginaBusca {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.2rem 2rem;
+}
+.paginaBusca h2 {
+  font-family: "Cormorant", serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  color: #2c0404;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #e8c992;
+}
+.paginaBusca > p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: rgba(29, 2, 2, 0.6);
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.resultadosBusca {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.resultadosBusca .cardProduto {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 20px;
+  background-color: #2c0404;
+  transition: transform 0.2s ease;
+}
+.resultadosBusca .cardProduto:active {
+  transform: scale(0.98);
+}
+.resultadosBusca .imagemProduto {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.resultadosBusca .infoProduto {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.resultadosBusca .infoProduto h3 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #e8c992;
+}
+.resultadosBusca .descricaoProduto {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: rgba(245, 245, 245, 0.65);
+  margin-top: 0.3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.resultadosBusca .precoProduto {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: whitesmoke;
+  margin-top: 0.5rem;
+}
+.sobre-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  transition: transform 0.15s ease;
+  margin-top: 2rem;
+}
+.sobre-cta-button:active {
+  transform: scale(0.98);
+} /* MEDIA QUERIES */
+@media (min-width: 960px) {
+  /* CATEGORIAS — de botões empilhados pra grade */
+  .menuCategorias {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+  .menuCategorias a {
+    padding: 2.5rem 1.2rem;
+  }
+  .menuPage {
+    margin: 0;
+    padding: 0;
+  } /* GRADE DE PRODUTOS — 2 colunas vira 3, com container centralizado */
+  .produtos,
+  .categoriaPagina .listaProdutos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .produto,
+  .cardProdutoCategoria {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .produto:hover,
+  .cardProdutoCategoria:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(29, 2, 2, 0.2);
+  }
+  .produto img,
+  .imagemProdutoCategoria {
+    height: 170px;
+  } /* SEÇÃO / CABEÇALHO DA CATEGORIA */
+  .menuSection {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 0 2.5rem;
+  }
+  .categoriaPagina {
+    align-items: center;
+    padding: 0 0 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .menuHeader {
+    align-items: center;
+    text-align: center;
+    margin-left: 0;
+    gap: 1rem;
+  }
+  .menuHeader h1 {
+    font-size: 2.4rem;
+  } /* BUSCA — de lista vertical pra grade */
+  .paginaBusca {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 0;
+  }
+  .resultadosBusca {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+  }
+}

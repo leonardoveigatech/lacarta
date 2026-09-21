@@ -1,0 +1,214 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Editar produto | La Carta
+{% endblock %}
+
+{% block description %}
+Edite as informações do produto do seu cardápio.
+{% endblock %}
+
+
+{% block content %}
+
+<section class="secao">
+
+    <!-- TOPO -->
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                CARDÁPIO
+            </span>
+
+            <h1>
+                Editar produto
+            </h1>
+
+            <p>
+                Atualize as informações do produto.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <form method="POST" class="form">
+
+        <!-- NOME -->
+
+        <div class="campo">
+
+            <label for="nome">
+                Nome
+            </label>
+
+            <input type="text" id="nome" name="nome" value="{{ produto.nome }}" required>
+
+        </div>
+
+
+        <!-- CATEGORIA -->
+
+        <div class="campo">
+
+            <label for="categoria_id">
+                Categoria
+            </label>
+
+            <select id="categoria_id" name="categoria_id" required>
+
+                <option value="">
+                    Selecione uma categoria
+                </option>
+
+                {% for categoria in categorias %}
+
+                <option value="{{ categoria.id }}" {% if categoria.id==produto.categoria_id %} selected {% endif %}>
+                    {{ categoria.nome }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- SUBCATEGORIA -->
+
+        <div class="campo">
+
+            <label for="subcategoria_id">
+                Subcategoria
+            </label>
+
+            <select id="subcategoria_id" name="subcategoria_id">
+
+                <option value="">
+                    Sem subcategoria
+                </option>
+
+                {% for subcategoria in subcategorias %}
+
+                <option value="{{ subcategoria.id }}" {% if subcategoria.id==produto.subcategoria_id %} selected {%
+                    endif %}>
+                    {{ subcategoria.nome }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+            <small>
+                Selecione uma subcategoria para organizar melhor este produto.
+            </small>
+
+        </div>
+
+
+        <!-- PREÇO -->
+
+        <div class="campo">
+
+            <label for="preco">
+                Preço
+            </label>
+
+            <input type="number" id="preco" name="preco" value="{{ produto.preco }}" step="0.01" min="0" required>
+
+        </div>
+
+
+        <!-- DESCRIÇÃO -->
+
+        <div class="campo">
+
+            <label for="descricao">
+                Descrição
+            </label>
+
+            <textarea id="descricao" name="descricao" rows="4">{{ produto.descricao or "" }}</textarea>
+
+        </div>
+
+
+        <!-- INFORMAÇÕES ADICIONAIS -->
+
+        <div class="campo">
+
+            <label for="informacoes_adicionais">
+                Informações adicionais
+            </label>
+
+            <textarea id="informacoes_adicionais" name="informacoes_adicionais"
+                rows="3">{{ produto.informacoes_adicionais or "" }}</textarea>
+
+        </div>
+
+
+        <!-- ORDEM -->
+
+        <div class="campo">
+
+            <label for="ordem">
+                Ordem
+            </label>
+
+            <input type="number" id="ordem" name="ordem" value="{{ produto.ordem or 0 }}" min="0">
+
+            <small>
+                Quanto menor o número, mais acima o produto
+                aparecerá no cardápio.
+            </small>
+
+        </div>
+
+
+        <!-- DISPONIBILIDADE -->
+
+        <div class="campo">
+
+            <label for="disponivel">
+                Disponibilidade
+            </label>
+
+            <select id="disponivel" name="disponivel">
+
+                <option value="1" {% if produto.disponivel==1 %} selected {% endif %}>
+                    Disponível
+                </option>
+
+                <option value="0" {% if produto.disponivel==0 %} selected {% endif %}>
+                    Indisponível
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- AÇÕES -->
+
+        <div class="acoes">
+
+            <a href="{{ url_for('admin.produtos') }}" class="botao secundario">
+                Cancelar
+            </a>
+
+            <button type="submit" class="botao">
+                Salvar alterações
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

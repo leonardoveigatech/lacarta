@@ -1,0 +1,113 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Link do cardápio | La Carta
+{% endblock %}
+
+{% block content %}
+
+<section class="secao">
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                COMPARTILHAMENTO
+            </span>
+
+            <h1>
+                Link do cardápio
+            </h1>
+
+            <p>
+                Compartilhe o endereço do seu cardápio digital
+                com seus clientes.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="form form-secoes">
+
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    SEU CARDÁPIO
+                </span>
+
+                <h2>
+                    Endereço público
+                </h2>
+
+                <p>
+                    Este é o endereço que seus clientes utilizarão
+                    para acessar o cardápio.
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="linkCardapio">
+                    Link do cardápio
+                </label>
+
+                <input type="text" id="linkCardapio"
+                    value="{{ url_for('public.cardapio', slug=estabelecimento.slug, _external=True) }}" readonly>
+
+            </div>
+
+
+            <button class="buttonCopiar" type="button" onclick="copiarLink()">
+                Copiar link
+            </button>
+
+
+            <a href="{{ url_for('public.cardapio', slug=estabelecimento.slug) }}" target="_blank"
+                rel="noopener noreferrer" class="secondary-button">
+                Abrir cardápio
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<script>
+
+    function copiarLink() {
+
+        const campo =
+            document.getElementById("linkCardapio");
+
+        navigator.clipboard
+            .writeText(campo.value)
+            .then(function () {
+
+                alert("Link copiado com sucesso.");
+
+            })
+            .catch(function () {
+
+                campo.select();
+                document.execCommand("copy");
+
+                alert("Link copiado com sucesso.");
+
+            });
+
+    }
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar e-mail | La Carta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Confirmar novo e-mail</h1>
+        <p>Você confirma que deseja usar {{ novo_email }} para entrar na sua conta?</p>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Confirmar alteração</button>
+        </form>
+    </main>
+</body>
+</html>

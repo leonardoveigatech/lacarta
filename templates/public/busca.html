@@ -1,0 +1,112 @@
+{% extends "public/base_public.html" %}
+
+{% block title %}
+Buscar - {{ estabelecimento.nome }}
+{% endblock %}
+
+
+
+{% block aside %}
+
+<a href="{{ url_for('public.estabelecimento', slug=estabelecimento.slug) }}">
+    Início
+</a>
+
+<a href="{{ url_for('public.cardapio', slug=estabelecimento.slug) }}">
+    Cardápio
+</a>
+
+<a href="#">
+    Destaques
+</a>
+
+<a href="#">
+    Redes Sociais
+</a>
+
+<a href="#">
+    Contato
+</a>
+
+<a href="#">
+    Localização
+</a>
+
+<a href="#">
+    Sobre Nós
+</a>
+
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cardapio.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="paginaBusca">
+
+    {% if termo %}
+
+        <h2>
+            Resultados para "{{ termo }}"
+        </h2>
+
+        {% if produtos %}
+
+            <div class="resultadosBusca">
+
+                {% for produto in produtos %}
+
+                    <article class="cardProduto">
+
+                        {% if produto.imagem %}
+
+                            <img
+                                src="{{ url_for('static', filename=produto.imagem) }}"
+                                alt="{{ produto.nome }}"
+                                class="imagemProduto"
+                            >
+
+                        {% endif %}
+
+                        <div class="infoProduto">
+
+                            <h3>
+                                {{ produto.nome }}
+                            </h3>
+
+                            {% if produto.descricao %}
+
+                                <p class="descricaoProduto">
+                                    {{ produto.descricao }}
+                                </p>
+
+                            {% endif %}
+
+                            <strong class="precoProduto">
+                                R$ {{ "%.2f"|format(produto.preco)|replace(".", ",") }}
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                Nenhum produto encontrado.
+            </p>
+
+        {% endif %}
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

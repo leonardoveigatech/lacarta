@@ -1,0 +1,133 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+QR Code | La Carta
+{% endblock %}
+
+{% block content %}
+
+<section class="secao">
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                COMPARTILHAMENTO
+            </span>
+
+            <h1>
+                QR Code
+            </h1>
+
+            <p>
+                Gere o QR Code do seu cardápio para colocar
+                em mesas, balcões, materiais impressos e redes sociais.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="form form-secoes">
+
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    ACESSO RÁPIDO
+                </span>
+
+                <h2>
+                    QR Code do cardápio
+                </h2>
+
+                <p>
+                    Seus clientes poderão apontar a câmera do celular
+                    para acessar diretamente o cardápio digital.
+                </p>
+
+            </div>
+
+
+            <div id="qrCode" style="
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    min-height:280px;
+                    padding:2rem;
+                ">
+            </div>
+
+
+            <div class="campo">
+
+                <label for="linkQrCode">
+                    Endereço do cardápio
+                </label>
+
+                <input type="text" id="linkQrCode"
+                    value="{{ url_for('public.cardapio', slug=estabelecimento.slug, _external=True) }}" readonly>
+
+            </div>
+
+
+            <button class="buttonQR" type="button" onclick="baixarQRCode()">
+                Baixar QR Code
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+
+    const linkCardapio =
+        document.getElementById("linkQrCode").value;
+
+
+    new QRCode(
+        document.getElementById("qrCode"),
+        {
+            text: linkCardapio,
+            width: 240,
+            height: 240
+        }
+    );
+
+
+    function baixarQRCode() {
+
+        const canvas =
+            document.querySelector("#qrCode canvas");
+
+        if (!canvas) {
+            return;
+        }
+
+        const link =
+            document.createElement("a");
+
+        link.download =
+            "qr-code-la-carta.png";
+
+        link.href =
+            canvas.toDataURL("image/png");
+
+        link.click();
+
+    }
+
+</script>
+
+{% endblock %}

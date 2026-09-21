@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Crie sua conta no La Carta e digitalize o cardápio do seu negócio.">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant:wght@400;500&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <title>Criar conta - La Carta</title>
+</head>
+
+<body>
+
+    <header class="cadastroHeader">
+
+        <img class="logoImg" src="{{ url_for('static', filename='imagens/logosvgatual.svg') }}" alt="La Carta">
+
+    </header>
+
+    <main class="cadastroMain">
+        {% if erro %}
+        <div class="mensagemErroGeral">
+            {{ erro }}
+        </div>
+        {% endif %}
+
+
+        <div class="progressWrapper">
+
+            <span class="progressLabel" id="progressLabel">
+                Passo 1 de 3
+            </span>
+
+            <div class="progressBar">
+                <div class="progressFill" id="progressFill"></div>
+            </div>
+
+        </div>
+
+        <form id="formCadastro" method="POST" enctype="multipart/form-data" novalidate>
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <fieldset class="formStep active" data-step="1">
+                <div class="divh1p">
+                    <h1>Criar sua conta</h1>
+
+                    <a href="{{ url_for('public.inicio') }}" class="sobre-cta-button">
+
+                        Voltar
+
+                    </a>
+                </div>
+
+                <div class="campo">
+
+                    <label for="nome">
+                        Nome
+                    </label>
+
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" autocomplete="name"
+                        required>
+
+                    <small class="mensagemErro" id="erroNome"></small>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email"
+                        required>
+
+                    <small class="mensagemErro" id="erroEmail"></small>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input type="password" id="senha" name="senha" placeholder="Mínimo 8 caracteres" minlength="8"
+                        autocomplete="new-password" required>
+
+                    <small class="mensagemErro" id="erroSenha"></small>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="confirmarSenha">
+                        Confirmar senha
+                    </label>
+
+                    <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Repita a senha"
+                        minlength="8" autocomplete="new-password" required>
+
+                    <small class="mensagemErro" id="erroConfirmarSenha"></small>
+
+                </div>
+                <label class="campoCheckbox">
+                    <input type="checkbox" id="termos" name="termos" required>
+
+                    <span class="checkmark"></span>
+
+                    <span class="textoTermos">
+                        Aceito os
+                        <a href="{{ url_for('public.termos_de_uso') }}">Termos de Uso</a>
+                        e a
+                        <a href="{{ url_for('public.politica_privacidade') }}">Política de Privacidade</a>
+                    </span>
+                </label>
+
+                <div class="mensagemErroGeral" id="erroPasso1" role="alert"></div>
+
+                <button type="button" class="btnAvancar" data-next="2">
+                    Avançar
+                </button>
+
+            </fieldset>
+
+            <section class="formStep" data-step="2">
+
+                <h1>
+                    Configuração do seu negócio
+                </h1>
+
+                <h2 class="secaoTitulo">
+                    Informações básicas
+                </h2>
+
+                <div class="campo">
+
+                    <label for="nomeEstabelecimento">
+                        Nome do estabelecimento
+                    </label>
+
+                    <input type="text" id="nomeEstabelecimento" name="nomeEstabelecimento"
+                        placeholder="Ex: Restaurante da Maria" autocomplete="organization" required>
+
+                    <small class="mensagemErro" id="erroNomeEstabelecimento"></small>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="descricao">
+                        Descrição
+                    </label>
+
+                    <textarea id="descricao" name="descricao" placeholder="Conte um pouco sobre o seu negócio"
+                        rows="3"></textarea>
+
+                </div>
+
+                <div class="campoUpload">
+
+                    <label for="logo">
+                        Logo
+                    </label>
+
+                    <label class="uploadBox" for="logo">
+
+                        <span class="uploadIcone">
+                            ＋
+                        </span>
+
+                        <span class="uploadTexto">
+                            Adicionar logo
+                        </span>
+
+                    </label>
+
+                    <input type="file" id="logo" name="logo" accept="image/jpeg,image/png,image/webp" hidden>
+
+                    <small class="mensagemErro" id="erroLogo"></small>
+
+                </div>
+
+                <div class="campoUpload">
+
+                    <label for="imagemCapa">
+                        Imagem de capa
+                    </label>
+
+                    <label class="uploadBox uploadBoxWide" for="imagemCapa">
+
+                        <span class="uploadIcone">
+                            ＋
+                        </span>
+
+                        <span class="uploadTexto">
+                            Adicionar imagem de capa
+                        </span>
+
+                    </label>
+
+                    <input type="file" id="imagemCapa" name="imagemCapa" accept="image/jpeg,image/png,image/webp"
+                        hidden>
+
+                    <small class="mensagemErro" id="erroImagemCapa"></small>
+
+                </div>
+
+                <h2 class="secaoTitulo">
+                    Contato
+                </h2>
+
+                <div class="campo">
+
+                    <label for="telefone">
+                        Telefone
+                    </label>
+
+                    <input type="tel" id="telefone" name="telefone" placeholder="(00) 0000-0000" autocomplete="tel">
+
+                    <small class="mensagemErro" id="erroTelefone"></small>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="whatsapp">
+                        WhatsApp
+                    </label>
+
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" autocomplete="tel">
+
+                    <small class="mensagemErro" id="erroWhatsapp"></small>
+
+                </div>
+
+                <div class="mensagemErroGeral" id="erroPasso2" role="alert"></div>
+
+                <div class="botoesNavegacao">
+
+                    <button type="button" class="btnVoltar" data-prev="1">
+                        Voltar
+                    </button>
+
+                    <button type="button" class="btnAvancar" data-next="3">
+                        Avançar
+                    </button>
+
+                </div>
+
+            </section>
+
+            <section class="formStep" data-step="3">
+
+                <h1>
+                    Localização e funcionamento
+                </h1>
+
+                <h2 class="secaoTitulo">
+                    Localização
+                </h2>
+
+                <div class="campo">
+
+                    <label for="cep">
+                        CEP
+                    </label>
+
+                    <input type="text" id="cep" name="cep" placeholder="00000-000" autocomplete="postal-code" required>
+
+                    <small class="mensagemErro" id="erroCep"></small>
+
+                </div>
+
+                <div class="linhaDupla">
+
+                    <div class="campo">
+
+                        <label for="estado">
+                            Estado
+                        </label>
+
+                        <input type="text" id="estado" name="estado" placeholder="UF" maxlength="2"
+                            autocomplete="address-level1" required>
+
+                        <small class="mensagemErro" id="erroEstado"></small>
+
+                    </div>
+
+                    <div class="campo">
+
+                        <label for="cidade">
+                            Cidade
+                        </label>
+
+                        <input type="text" id="cidade" name="cidade" placeholder="Sua cidade"
+                            autocomplete="address-level2" required>
+
+                        <small class="mensagemErro" id="erroCidade"></small>
+
+                    </div>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="bairro">
+                        Bairro
+                    </label>
+
+                    <input type="text" id="bairro" name="bairro" placeholder="Seu bairro" autocomplete="address-line2"
+                        required>
+
+                    <small class="mensagemErro" id="erroBairro"></small>
+
+                </div>
+
+                <div class="linhaDupla">
+
+                    <div class="campo campoGrande">
+
+                        <label for="rua">
+                            Rua
+                        </label>
+
+                        <input type="text" id="rua" name="rua" placeholder="Nome da rua" autocomplete="street-address"
+                            required>
+
+                        <small class="mensagemErro" id="erroRua"></small>
+
+                    </div>
+
+                    <div class="campo">
+
+                        <label for="numero">
+                            Número
+                        </label>
+
+                        <input type="text" id="numero" name="numero" placeholder="Nº" autocomplete="off" required>
+
+                        <small class="mensagemErro" id="erroNumero"></small>
+
+                    </div>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="complemento">
+                        Complemento
+                    </label>
+
+                    <input type="text" id="complemento" name="complemento"
+                        placeholder="Apto, sala, referência (opcional)" autocomplete="address-line2">
+
+                </div>
+
+                <h2 class="secaoTitulo">
+                    Funcionamento
+                </h2>
+
+                <p class="stepDescricao">
+                    Selecione os dias em que seu estabelecimento funciona.
+                    Você poderá informar até dois períodos por dia.
+                </p>
+
+                <div class="horarioDia">
+
+                    <label class="diaHorarioCheckbox">
+
+                        <input type="checkbox" name="dias_funcionamento" value="1" data-dia="1">
+
+                        <span>
+                            Segunda-feira
+                        </span>
+
+                    </label>
+
+                    <div class="periodosDia">
+
+                        <div class="periodoHorario">
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="segundaAbertura1">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="segundaAbertura1" name="horarios[1][0][abertura]">
+
+                                    <small class="mensagemErro" id="erroSegundaAbertura1"></small>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="segundaFechamento1">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="segundaFechamento1" name="horarios[1][0][fechamento]">
+
+                                    <small class="mensagemErro" id="erroSegundaFechamento1"></small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="periodoHorario segundoPeriodo" hidden>
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="segundaAbertura2">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="segundaAbertura2" name="horarios[1][1][abertura]" disabled>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="segundaFechamento2">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="segundaFechamento2" name="horarios[1][1][fechamento]"
+                                        disabled>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btnAdicionarPeriodo" data-dia="1">
+                            + Adicionar segundo período
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="horarioDia">
+
+                    <label class="diaHorarioCheckbox">
+
+                        <input type="checkbox" name="dias_funcionamento" value="2" data-dia="2">
+
+                        <span>
+                            Terça-feira
+                        </span>
+
+                    </label>
+
+                    <div class="periodosDia">
+
+                        <div class="periodoHorario">
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="tercaAbertura1">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="tercaAbertura1" name="horarios[2][0][abertura]">
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="tercaFechamento1">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="tercaFechamento1" name="horarios[2][0][fechamento]">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="periodoHorario segundoPeriodo" hidden>
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="tercaAbertura2">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="tercaAbertura2" name="horarios[2][1][abertura]" disabled>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="tercaFechamento2">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="tercaFechamento2" name="horarios[2][1][fechamento]" disabled>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btnAdicionarPeriodo" data-dia="2">
+                            + Adicionar segundo período
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="horarioDia">
+
+                    <label class="diaHorarioCheckbox">
+
+                        <input type="checkbox" name="dias_funcionamento" value="3" data-dia="3">
+
+                        <span>
+                            Quarta-feira
+                        </span>
+
+                    </label>
+
+                    <div class="periodosDia">
+
+                        <div class="periodoHorario">
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="quartaAbertura1">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="quartaAbertura1" name="horarios[3][0][abertura]">
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="quartaFechamento1">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="quartaFechamento1" name="horarios[3][0][fechamento]">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="periodoHorario segundoPeriodo" hidden>
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="quartaAbertura2">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="quartaAbertura2" name="horarios[3][1][abertura]" disabled>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="quartaFechamento2">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="quartaFechamento2" name="horarios[3][1][fechamento]"
+                                        disabled>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btnAdicionarPeriodo" data-dia="3">
+                            + Adicionar segundo período
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="horarioDia">
+
+                    <label class="diaHorarioCheckbox">
+
+                        <input type="checkbox" name="dias_funcionamento" value="4" data-dia="4">
+
+                        <span>
+                            Quinta-feira
+                        </span>
+
+                    </label>
+
+                    <div class="periodosDia">
+
+                        <div class="periodoHorario">
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="quintaAbertura1">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="quintaAbertura1" name="horarios[4][0][abertura]">
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="quintaFechamento1">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="quintaFechamento1" name="horarios[4][0][fechamento]">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="periodoHorario segundoPeriodo" hidden>
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="quintaAbertura2">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="quintaAbertura2" name="horarios[4][1][abertura]" disabled>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="quintaFechamento2">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="quintaFechamento2" name="horarios[4][1][fechamento]"
+                                        disabled>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btnAdicionarPeriodo" data-dia="4">
+                            + Adicionar segundo período
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="horarioDia">
+
+                    <label class="diaHorarioCheckbox">
+
+                        <input type="checkbox" name="dias_funcionamento" value="5" data-dia="5">
+
+                        <span>
+                            Sexta-feira
+                        </span>
+
+                    </label>
+
+                    <div class="periodosDia">
+
+                        <div class="periodoHorario">
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="sextaAbertura1">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="sextaAbertura1" name="horarios[5][0][abertura]">
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="sextaFechamento1">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="sextaFechamento1" name="horarios[5][0][fechamento]">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="periodoHorario segundoPeriodo" hidden>
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="sextaAbertura2">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="sextaAbertura2" name="horarios[5][1][abertura]" disabled>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="sextaFechamento2">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="sextaFechamento2" name="horarios[5][1][fechamento]" disabled>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btnAdicionarPeriodo" data-dia="5">
+                            + Adicionar segundo período
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="horarioDia">
+
+                    <label class="diaHorarioCheckbox">
+
+                        <input type="checkbox" name="dias_funcionamento" value="6" data-dia="6">
+
+                        <span>
+                            Sábado
+                        </span>
+
+                    </label>
+
+                    <div class="periodosDia">
+
+                        <div class="periodoHorario">
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="sabadoAbertura1">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="sabadoAbertura1" name="horarios[6][0][abertura]">
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="sabadoFechamento1">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="sabadoFechamento1" name="horarios[6][0][fechamento]">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="periodoHorario segundoPeriodo" hidden>
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="sabadoAbertura2">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="sabadoAbertura2" name="horarios[6][1][abertura]" disabled>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="sabadoFechamento2">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="sabadoFechamento2" name="horarios[6][1][fechamento]"
+                                        disabled>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btnAdicionarPeriodo" data-dia="6">
+                            + Adicionar segundo período
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="horarioDia">
+
+                    <label class="diaHorarioCheckbox">
+
+                        <input type="checkbox" name="dias_funcionamento" value="7" data-dia="7">
+
+                        <span>
+                            Domingo
+                        </span>
+
+                    </label>
+
+                    <div class="periodosDia">
+
+                        <div class="periodoHorario">
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="domingoAbertura1">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="domingoAbertura1" name="horarios[7][0][abertura]">
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="domingoFechamento1">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="domingoFechamento1" name="horarios[7][0][fechamento]">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="periodoHorario segundoPeriodo" hidden>
+
+                            <div class="linhaDupla">
+
+                                <div class="campo">
+
+                                    <label for="domingoAbertura2">
+                                        Abertura
+                                    </label>
+
+                                    <input type="time" id="domingoAbertura2" name="horarios[7][1][abertura]" disabled>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="domingoFechamento2">
+                                        Fechamento
+                                    </label>
+
+                                    <input type="time" id="domingoFechamento2" name="horarios[7][1][fechamento]"
+                                        disabled>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btnAdicionarPeriodo" data-dia="7">
+                            + Adicionar segundo período
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="mensagemErroGeral" id="erroPasso3" role="alert"></div>
+
+                <div class="botoesNavegacao">
+
+                    <button type="button" class="btnVoltar" data-prev="2">
+                        Voltar
+                    </button>
+
+                    <button type="submit" class="btnAvancar">
+                        Concluir cadastro
+                    </button>
+
+                </div>
+
+            </section>
+
+        </form>
+
+    </main>
+    <script src="{{ url_for('static', filename='js/cadastro.js') }}"></script>
+
+</body>
+
+</html>

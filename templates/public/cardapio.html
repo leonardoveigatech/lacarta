@@ -1,0 +1,37 @@
+{% extends "public/base_public.html" %}
+
+{% block body_class %}{% endblock %}
+
+{% block title %}
+{{ estabelecimento.nome }} - Cardápio
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cardapio.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="menuPage">
+
+    <nav class="menuCategorias">
+
+        {% for categoria in categorias %}
+
+        <a href="{{ url_for(
+                'public.categoria',
+                slug=estabelecimento.slug,
+                categoria_id=categoria.id
+            ) }}" class="linkCategoria">
+
+            {{ categoria.nome }}
+
+        </a>
+
+        {% endfor %}
+
+    </nav>
+
+</div>
+
+{% endblock %}

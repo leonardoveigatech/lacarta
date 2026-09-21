@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        {% block title %}La Carta{% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    {% if estabelecimento %}
+    <link rel="stylesheet" href="{{ url_for('public.aparencia_css', slug=estabelecimento.slug) }}" />
+    {% endif %}
+
+    {% block extra_css %}
+    {% endblock %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant:wght@400;500&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+    <header class="public-header">
+
+        <button class="menu-button" type="button" aria-label="Abrir Menu" id="menuButton">
+            ☰
+        </button>
+
+
+        {% if pagina_institucional %}
+
+        <a href="{{ url_for('public.inicio') }}" class="logo">
+            <span>
+                La Carta
+            </span>
+        </a>
+
+        {% else %}
+
+        <a href="{{ url_for('public.estabelecimento', slug=estabelecimento.slug) }}" class="logo">
+            <span>
+                {{ estabelecimento.nome }}
+            </span>
+        </a>
+
+        {% endif %}
+
+
+        {% if not pagina_institucional %}
+
+        <form class="search" action="{{ url_for('public.buscar', slug=estabelecimento.slug) }}" method="GET">
+
+            <input type="search" name="q" placeholder="Buscar" aria-label="Buscar no La Carta">
+
+            <button type="submit" aria-label="Buscar">
+                🔍
+            </button>
+
+        </form>
+
+        {% endif %}
+
+    </header>
+
+
+    <aside class="asideBasePublic" id="asideMenu">
+
+        <button class="close-button" type="button" aria-label="Fechar Menu" id="closeButton">
+            ✕
+        </button>
+
+
+        {% if pagina_institucional %}
+
+        <a href="{{ url_for('public.inicio') }}">
+            Início
+        </a>
+
+        <a href="{{ url_for('public.sobre') }}">
+            Sobre o La Carta
+        </a>
+
+        <a href="{{ url_for('public.faq') }}">
+            FAQ
+        </a>
+
+        {% else %}
+
+        <a href="{{ url_for('public.estabelecimento', slug=estabelecimento.slug) }}">
+            Início
+        </a>
+
+        <a href="{{ url_for('public.cardapio', slug=estabelecimento.slug) }}">
+            Cardápio
+        </a>
+
+        <a href="#">
+            Destaques
+        </a>
+
+        <a href="#">
+            Redes Sociais
+        </a>
+
+        <a href="#">
+            Contato
+        </a>
+
+        <a href="#">
+            Localização
+        </a>
+
+        <a href="{{ url_for('public.sobre') }}">
+            Sobre Nós
+        </a>
+
+        {% endif %}
+
+    </aside>
+
+
+    <main class="mainPublic">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    {% if not pagina_institucional %}
+
+    <footer>
+
+        <nav class="navegacaoFooter" aria-label="Navegação Principal">
+
+            <a href="{{ url_for('public.cardapio', slug=estabelecimento.slug) }}" class="footerItem">
+
+                <span class="footer-icon">
+                    🍽️
+                </span>
+
+                <span class="footer-label">
+                    Cardápio
+                </span>
+
+            </a>
+
+
+            <a href="#meus-pedidos" class="footerItem">
+
+                <span class="footer-icon">
+                    🛒
+                </span>
+
+                <span class="footer-label">
+                    Meus pedidos
+                </span>
+
+            </a>
+
+        </nav>
+
+    </footer>
+
+    {% endif %}
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

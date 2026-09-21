@@ -1,0 +1,226 @@
+
+{% extends "public/base_public.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/faq.css') }}">
+{% endblock %}
+
+{% block title %}Perguntas Frequentes | La Carta{% endblock %}
+
+
+{% block content %}
+
+
+<section class="faq-page">
+<a href="{{ url_for('public.inicio') }}" class="sobre-cta-button">
+
+            Voltar para o início
+
+        </a>
+    <header class="faq-header">
+        <span class="faq-label">Dúvidas</span>
+        <h1>Perguntas Frequentes</h1>
+        <p>
+            Encontre respostas para as principais dúvidas sobre o La Carta
+            e seu funcionamento.
+        </p>
+    </header>
+
+
+    <!-- SEÇÃO 1 -->
+    <section class="faq-section">
+
+        <h2>Como funciona o La Carta?</h2>
+
+        <div class="faq-list">
+
+            <details class="faq-item">
+                <summary>O que é o La Carta?</summary>
+                <p>
+                    O La Carta é uma plataforma de cardápio digital que permite
+                    que estabelecimentos tenham seu próprio cardápio online,
+                    acessível através de um QR Code.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Como funciona o cardápio digital?</summary>
+                <p>
+                    O cliente aponta a câmera do celular para o QR Code
+                    disponibilizado no estabelecimento. Ao acessar o link,
+                    ele encontra o cardápio completo, com categorias,
+                    produtos, preços, descrições e imagens.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Preciso instalar algum aplicativo?</summary>
+                <p>
+                    Não. O cliente acessa o cardápio diretamente pelo navegador
+                    do celular, sem precisar instalar nenhum aplicativo.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Posso alterar meu cardápio sozinho?</summary>
+                <p>
+                    Sim. O estabelecimento possui um Painel Administrativo
+                    onde pode gerenciar produtos, categorias, preços e outras
+                    informações do cardápio.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Preciso chamar alguém sempre que quiser alterar um produto?</summary>
+                <p>
+                    Não. A proposta do La Carta é oferecer autonomia para que
+                    o próprio estabelecimento possa realizar alterações
+                    diretamente pelo painel administrativo.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Posso colocar fotos dos meus produtos?</summary>
+                <p>
+                    Sim. Os produtos podem ser cadastrados com imagens,
+                    descrição, preço e outras informações relevantes.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>O QR Code é exclusivo do meu estabelecimento?</summary>
+                <p>
+                    Sim. Cada estabelecimento possui seu próprio endereço
+                    digital e QR Code, direcionando os clientes para seu
+                    cardápio.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Posso personalizar a aparência do meu cardápio?</summary>
+                <p>
+                    Sim. O La Carta permite configurar elementos visuais
+                    do cardápio para que ele tenha uma identidade alinhada
+                    ao estabelecimento.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Preciso ter um site próprio?</summary>
+                <p>
+                    Não. O La Carta fornece a estrutura necessária para que
+                    seu estabelecimento tenha seu cardápio digital online.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>O cliente consegue acessar pelo celular?</summary>
+                <p>
+                    Sim. O sistema é desenvolvido com foco na experiência
+                    de uso em smartphones.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Posso criar diferentes categorias?</summary>
+                <p>
+                    Sim. Você pode organizar seus produtos em categorias como
+                    Pizzas, Hambúrgueres, Bebidas, Sobremesas, Porções e muito mais.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Posso deixar um produto indisponível?</summary>
+                <p>
+                    Sim. O estabelecimento pode controlar a disponibilidade
+                    dos produtos diretamente pelo painel administrativo.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>O La Carta serve apenas para restaurantes?</summary>
+                <p>
+                    Não. A plataforma pode ser utilizada por diferentes tipos
+                    de estabelecimentos que trabalham com produtos ou serviços
+                    apresentados em um cardápio digital.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Posso usar o La Carta junto com meu cardápio físico?</summary>
+                <p>
+                    Sim. O QR Code pode ser colocado em mesas, balcões,
+                    displays, materiais impressos e outros locais estratégicos.
+                </p>
+            </details>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEÇÃO 2 -->
+    <section class="faq-section">
+
+        <h2>Sobre o La Carta</h2>
+
+        <div class="faq-list">
+
+            <details class="faq-item">
+                <summary>Por que utilizar um cardápio digital?</summary>
+                <p>
+                    O cardápio digital facilita o acesso às informações,
+                    permite atualizações rápidas e reduz a necessidade de
+                    reimpressões sempre que houver alterações no cardápio.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Quais são as vantagens do La Carta?</summary>
+                <p>
+                    Entre as principais vantagens estão a autonomia para
+                    gerenciar o cardápio, atualização de informações,
+                    organização dos produtos e acesso através de QR Code.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>O La Carta possui pedidos online?</summary>
+                <p>
+                    O La Carta está sendo desenvolvido para receber novas
+                    funcionalidades ao longo do tempo. Consulte os recursos
+                    disponíveis atualmente para o seu estabelecimento.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Como posso entrar em contato com o La Carta?</summary>
+                <p>
+                    Caso tenha dúvidas ou precise de auxílio, entre em contato
+                    através dos canais oficiais de atendimento disponibilizados
+                    pelo La Carta.
+                </p>
+            </details>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="faq-cta">
+
+        <h2>Ainda ficou com alguma dúvida?</h2>
+
+        <p>
+            Conheça também mais detalhes sobre o La Carta.
+        </p>
+
+        <a href="{{ url_for('public.sobre') }}" class="faq-cta-button">
+            Conheça o La Carta
+        </a>
+
+    </section>
+
+</section>
+
+{% endblock %}

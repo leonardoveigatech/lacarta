@@ -1,0 +1,89 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Minha Conta | La Carta
+{% endblock %}
+
+{% block content %}
+
+<section class="secao">
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                CONFIGURAÇÕES
+            </span>
+
+            <h1>
+                Minha conta
+            </h1>
+
+            <p>
+                Gerencie seus dados pessoais e informações de acesso.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form method="POST" action="{{ url_for('admin.conta') }}" class="form">
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+
+        <div class="campo">
+
+            <label for="nome">
+                Nome
+            </label>
+
+            <input type="text" id="nome" name="nome" value="{{ usuario.nome }}" required autocomplete="name">
+
+        </div>
+
+
+        <div class="campo">
+
+            <label for="email">
+                E-mail
+            </label>
+
+            <input type="email" id="email" name="email" value="{{ usuario.email }}" required autocomplete="email">
+
+            <small>
+                Para alterar o e-mail, confirme sua senha e o novo endereço.
+            </small>
+
+        </div>
+
+        <div class="campo">
+
+            <label for="senha_atual">
+                Senha atual
+            </label>
+
+            <input type="password" id="senha_atual" name="senha_atual" autocomplete="current-password">
+
+            <small>
+                Necessária somente para trocar o e-mail.
+            </small>
+
+        </div>
+
+
+        <div class="acoes">
+
+            <button type="submit" class="botao">
+                Salvar alterações
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

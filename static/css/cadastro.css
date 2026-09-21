@@ -1,0 +1,432 @@
+@charset "UTF-8";
+
+/* LA CARTA - CADASTRO - MOBILE FIRST */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body,
+html {
+  width: 100%;
+  min-height: 100%;
+  background-color: #2c0404;
+  color: #f2ede4;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+h1,
+h2 {
+  font-family: "Cormorant", serif;
+  color: #e8c992;
+}
+
+input[type="checkbox"] {
+  accent-color: #e8c992;
+}
+
+/* ===== HEADER ===== */
+
+.cadastroHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 0;
+}
+
+.logoImg {
+  width: 32%;
+  height: auto;
+}
+
+/* ===== MAIN / PROGRESSO ===== */
+
+.cadastroMain {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.progressWrapper {
+  margin-bottom: 2rem;
+}
+
+.progressLabel {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.6);
+  margin-bottom: 0.6rem;
+}
+
+.progressBar {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(232, 201, 146, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  width: 33.33%;
+  background-color: #e8c992;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* ===== STEPS ===== */
+
+.formStep {
+  display: none;
+  flex-direction: column;
+  gap: 1.2rem;
+  border: none;
+}
+.divh1p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.formStep.active {
+  display: flex;
+}
+
+.formStep h1 {
+  font-size: 1.7rem;
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
+}
+
+.secaoTitulo {
+  font-size: 1.2rem;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+  margin-top: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.15);
+}
+
+/* ===== CAMPOS ===== */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.campo label {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.6);
+}
+
+.campo input,
+.campo textarea {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(232, 201, 146, 0.25);
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem;
+  color: #f2ede4;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+  color: rgba(245, 245, 245, 0.35);
+}
+
+.campo input:focus,
+.campo textarea:focus {
+  border-color: #e8c992;
+}
+
+.campo input:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.campo input.campoInvalido,
+.campo textarea.campoInvalido {
+  border-color: #f28b82;
+}
+
+.linhaDupla {
+  display: flex;
+  gap: 1rem;
+}
+
+.campoGrande {
+  flex: 2;
+}
+
+/* ===== MENSAGENS DE ERRO ===== */
+
+.mensagemErro {
+  display: block;
+  min-height: 1em;
+  font-size: 0.72rem;
+  color: #f28b82;
+}
+
+.mensagemErroGeral {
+  background-color: rgba(242, 139, 130, 0.08);
+  border-left: 3px solid #f28b82;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  font-size: 0.8rem;
+  color: #f2ede4;
+  line-height: 1.5;
+}
+
+.mensagemErroGeral[hidden] {
+  display: none;
+}
+
+/* ===== CHECKBOX TERMOS ===== */
+
+.campoCheckbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  cursor: pointer;
+}
+
+.campoCheckbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.1rem;
+  border: 1px solid rgba(232, 201, 146, 0.4);
+  border-radius: 6px;
+  position: relative;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.campoCheckbox input:checked ~ .checkmark {
+  background-color: #e8c992;
+  border-color: #e8c992;
+}
+
+.campoCheckbox input:checked ~ .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #2c0404;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.textoTermos {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.75);
+}
+
+.textoTermos a {
+  color: #e8c992;
+  text-decoration: none;
+}
+
+/* ===== UPLOAD DE IMAGEM ===== */
+
+.campoUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.campoUpload > label:first-child {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.6);
+}
+
+.uploadBox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.1rem;
+  border: 1px dashed rgba(232, 201, 146, 0.35);
+  border-radius: 14px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.uploadBox:active,
+.uploadBox.preenchido {
+  border-color: #e8c992;
+  background-color: rgba(232, 201, 146, 0.06);
+}
+
+.uploadIcone {
+  font-size: 1.1rem;
+  color: #e8c992;
+}
+
+.uploadTexto {
+  font-size: 0.82rem;
+  color: rgba(245, 245, 245, 0.7);
+}
+
+/* ===== FUNCIONAMENTO / DIAS E HORÁRIOS ===== */
+
+.horarioDia {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.1);
+}
+
+.horarioDia:last-of-type {
+  border-bottom: none;
+}
+
+.diaHorarioCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #f2ede4;
+}
+
+.periodosDia {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+  padding-left: 1.9rem;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+
+.periodosDia.ativo {
+  opacity: 1;
+}
+
+.btnAdicionarPeriodo {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: #e8c992;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btnAdicionarPeriodo:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===== BOTÕES ===== */
+
+.btnAvancar {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  transition: transform 0.15s ease;
+}
+
+.btnAvancar:active {
+  transform: scale(0.98);
+}
+
+.btnVoltar {
+  flex: 1;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #e8c992;
+  background: none;
+  border: 1px solid rgba(232, 201, 146, 0.4);
+  border-radius: 999px;
+  padding: 1rem;
+}
+
+.botoesNavegacao {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.botoesNavegacao .btnAvancar {
+  flex: 2;
+  margin-top: 0;
+}
+
+.sobre-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.55rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c8929c;
+  border-radius: 950px;
+  padding: 1rem 0.8rem;
+  transition: transform 0.15s ease;
+}
+
+.sobre-cta-button:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 960px) {
+  .logoImg {
+    width: 20%;
+    height: auto;
+  }
+}

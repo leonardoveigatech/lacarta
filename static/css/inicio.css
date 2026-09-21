@@ -1,0 +1,635 @@
+@charset "UTF-8";
+
+/* LA CARTA LANDING PAGE - MOBILE FIRST */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body,
+html {
+  width: 100%;
+  min-height: 100%;
+  background: linear-gradient(180deg, #5a0a0a 0%, #1d0202 100%);
+  color: #f2ede4;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+h1,
+h2,
+.logo span {
+  font-family: "Cormorant", serif;
+  font-variant: small-caps;
+  color: #e8c992;
+}
+
+.Logoimg {
+  width: 60%;
+  height: auto;
+}
+
+/* HEADER */
+
+header {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.15);
+  background-image:
+    linear-gradient(
+      150deg,
+      rgba(29, 2, 2, 0.267) 0%,
+      rgba(29, 2, 2, 0.85) 100%
+    ),
+    url("/static/imagens/iniciob45.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+/* Reset base para os botões do nav — sem isso herdam o estilo padrão do navegador */
+
+header nav button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: rgba(245, 245, 245, 0.801);
+  background-color: #1d0202b2;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 2.2rem;
+}
+
+/* Gatilhos principais: Por que / Recursos / Como funciona */
+
+header nav .navTrigger {
+  position: relative;
+  /* color: #f2ede4; */
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+header nav .navTrigger:active,
+header nav .navTrigger[aria-expanded="true"] {
+  background-color: #e8c992;
+  color: #2c0404;
+  font-weight: 600;
+}
+
+/* Separador • entre os gatilhos — :last-of-type ignora as divs no meio,
+   contando só os elementos <button> entre si */
+
+header nav .navTrigger:not(:last-of-type)::after {
+  content: "•";
+  position: absolute;
+  top: 50%;
+  right: -1.1rem;
+  transform: translateY(-56%);
+  color: #e8c892;
+  pointer-events: none;
+}
+
+/* Painel do dropdown (Por que / Recursos / Como funciona) */
+
+.navDropdown {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 0.5rem;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(232, 201, 146, 0.15);
+  border-radius: 18px;
+}
+
+.navDropdown p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(245, 245, 245, 0.8);
+  white-space: pre-line;
+}
+
+.navDropdown ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.navDropdown ul > li {
+  font-size: 0.85rem;
+  color: rgba(245, 245, 245, 0.75);
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.1);
+}
+
+.navDropdown ul > li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Itens da lista que expandem descrição própria (Gestão pelo Painel, QR code) */
+
+.itemTrigger {
+  width: 100%;
+  text-align: left;
+  color: #e8c992;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.itemTrigger[aria-expanded="true"] {
+  color: #f2ede4;
+}
+
+.info-texto {
+  margin-top: 0.8rem;
+  padding-left: 0.2rem;
+}
+
+.info-texto h2 {
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.info-texto p {
+  font-family: "Montserrat", sans-serif;
+  font-variant: normal;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(245, 245, 245, 0.7);
+}
+
+/* HERO / SEÇÃO PRINCIPAL */
+
+main {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.sectionPrincipal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 80%;
+  margin-top: 4rem;
+}
+
+.divParagrafos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: center;
+}
+
+.divParagrafos h1 {
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+}
+
+.divParagrafos h2 {
+  font-family: "Montserrat", sans-serif;
+  font-variant: normal;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: rgba(245, 245, 245, 0.75);
+  line-height: 1.6;
+}
+
+/* CTA */
+
+.QueroDiv,
+.EntrarDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* margin-top: 2rem; */
+}
+
+.Quero {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 2.2rem;
+  transition: transform 0.15s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.Quero:active {
+  transform: scale(0.97);
+}
+
+.entrar {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #e8c992;
+  background: rgba(245, 245, 245, 0.158);
+  border: 1px solid rgba(232, 201, 146, 0.4);
+  border-radius: 999px;
+  padding: 0.9rem 2.2rem;
+  transition: background-color 0.15s ease;
+  text-decoration: none;
+}
+
+.entrar:active {
+  background-color: rgba(232, 201, 146, 0.12);
+}
+
+/* ===== BLOCO INFORMATIVO (IMAGEM + TEXTO) ===== */
+
+.info {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 3.5rem;
+  padding: 3rem 1.5rem;
+}
+
+.infoBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.infoBlock:not(:last-child) {
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.15);
+}
+
+.infoImage {
+  width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  padding: 5rem 1rem;
+}
+
+.infoImage img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.infoText span {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8c992;
+}
+
+.infoText h2 {
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
+.infoText p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(245, 245, 245, 0.75);
+}
+
+/* FOOTER */
+
+footer {
+  background-color: #1d0202;
+  border-top: 1px solid rgba(232, 201, 146, 0.15);
+  padding: 3rem 1.5rem 2rem;
+}
+
+footer section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+/* Bloco 1: WhatsApp */
+
+footer section > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+footer section > div:nth-child(1) h3 {
+  font-family: "Cormorant", serif;
+  font-variant: small-caps;
+  font-weight: 500;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: #e8c992;
+  max-width: 280px;
+}
+
+footer section > div:nth-child(1) a {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #1d0202;
+  background-color: #e8c992;
+  padding: 0.9rem 2.4rem;
+  border-radius: 999px;
+  transition: transform 0.15s ease;
+}
+
+footer section > div:nth-child(1) a:active {
+  transform: scale(0.97);
+}
+
+/* Bloco 2: Dúvidas Frequentes (botão outline) */
+
+.btn-faq {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #e8c992;
+  background: none;
+  border: 1px solid rgba(232, 201, 146, 0.4);
+  border-radius: 999px;
+  padding: 0.8rem 1.8rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  text-decoration: none;
+}
+
+footer section > div:nth-child(2) button:active {
+  background-color: rgba(232, 201, 146, 0.12);
+}
+
+/* Bloco 3: Links institucionais */
+
+footer section > div:nth-child(3) {
+  display: flex;
+  gap: 1.5rem;
+}
+
+footer section > div:nth-child(3) a {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: rgba(245, 245, 245, 0.65);
+  transition: color 0.15s ease;
+}
+
+footer section > div:nth-child(3) a:active {
+  color: #e8c992;
+}
+
+/* Copyright */
+
+footer section > p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: rgba(245, 245, 245, 0.4);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(232, 201, 146, 0.1);
+  width: 100%;
+}
+
+/* MEDIA DESKTOP */
+
+@media (min-width: 960px) {
+  .divdasdivs {
+    display: flex;
+    width: 70%;
+  }
+  section {
+    border: none;
+  }
+  header {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 1.5rem 1rem;
+    width: 100%;
+    height: 100vh;
+    gap: 0;
+    background-image:
+      linear-gradient(
+        150deg,
+        rgba(29, 2, 2, 0.55) 0%,
+        rgba(29, 2, 2, 0.85) 100%
+      ),
+      url("/static/imagens/iniciobg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* border-bottom: 1px solid rgba(232, 201, 146, 0.4); */
+  }
+
+  /* Camada 1 — a foto */
+  header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/static/imagens/iniciobg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+  }
+
+  /* Camada 2 — o degradê por cima da foto, pra manter o texto legível */
+  header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      150deg,
+      rgba(29, 2, 2, 0.719) 20%,
+      rgba(29, 2, 2, 0.322) 80%
+    );
+    z-index: -1;
+  }
+  .Logoimg {
+    width: auto;
+    height: 300px;
+  }
+
+  .sectionPrincipal {
+    min-height: calc(100vh - 138px);
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .divParagrafos {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0;
+    gap: 0;
+  }
+
+  .divParagrafos h1 {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 700;
+  }
+
+  .divParagrafos h2 {
+    width: 50%;
+    font-weight: 400;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* DROPDOWN */
+
+  .navDropdown {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    max-height: 70vh;
+    overflow-y: auto;
+    margin-top: 0;
+    padding: 1.15rem;
+    z-index: 30;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  }
+
+  .navDropdown p {
+    font-size: 1rem;
+  }
+
+  .navDropdown ul > li {
+    font-size: 1rem;
+  }
+
+  .itemTrigger {
+    font-size: 0.8rem;
+  }
+
+  .info {
+    display: flex;
+    width: 100%;
+    /* flex-direction: column; */
+    gap: 1.5rem;
+    padding: 3rem 1.5rem;
+  }
+
+.infoBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.infoBlock:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.infoImage,
+.infoText {
+  width: 80%;
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+  .infoImage img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  
+
+  .infoText span {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e8c992;
+  }
+
+  @media (min-width: 960px) {
+    .navDropdown {
+      background-color: rgba(88, 2, 2, 0.96);
+      border: 5px solid rgba(80, 6, 1, 0.863);
+    }
+  }
+}

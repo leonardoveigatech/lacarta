@@ -1,0 +1,460 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Aparência | La Carta
+{% endblock %}
+
+{% block content %}
+
+<section class="secao">
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                Configurações
+            </span>
+
+            <h1>
+                Aparência
+            </h1>
+
+            <p>
+                Personalize a aparência do seu cardápio e deixe o La Carta
+                com a identidade do seu estabelecimento.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form method="POST" action="{{ url_for('admin.aparencia') }}" class="form form-secoes">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+
+        <!-- =====================================================
+         CORES
+    ====================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    IDENTIDADE VISUAL
+                </span>
+
+                <h2>
+                    Cores
+                </h2>
+
+                <p>
+                    Escolha as cores principais que serão utilizadas no
+                    cardápio do seu estabelecimento.
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="cor_principal">
+                    Cor principal
+                </label>
+
+                <div class="campo-cor">
+
+                    <input type="color" id="cor_principal" name="cor_principal"
+                        value="{{ aparencia.cor_principal if aparencia and aparencia.cor_principal else '#310505' }}">
+
+                    <span id="valor_cor_principal" class="valor-cor">
+                        {{ aparencia.cor_principal if aparencia and aparencia.cor_principal else '#310505' }}
+                    </span>
+                </div>
+
+                <small>
+                    Utilizada em botões, destaques e elementos principais.
+                </small>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="cor_secundaria">
+                    Cor secundária
+                </label>
+
+                <div class="campo-cor">
+
+                    <input type="color" id="cor_secundaria" name="cor_secundaria"
+                        value="{{ aparencia.cor_secundaria if aparencia and aparencia.cor_secundaria else '#B89B5E' }}">
+
+                    <span id="valor_cor_secundaria" class="valor-cor">
+                        {{ aparencia.cor_secundaria if aparencia and aparencia.cor_secundaria else '#B89B5E' }}
+                    </span>
+
+                </div>
+
+                <small>
+                    Utilizada em detalhes, ícones e elementos complementares.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         TIPOGRAFIA
+    ====================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    TIPOGRAFIA
+                </span>
+
+                <h2>
+                    Fontes
+                </h2>
+
+                <p>
+                    Defina a personalidade visual dos textos do cardápio.
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="fonte_titulo">
+                    Fonte dos títulos
+                </label>
+
+                <select id="fonte_titulo" name="fonte_titulo">
+
+                    <option value="Cormorant Garamond" {% if aparencia and aparencia.fonte_titulo=='Cormorant Garamond'
+                        %}selected{% endif %}>
+                        Cormorant Garamond
+                    </option>
+
+                    <option value="Playfair Display" {% if aparencia and aparencia.fonte_titulo=='Playfair Display'
+                        %}selected{% endif %}>
+                        Playfair Display
+                    </option>
+
+                    <option value="Montserrat" {% if aparencia and aparencia.fonte_titulo=='Montserrat' %}selected{%
+                        endif %}>
+                        Montserrat
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="fonte_texto">
+                    Fonte dos textos
+                </label>
+
+                <select id="fonte_texto" name="fonte_texto">
+
+                    <option value="Montserrat" {% if not aparencia or aparencia.fonte_texto=='Montserrat' %}selected{%
+                        endif %}>
+                        Montserrat
+                    </option>
+
+                    <option value="Inter" {% if aparencia and aparencia.fonte_texto=='Inter' %}selected{% endif %}>
+                        Inter
+                    </option>
+
+                    <option value="Open Sans" {% if aparencia and aparencia.fonte_texto=='Open Sans' %}selected{% endif
+                        %}>
+                        Open Sans
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         PRODUTOS
+    ====================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    CARDÁPIO
+                </span>
+
+                <h2>
+                    Produtos
+                </h2>
+
+                <p>
+                    Escolha como os produtos serão apresentados.
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="layout_produtos">
+                    Layout dos produtos
+                </label>
+
+                <select id="layout_produtos" name="layout_produtos">
+
+                    <option value="cards" {% if not aparencia or aparencia.layout_produtos=='cards' %}selected{% endif
+                        %}>
+                        Cards
+                    </option>
+
+                    <option value="lista" {% if aparencia and aparencia.layout_produtos=='lista' %}selected{% endif %}>
+                        Lista
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="tamanho_imagem">
+                    Tamanho das imagens
+                </label>
+
+                <select id="tamanho_imagem" name="tamanho_imagem">
+
+                    <option value="pequeno" {% if aparencia and aparencia.tamanho_imagem=='pequeno' %}selected{% endif
+                        %}>
+                        Pequeno
+                    </option>
+
+                    <option value="medio" {% if not aparencia or aparencia.tamanho_imagem=='medio' %}selected{% endif
+                        %}>
+                        Médio
+                    </option>
+
+                    <option value="grande" {% if aparencia and aparencia.tamanho_imagem=='grande' %}selected{% endif %}>
+                        Grande
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         ELEMENTOS
+    ====================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    ELEMENTOS
+                </span>
+
+                <h2>
+                    Visibilidade
+                </h2>
+
+                <p>
+                    Escolha quais informações aparecerão no cardápio público.
+                </p>
+
+            </div>
+
+
+            <label class="campo-toggle">
+
+                <div>
+
+                    <strong>
+                        Descrição
+                    </strong>
+
+                    <small>
+                        Exibe a descrição do estabelecimento e produtos.
+                    </small>
+
+                </div>
+
+                <span class="toggle">
+
+                    <input type="checkbox" name="mostrar_descricao" value="1" {% if not aparencia or
+                        aparencia.mostrar_descricao %}checked{% endif %}>
+
+                    <span class="toggle-track"></span>
+
+                </span>
+
+            </label>
+
+
+            <label class="campo-toggle">
+
+                <div>
+
+                    <strong>
+                        Localização
+                    </strong>
+
+                    <small>
+                        Exibe o endereço do estabelecimento.
+                    </small>
+
+                </div>
+
+                <span class="toggle">
+
+                    <input type="checkbox" name="mostrar_localizacao" value="1" {% if not aparencia or
+                        aparencia.mostrar_localizacao %}checked{% endif %}>
+
+                    <span class="toggle-track"></span>
+
+                </span>
+
+            </label>
+
+
+            <label class="campo-toggle">
+
+                <div>
+
+                    <strong>
+                        Horários
+                    </strong>
+
+                    <small>
+                        Exibe os horários de funcionamento.
+                    </small>
+
+                </div>
+
+                <span class="toggle">
+
+                    <input type="checkbox" name="mostrar_horarios" value="1" {% if not aparencia or
+                        aparencia.mostrar_horarios %}checked{% endif %}>
+
+                    <span class="toggle-track"></span>
+
+                </span>
+
+            </label>
+
+
+            <label class="campo-toggle">
+
+                <div>
+
+                    <strong>
+                        WhatsApp
+                    </strong>
+
+                    <small>
+                        Exibe o botão de contato pelo WhatsApp.
+                    </small>
+
+                </div>
+
+                <span class="toggle">
+
+                    <input type="checkbox" name="mostrar_whatsapp" value="1" {% if not aparencia or
+                        aparencia.mostrar_whatsapp %}checked{% endif %}>
+
+                    <span class="toggle-track"></span>
+
+                </span>
+
+            </label>
+
+
+            <label class="campo-toggle">
+
+                <div>
+
+                    <strong>
+                        Redes sociais
+                    </strong>
+
+                    <small>
+                        Exibe os links das redes sociais.
+                    </small>
+
+                </div>
+
+                <span class="toggle">
+
+                    <input type="checkbox" name="mostrar_redes_sociais" value="1" {% if not aparencia or
+                        aparencia.mostrar_redes_sociais %}checked{% endif %}>
+
+                    <span class="toggle-track"></span>
+
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- =====================================================
+         AÇÕES
+    ====================================================== -->
+
+        <div class="form-acoes">
+
+        <!-- <a href="{{ url_for('admin.estabelecimento') }}" class="botao secundario">
+            Voltar
+        </a> -->
+
+            <button type="submit" class="botao">
+                Salvar alterações
+            </button>
+
+        </div>
+
+
+    </form>
+    
+</section>
+
+<script>
+
+    const corPrincipal = document.getElementById("cor_principal");
+    const valorCorPrincipal = document.getElementById("valor_cor_principal");
+
+    const corSecundaria = document.getElementById("cor_secundaria");
+    const valorCorSecundaria = document.getElementById("valor_cor_secundaria");
+
+
+    corPrincipal.addEventListener("input", function () {
+        valorCorPrincipal.textContent = this.value.toUpperCase();
+    });
+
+
+    corSecundaria.addEventListener("input", function () {
+        valorCorSecundaria.textContent = this.value.toUpperCase();
+    });
+
+</script>
+
+{% endblock %}

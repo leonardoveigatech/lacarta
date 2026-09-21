@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova senha | La Carta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Crie uma nova senha</h1>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="nova_senha">Nova senha</label>
+            <input type="password" id="nova_senha" name="nova_senha" minlength="8" autocomplete="new-password" required>
+            <label for="confirmar_senha">Confirme a nova senha</label>
+            <input type="password" id="confirmar_senha" name="confirmar_senha" minlength="8" autocomplete="new-password" required>
+            <button type="submit">Redefinir senha</button>
+        </form>
+    </main>
+</body>
+</html>

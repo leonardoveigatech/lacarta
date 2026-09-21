@@ -1,0 +1,100 @@
+{% extends "public/base_public.html" %}
+
+{% block body_class %}{% endblock %}
+
+{% block title %}
+{{ subcategoria.subcategoria_nome }} - {{ estabelecimento.nome }}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cardapio.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="categoriaPagina">
+
+    <header class="menuHeader">
+
+        <span class="label">
+            {{ subcategoria.categoria_nome }}
+        </span>
+
+        <h1>
+            {{ subcategoria.subcategoria_nome }}
+        </h1>
+
+    </header>
+
+
+    {% if subcategoria.produtos %}
+
+    <section class="menuSection">
+
+        <div class="listaProdutos">
+
+            {% for produto in subcategoria.produtos %}
+
+            <article class="cardProdutoCategoria">
+
+                {% if produto.imagem %}
+
+                <img src="{{ url_for(
+                        'static',
+                        filename='uploads/' ~ produto.imagem
+                    ) }}" alt="{{ produto.nome }}" class="imagemProdutoCategoria">
+
+                {% endif %}
+
+                <div class="infoProdutoCategoria">
+
+                    <h2>
+                        {{ produto.nome }}
+                    </h2>
+
+                    {% if produto.descricao %}
+
+                    <p class="descricaoProdutoCategoria">
+                        {{ produto.descricao }}
+                    </p>
+
+                    {% endif %}
+
+                    {% if produto.informacoes_adicionais %}
+
+                    <p class="informacoesAdicionaisCategoria">
+                        {{ produto.informacoes_adicionais }}
+                    </p>
+
+                    {% endif %}
+
+                    <span class="precoProdutoCategoria">
+                        R$ {{ "%.2f"|format(produto.preco)|replace(".", ",") }}
+                    </span>
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% else %}
+
+    <p>
+        Esta subcategoria ainda não possui produtos.
+    </p>
+    <a href="{{ url_for('public.cardapio', slug=estabelecimento.slug) }}" class="sobre-cta-button">
+
+        INÍCIO
+
+    </a>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,342 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Novo produto | La Carta
+{% endblock %}
+
+{% block description %}
+Cadastre um novo produto no cardápio.
+{% endblock %}
+
+
+{% block content %}
+
+<section class="secao">
+
+    <!-- ==================================================
+         CABEÇALHO
+    ================================================== -->
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+
+                {% if subcategoria_id and subcategorias %}
+
+                {% for item in subcategorias %}
+
+                {% if item.id == subcategoria_id|int %}
+                {{ item.nome }}
+                {% endif %}
+
+                {% endfor %}
+
+                {% elif categoria_id and categorias %}
+
+                {% for item in categorias %}
+
+                {% if item.id == categoria_id|int %}
+                {{ item.nome }}
+                {% endif %}
+
+                {% endfor %}
+
+                {% else %}
+
+                CARDÁPIO
+
+                {% endif %}
+
+            </span>
+
+
+            <h1>
+                Novo produto
+            </h1>
+
+
+            {% if subcategoria_id %}
+
+            <p>
+                Adicione um produto à subcategoria
+                <strong>
+                    {% for item in subcategorias %}
+                    {% if item.id == subcategoria_id|int %}
+                    {{ item.nome }}
+                    {% endif %}
+                    {% endfor %}
+                </strong>.
+            </p>
+
+            {% else %}
+
+            <p>
+                Cadastre um novo produto no seu cardápio.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         FORMULÁRIO
+    ================================================== -->
+
+    <form method="POST" action="{{ url_for('admin.novo_produto') }}" class="form produto-form" id="novo-produto-form">
+
+
+        <!-- ==================================================
+             INFORMAÇÕES BÁSICAS
+        ================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    INFORMAÇÕES
+                </span>
+
+                <h2>
+                    Dados do produto
+                </h2>
+
+                <p>
+                    Informe as principais informações que aparecerão
+                    no cardápio.
+                </p>
+
+            </div>
+
+
+            <!-- NOME -->
+
+            <div class="campo">
+
+                <label for="nome">
+                    Nome do produto
+                </label>
+
+                <input type="text" id="nome" name="nome" placeholder="Ex.: Caipirinha de Limão" required autofocus>
+
+            </div>
+
+
+            <!-- PREÇO -->
+
+            <div class="campo">
+
+                <label for="preco">
+                    Preço
+                </label>
+
+                <div class="campo-preco">
+
+                    <span>
+                        R$
+                    </span>
+                    <input type="number" id="preco" name="preco" placeholder="0,00" step="0.01" min="0" required>
+
+                </div>
+
+            </div>
+
+
+            <!-- DESCRIÇÃO -->
+
+            <div class="campo">
+
+                <label for="descricao">
+                    Descrição
+                </label>
+
+                <textarea id="descricao" name="descricao" rows="4"
+                    placeholder="Ex.: Cachaça, limão e açúcar."></textarea>
+
+                <small>
+                    Uma breve descrição ajuda o cliente a entender
+                    melhor o produto.
+                </small>
+
+            </div>
+
+
+            <!-- INFORMAÇÕES ADICIONAIS -->
+
+            <div class="campo">
+
+                <label for="informacoes_adicionais">
+                    Informações adicionais
+                </label>
+
+                <textarea id="informacoes_adicionais" name="informacoes_adicionais" rows="3"
+                    placeholder="Ex.: Contém álcool."></textarea>
+
+                <small>
+                    Use este campo para informar ingredientes,
+                    alergênicos ou outras observações.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             ORGANIZAÇÃO
+        ================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    ORGANIZAÇÃO
+                </span>
+
+                <h2>
+                    Onde este produto ficará?
+                </h2>
+
+                <p>
+                    Defina a categoria e, se desejar, uma subcategoria.
+                </p>
+
+            </div>
+
+
+            <!-- CATEGORIA -->
+
+            <div class="campo">
+
+                <label for="categoria_id">
+                    Categoria
+                </label>
+
+                <select name="categoria_id" id="categoria_id" required>
+
+                    <option value="">
+                        Selecione uma categoria
+                    </option>
+
+                    {% for item in categorias %}
+
+                    <option value="{{ item.id }}" {% if categoria_id and categoria_id|int==item.id %} selected {% endif
+                        %}>
+                        {{ item.nome }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- SUBCATEGORIA -->
+
+            <div class="campo" id="subcategoria-field" {% if not subcategorias %} style="display: none;" {% endif %}>
+
+                <label for="subcategoria_id">
+                    Subcategoria
+                </label>
+
+                <select name="subcategoria_id" id="subcategoria_id" data-selected="{{ subcategoria_id or '' }}">
+
+                    <option value="">
+                        Nenhuma subcategoria
+                    </option>
+
+                    {% for item in subcategorias %}
+
+                    <option value="{{ item.id }}" {% if subcategoria_id and subcategoria_id|int==item.id %} selected {%
+                        endif %}>
+                        {{ item.nome }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <small id="subcategoria-help">
+                    A subcategoria é opcional.
+                </small>
+
+            </div>
+
+
+            <!-- ORDEM -->
+
+            <div class="campo">
+
+                <label for="ordem">
+                    Ordem de exibição
+                </label>
+
+                <input type="number" id="ordem" name="ordem" value="0" min="0">
+
+                <small>
+                    Quanto menor o número, mais acima o produto
+                    aparecerá dentro da categoria.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             AÇÕES
+        ================================================== -->
+
+        <div class="form-acoes">
+
+            {% if subcategoria_id %}
+
+            <a href="{{ url_for(
+                    'admin.visualizar_subcategoria',
+                    subcategoria_id=subcategoria_id
+                ) }}" class="botao secundario">
+                Cancelar
+            </a>
+
+            {% elif categoria_id %}
+
+            <a href="{{ url_for(
+                    'admin.visualizar_categoria',
+                    categoria_id=categoria_id
+                ) }}" class="botao secundario">
+                Cancelar
+            </a>
+
+            {% else %}
+
+            <a href="{{ url_for('admin.produtos') }}" class="botao secundario">
+                Cancelar
+            </a>
+
+            {% endif %}
+
+
+            <button type="submit" class="botao">
+                Criar produto
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+
+<script src="{{ url_for(
+    'static',
+    filename='js/novo_produto.js'
+) }}"></script>
+
+{% endblock %}

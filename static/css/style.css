@@ -1,0 +1,238 @@
+@charset "UTF-8";
+/* Mobile-First. */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+  background-color: rgba(245, 245, 245, 0.637);
+  color: #1d0202;
+  font-family: "Playfair Display", serif;
+  font-weight: 300;
+}
+
+/* HEADER */
+
+.public-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  padding: 1.2rem 1.5rem 1.5rem;
+  background-color: #2c0404;
+  /* border-radius: 0 0 32px 32px; */
+  z-index: 100;
+}
+
+/* BOTÃO DO MENU */
+
+.menu-button {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: whitesmoke;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* LOGO */
+
+.logo {
+  text-decoration: none;
+}
+
+.logo span {
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8c992;
+}
+
+/* CAMPO DE BUSCA */
+
+.search {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(232, 201, 146, 0.25);
+  border-radius: 20px;
+  padding: 0.5rem 1.1rem 0.5rem 1.5rem;
+}
+
+.search input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  color: whitesmoke;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+
+.search input::placeholder {
+  color: rgba(245, 245, 245, 0.5);
+}
+
+.search button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background-color: #e8c992;
+  color: #1d0202;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* MENU LATERAL / ASIDE */
+
+.asideBasePublic {
+  position: fixed;
+  font-family: "Playfair Display", serif;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1d0202;
+  z-index: 200;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.asideBasePublic.open {
+  transform: translateX(0);
+}
+
+/* BOTÃO FECHAR */
+
+.close-button {
+  align-self: flex-end;
+  border: none;
+  background: none;
+  color: whitesmoke;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+/* LINKS DO MENU */
+
+.asideBasePublic a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-family: "Cormorant", serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.15);
+}
+
+/*  MAIN / ÁREA PRINCIPAL */
+
+.mainPublic {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 0 0 calc(12vh + 2rem);
+  /* overflow-y: auto; */
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+}
+
+/* CONTAINER GERAL DAS PÁGINAS */
+
+.navegacaoFooter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12%;
+  padding: 0.8rem 1rem;
+  background-color: #2c0404;
+  border-radius: 32px 32px 0 0;
+  z-index: 100;
+  font-variant: small-caps;
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.footerItem {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  color: rgba(245, 245, 245, 0.6);
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+
+.footerItem:hover,
+.footerItem:active {
+  color: #e8c992;
+}
+
+.footer-icon {
+  font-size: 1.8rem;
+}
+
+@media (min-width: 1024px) {
+  .public-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 3rem;
+    border-radius: 0 0 20px 20px;
+    gap: 1.5rem;
+  }
+
+  .menu-button {
+    align-self: center;
+  }
+
+  .search {
+    max-width: 280px;
+  }
+
+  .mainPublic {
+    padding: 2rem 2rem calc(12vh + 2rem);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}

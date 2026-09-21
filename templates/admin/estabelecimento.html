@@ -1,0 +1,94 @@
+{% extends "admin/base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estabelecimento.css') }}">
+{% endblock %}
+
+{% block title %}
+Meu estabelecimento | La Carta
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="heading">
+        <span class="label">Configurações</span>
+        <h1>Meu estabelecimento</h1>
+        <p>Gerencie as informações que identificam e apresentam seu estabelecimento no La Carta.</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('admin.editar_estabelecimento') }}" class="form"
+        enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <div class="field">
+            <label for="nome">Nome do estabelecimento</label>
+            <input type="text" id="nome" name="nome" value="{{ estabelecimento.nome or '' }}"
+                placeholder="Ex.: Restaurante Teste" required>
+        </div>
+
+        <div class="field">
+            <label for="slug">Link do cardápio</label>
+            <div class="input-prefix">
+                <span>/</span>
+                <input type="text" id="slug" name="slug" value="{{ estabelecimento.slug or '' }}"
+                    placeholder="restaurante-teste" required>
+            </div>
+            <small>Esse será o endereço público do seu cardápio.</small>
+        </div>
+
+        <div class="field">
+            <label for="logo">Logo</label>
+            {% if estabelecimento.logo %}
+            <div class="image-preview">
+                <img src="{{ url_for('static', filename=estabelecimento.logo) }}" alt="Logo do estabelecimento">
+            </div>
+            {% endif %}
+            <input type="file" id="logo" name="logo" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+            <small>Formatos permitidos: JPG, JPEG, PNG ou WebP.</small>
+        </div>
+
+        <div class="field">
+            <label for="imagem_capa">Imagem de capa</label>
+            {% if estabelecimento.imagem_capa %}
+            <div class="image-preview image-preview-cover">
+                <img src="{{ url_for('static', filename=estabelecimento.imagem_capa) }}"
+                    alt="Imagem de capa do estabelecimento">
+            </div>
+            {% endif %}
+            <input type="file" id="imagem_capa" name="imagem_capa"
+                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+            <small>Essa imagem será utilizada na apresentação pública do estabelecimento.</small>
+        </div>
+
+        <div class="field">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao" placeholder="Conte um pouco sobre seu estabelecimento."
+                rows="5">{{ estabelecimento.descricao or '' }}</textarea>
+        </div>
+
+        <div class="field">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" value="{{ estabelecimento.telefone or '' }}"
+                placeholder="Ex.: (48) 99999-9999">
+        </div>
+
+        <div class="field">
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" value="{{ estabelecimento.whatsapp or '' }}"
+                placeholder="Ex.: (48) 99999-9999">
+            <small>Número utilizado para contato pelo WhatsApp.</small>
+        </div>
+
+        <div class="field">
+            <label for="endereco">Endereço</label>
+            <input type="text" id="endereco" name="endereco" value="{{ estabelecimento.endereco or '' }}"
+                placeholder="Ex.: Rua das Flores, 123 - Centro">
+        </div>
+
+        <div class="actions">
+            <a href="{{ url_for('admin.dashboard') }}" class="button">Cancelar</a> <button type="submit"
+                class="button">Salvar alterações</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

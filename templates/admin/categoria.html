@@ -1,0 +1,326 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+{{ categoria.nome }} | La Carta
+{% endblock %}
+
+{% block description %}
+Gerencie as subcategorias e produtos de {{ categoria.nome }}.
+{% endblock %}
+
+
+{% block content %}
+
+<section class="secao">
+
+    <!-- ==================================================
+         TOPO
+    ================================================== -->
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                CARDÁPIO
+            </span>
+
+            <h1>
+                {{ categoria.nome }}
+            </h1>
+
+            <p>
+                Organize os produtos desta categoria.
+            </p>
+
+        </div>
+
+
+        <!-- <a href="{{ url_for(
+                'admin.nova_subcategoria',
+                categoria_id=categoria.id
+            ) }}" class="botao">
+            + Subcategoria
+        </a> -->
+        <a href="{{ url_for('admin.novo_produto', categoria_id=categoria.id) }}">
+            Criar produto
+        </a>
+
+    </div>
+
+
+    <!-- ==================================================
+         SUBCATEGORIAS
+    ================================================== -->
+
+    {% if subcategorias %}
+
+    <div class="lista">
+
+        {% for subcategoria in subcategorias %}
+
+        <div class="item">
+
+            <div class="info">
+
+                <h3>
+                    {{ subcategoria.nome }}
+                </h3>
+
+                <div class="detalhes">
+
+                    <span>
+                        Ordem: {{ subcategoria.ordem }}
+                    </span>
+
+
+                    {% if subcategoria.ativo %}
+
+                    <span class="status ativo">
+                        Ativa
+                    </span>
+
+                    {% else %}
+
+                    <span class="status inativo">
+                        Inativa
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="acoes">
+
+                <!-- VER PRODUTOS -->
+
+                <a href="{{ url_for(
+                        'admin.visualizar_subcategoria',
+                        subcategoria_id=subcategoria.id
+                    ) }}" class="botao">
+                    Ver produtos
+                </a>
+
+
+                <!-- NOVO PRODUTO -->
+
+                <a href="{{ url_for(
+                        'admin.novo_produto',
+                        categoria_id=categoria.id,
+                        subcategoria_id=subcategoria.id
+                    ) }}" class="botao">
+                    + Produto
+                </a>
+
+
+                <!-- EDITAR -->
+
+                <a href="{{ url_for(
+                        'admin.editar_subcategoria',
+                        subcategoria_id=subcategoria.id
+                    ) }}" class="botao">
+                    Editar
+                </a>
+
+
+                <!-- EXCLUIR -->
+
+                <form method="POST" action="{{ url_for(
+                        'admin.excluir_subcategoria_rota',
+                        subcategoria_id=subcategoria.id
+                    ) }}" onsubmit="return confirm(
+                        'Tem certeza que deseja excluir esta subcategoria?'
+                    );">
+
+                    <button type="submit" class="botao excluir">
+                        Excluir
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- ==================================================
+         NENHUMA SUBCATEGORIA
+    ================================================== -->
+
+    <div class="vazio">
+
+        <span class="label">
+            SUBCATEGORIAS
+        </span>
+
+        <h2>
+            Nenhuma subcategoria cadastrada
+        </h2>
+
+        <p>
+            Você pode criar uma subcategoria para organizar seus produtos.
+        </p>
+
+        <a href="{{ url_for(
+                'admin.nova_subcategoria',
+                categoria_id=categoria.id
+            ) }}" class="botao">
+            + Criar subcategoria
+        </a>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ==================================================
+         PRODUTOS SEM SUBCATEGORIA
+    ================================================== -->
+
+    {% if produtos %}
+
+    <section class="bloco">
+
+        <div class="topo">
+
+            <div>
+
+                <span class="label">
+                    PRODUTOS
+                </span>
+
+                <h2>
+                    Produtos sem subcategoria
+                </h2>
+
+                <p>
+                    Produtos cadastrados diretamente em
+                    {{ categoria.nome }}.
+                </p>
+
+            </div>
+
+
+            <a href="{{ url_for(
+                    'admin.novo_produto',
+                    categoria_id=categoria.id
+                ) }}" class="botao">
+                + Produto
+            </a>
+
+        </div>
+
+
+        <div class="lista">
+
+            {% for produto in produtos %}
+
+            <div class="item">
+
+                <div class="info">
+
+                    <h3>
+                        {{ produto.nome }}
+                    </h3>
+
+
+                    {% if produto.descricao %}
+
+                    <p>
+                        {{ produto.descricao }}
+                    </p>
+
+                    {% endif %}
+
+
+                    <div class="detalhes">
+
+                        <span>
+                            R$ {{ "%.2f"|format(produto.preco) }}
+                        </span>
+
+
+                        {% if produto.disponivel %}
+
+                        <span class="status ativo">
+                            Disponível
+                        </span>
+
+                        {% else %}
+
+                        <span class="status inativo">
+                            Indisponível
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="acoes">
+
+                    <!-- EDITAR -->
+
+                    <a href="{{ url_for(
+                            'admin.editar_produto',
+                            produto_id=produto.id
+                        ) }}" class="botao">
+                        Editar
+                    </a>
+
+
+                    <!-- EXCLUIR -->
+
+                    <form method="POST" action="{{ url_for(
+                            'admin.excluir_produto_rota',
+                            produto_id=produto.id
+                        ) }}" onsubmit="return confirm(
+                            'Tem certeza que deseja excluir este produto?'
+                        );">
+
+                        <button type="submit" class="botao excluir">
+                            Excluir
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+
+    <!-- ==================================================
+         VOLTAR
+    ================================================== -->
+
+    <div class="voltar">
+
+        <a href="{{ url_for('admin.categorias') }}" class="botao">
+            ← Voltar para categorias
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

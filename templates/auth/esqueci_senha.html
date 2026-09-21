@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar senha | La Carta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Recuperar senha</h1>
+        <p>Informe o e-mail usado para entrar na sua conta.</p>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+            <button type="submit">Enviar instruções</button>
+        </form>
+        <a href="{{ url_for('admin.login') }}">Voltar ao login</a>
+    </main>
+</body>
+</html>

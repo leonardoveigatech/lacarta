@@ -1,0 +1,305 @@
+@charset "UTF-8";
+
+/* LA CARTA — PAINEL ADMINISTRATIVO — CONFIGURAÇÕES / MOBILE FIRST */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================================
+   SEÇÃO / CARD
+   Fundo levemente mais claro que o resto do painel — sinaliza
+   "essa é a área de edição" e separa do fundo geral da página.
+   ========================================================== */
+.section {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 2.5rem;
+  color: #f2ede4;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+/* ==========================================================
+   CABEÇALHO DA SEÇÃO
+   ========================================================== */
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.15);
+}
+
+.heading .label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1d0202;
+}
+
+.heading h1 {
+  font-family: "Cormorant", serif;
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: 1.9rem;
+  letter-spacing: 0.02em;
+  color: #1d0202;
+}
+
+.heading p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #1d0202ce;
+  max-width: 46ch; /* evita linha de leitura longa demais */
+}
+
+/* ==========================================================
+   FORMULÁRIO
+   ========================================================== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.field label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #740606;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(232, 201, 146, 0.2);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  color: #1d02026c;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 7rem;
+  line-height: 1.5;
+}
+
+/* Feedback de foco bem visível — o admin precisa saber na hora
+   qual campo está editando, sem precisar procurar */
+.field input:focus,
+.field textarea:focus {
+  border-color: #e8c992;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(245, 245, 245, 0.35);
+}
+
+/* Texto de ajuda embaixo do campo */
+.field small {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.5);
+}
+
+/* Campo somente leitura (link do cardápio) — precisa parecer
+   visualmente "travado", pra não parecer um bug quando o admin
+   tenta editar e não consegue */
+.field input[readonly] {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-style: dashed;
+  color: rgba(242, 237, 228, 0.6);
+  cursor: not-allowed;
+}
+
+/* ========================================================== */
+.actions {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.actions .button {
+  width: 100%;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 1rem;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  cursor: pointer;
+}
+
+/* Cancelar — <a class="button"> */
+.actions a.button {
+  background: none;
+  border: 1px solid rgba(232, 201, 146, 0.4);
+  color: #866327;
+}
+
+.actions a.button:active {
+  background-color: rgba(232, 201, 146, 0.1);
+}
+
+/* Salvar — <button type="submit" class="button"> */
+.actions button.button {
+  background-color: #1d0202ea;
+  border: none;
+  color: #e8c992;
+  font-weight: 600;
+}
+
+.actions button.button:active {
+  transform: scale(0.98);
+}
+
+/* ----- */
+
+.input-prefix {
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+  padding: 0 12px;
+
+  border: 1px solid #ddd;
+  border-right: 0;
+
+  border-radius: 8px 0 0 8px;
+
+  background: #f7f7f7;
+
+  color: #777;
+}
+
+.input-prefix input {
+  flex: 1;
+
+  border-radius: 0 8px 8px 0;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+
+  margin-bottom: 12px;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.image-preview-cover {
+  width: 100%;
+  max-width: 500px;
+  height: 180px;
+}
+
+.image-preview-cover img {
+  object-fit: cover;
+}
+
+/* MEDIA DESKTOP */
+
+/* LA CARTA — PAINEL ADMINISTRATIVO — CONFIGURAÇÕES — DESKTOP */
+
+/* LA CARTA — PAINEL ADMINISTRATIVO — CONFIGURAÇÕES — DESKTOP */
+
+@media (min-width: 768px) {
+  .section {
+    max-width: 720px;
+    padding: 2.5rem 2rem 3rem;
+  }
+
+  .heading h1 {
+    font-size: 2.1rem;
+  }
+
+  /* Form vira grid de 2 colunas — só telefone/whatsapp (3º e 4º
+     campos) ficam lado a lado; o resto ocupa a linha inteira */
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .field:nth-child(1),
+  .field:nth-child(2),
+  .field:nth-child(5),
+  .field:nth-child(6) {
+    grid-column: 1 / -1;
+  }
+
+  /* Ações alinhadas à direita, lado a lado, sem esticar a
+     largura toda — no desktop não precisa priorizar polegar */
+  .actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+  .actions .button {
+    width: auto;
+    padding: 0.95rem 2.2rem;
+  }
+
+  /* :hover — no mobile só existe :active (toque); no desktop o
+     mouse passa por cima antes de clicar, então precisa de
+     feedback visual próprio, usando as cores atuais de cada botão */
+  .actions a.button:hover {
+    background-color: rgba(
+      134,
+      99,
+      39,
+      0.12
+    ); /* tom do próprio texto (#866327) */
+  }
+
+  .actions button.button:hover {
+    background-color: #2c0404; /* levemente mais claro que o #1d0202ea do estado normal */
+  }
+}

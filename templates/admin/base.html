@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        La Carta
+        {% endblock %}
+    </title>
+
+    <meta name="description" content="{% block description %}Painel administrativo do La Carta.{% endblock %}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-pages.css') }}">
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         CONTROLE DO MENU
+    ========================== -->
+
+    <input type="checkbox" id="menu" class="menu-input">
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <!-- BOTÃO MENU -->
+
+            <label for="menu" class="menu-button" aria-label="Abrir menu">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </label>
+
+
+            <!-- LOGO -->
+
+            <a href="{{ url_for('admin.dashboard') }}" class="logo">
+                La Carta
+            </a>
+
+
+            <span class="line"></span>
+
+
+            <span class="panel">
+                Painel Administrativo
+            </span>
+
+        </div>
+
+
+        <!-- USUÁRIO -->
+
+        <div class="user">
+
+            {% if usuario %}
+
+            <span>
+                {{ usuario.nome }}
+            </span>
+
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('admin.logout') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="buttonSair" type="submit">Sair</button>
+            </form>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         OVERLAY
+    ========================== -->
+
+    <label for="menu" class="overlay" aria-label="Fechar menu"></label>
+
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- TOPO -->
+
+        <div class="side-top">
+
+            <div>
+
+                <strong>
+                    La Carta
+                </strong>
+
+                <small>
+                    Painel Administrativo
+                </small>
+
+            </div>
+
+
+            <!-- FECHAR -->
+
+            <label for="menu" class="close" aria-label="Fechar menu">
+                ×
+            </label>
+
+        </div>
+
+
+
+        <!-- NAVEGAÇÃO -->
+
+        <nav class="nav">
+
+
+            <!-- INÍCIO -->
+
+            <a href="{{ url_for('admin.dashboard') }}" class="link">
+
+                <span class="icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Início
+                </span>
+
+            </a>
+
+
+
+            <!-- CARDÁPIO -->
+
+            <div class="group">
+
+                <span class="group-title">
+                    Cardápio
+                </span>
+
+
+                <a href="{{ url_for('admin.categorias') }}" class="link">
+
+                    <span class="icon">
+                        🍽️
+                    </span>
+
+                    <span>
+                        Cardápio
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- APARÊNCIA -->
+
+            <a href="{{ url_for('admin.aparencia') }}" class="link">
+
+                <span class="icon">
+                    🎨
+                </span>
+
+                <span>
+                    Aparência
+                </span>
+
+            </a>
+
+
+
+            <!-- DIVULGAÇÃO -->
+
+            <div class="group">
+
+                <span class="group-title">
+                    Divulgação
+                </span>
+
+
+                <a href="{{ url_for('admin.qr_codes') }}" class="link">
+
+                    <span class="icon">
+                        ▣
+                    </span>
+
+                    <span>
+                        QR Codes
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('admin.link_cardapio') }}" class="link">
+
+                    <span class="icon">
+                        🔗
+                    </span>
+
+                    <span>
+                        Link do cardápio
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- CONFIGURAÇÕES -->
+
+            <div class="group">
+
+                <span class="group-title">
+                    Configurações
+                </span>
+
+
+                <!-- MEU ESTABELECIMENTO -->
+
+                <a href="{{ url_for('admin.estabelecimento') }}" class="link">
+
+                    <span class="icon">
+                        🏪
+                    </span>
+
+                    <span>
+                        Meu estabelecimento
+                    </span>
+
+                </a>
+
+
+                <!-- HORÁRIOS -->
+
+                <a href="{{ url_for('admin.horarios') }}" class="link">
+
+                    <span class="icon">
+                        🕐
+                    </span>
+
+                    <span>
+                        Horários
+                    </span>
+
+                </a>
+
+
+                <!-- REDES SOCIAIS -->
+
+                <a href="{{ url_for('admin.redes_sociais') }}" class="link">
+
+                    <span class="icon">
+                        📱
+                    </span>
+
+                    <span>
+                        Redes sociais
+                    </span>
+
+                </a>
+
+
+                <!-- MINHA CONTA -->
+
+                <a href="{{ url_for('admin.conta') }}" class="link">
+
+                    <span class="icon">
+                        👤
+                    </span>
+
+                    <span>
+                        Minha conta
+                    </span>
+
+                </a>
+
+
+                <!-- SEGURANÇA -->
+
+                <a href="{{ url_for('admin.seguranca') }}" class="link">
+
+                    <span class="icon">
+                        🔒
+                    </span>
+
+                    <span>
+                        Segurança
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- SUPORTE -->
+
+            <a href="{{ url_for('admin.suporte') }}" class="link">
+
+                <span class="icon">
+                    ?
+                </span>
+
+                <span>
+                    Suporte
+                </span>
+
+            </a>
+
+        </nav>
+
+
+
+        <!-- RODAPÉ -->
+
+        <div class="side-bottom">
+
+            {% if usuario %}
+
+            <strong>
+                {{ usuario.nome }}
+            </strong>
+
+            <small>
+                Administrador
+            </small>
+
+            {% endif %}
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- =========================
+             MENSAGENS DO SISTEMA
+        ========================== -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+        <div class="flash-container">
+
+            {% for category, message in messages %}
+
+            <div class="flash flash-{{ category }}">
+
+                <span class="flash-icon">
+
+                    {% if category == "success" %}
+                    ✓
+                    {% elif category == "error" %}
+                    !
+                    {% elif category == "warning" %}
+                    !
+                    {% else %}
+                    i
+                    {% endif %}
+
+                </span>
+
+                <span class="flash-message">
+                    {{ message }}
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        {% endwith %}
+
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 La Carta
+        </p>
+
+
+        <div>
+
+            <a href="#">
+                Termos de Uso
+            </a>
+
+            <a href="#">
+                Privacidade
+            </a>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+<script>
+    document.querySelectorAll('form[method="POST" i]').forEach((form) => {
+        if (!form.querySelector('input[name="csrf_token"]')) {
+            const token = document.createElement('input');
+            token.type = 'hidden';
+            token.name = 'csrf_token';
+            token.value = '{{ csrf_token() }}';
+            form.appendChild(token);
+        }
+    });
+</script>
+
+</html>

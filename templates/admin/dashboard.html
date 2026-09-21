@@ -1,0 +1,282 @@
+{% extends "admin/base.html" %}
+
+
+{% block title %}
+Painel Administrativo | La Carta
+{% endblock %}
+
+
+{% block description %}
+Painel administrativo do La Carta para gerenciamento do estabelecimento.
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<!-- =========================
+     BOAS-VINDAS
+========================== -->
+
+<section class="welcome">
+
+    <span class="label">
+        PAINEL ADMINISTRATIVO
+    </span>
+
+    <h1>
+        Olá, {{ estabelecimento.nome }}!
+    </h1>
+
+    <p>
+        Gerencie seu estabelecimento e mantenha seu
+        cardápio sempre atualizado.
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     ESTABELECIMENTO
+========================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <div>
+
+            <span class="label">
+                ESTABELECIMENTO
+            </span>
+
+            <h2>
+                {{ estabelecimento.nome }}
+            </h2>
+
+        </div>
+
+
+        <span class="status">
+
+            {% if estabelecimento.ativo %}
+            Ativo
+            {% else %}
+            Inativo
+            {% endif %}
+
+        </span>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CARDÁPIO
+========================== -->
+
+<section class="section">
+
+    <details class="menu-manager">
+
+
+        <!-- BOTÃO -->
+
+        <summary class="menu-button-main">
+
+            <div>
+
+                <span class="label">
+                    CARDÁPIO
+                </span>
+
+                <h2>
+                    Gerenciar cardápio
+                </h2>
+
+                <p>
+                    Organize categorias, subcategorias,
+                    produtos e a apresentação do seu cardápio.
+                </p>
+
+            </div>
+
+
+            <span class="arrow">
+                ↓
+            </span>
+
+        </summary>
+
+
+
+        <!-- OPÇÕES -->
+
+        <div class="menu-options">
+
+
+            <!-- CATEGORIAS -->
+
+            <a href="{{ url_for('admin.categorias') }}" class="card">
+
+                <span class="icon">
+                    ☰
+                </span>
+
+                <div class="content">
+
+                    <h3>
+                        Categorias
+                    </h3>
+
+                    <p>
+                        Crie e organize as categorias
+                        do seu cardápio.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- SUBCATEGORIAS -->
+
+            <a href="{{ url_for('admin.categorias') }}" class="card">
+
+                <span class="icon">
+                    ≡
+                </span>
+
+                <div class="content">
+
+                    <h3>
+                        Subcategorias
+                    </h3>
+
+                    <p>
+                        Organize produtos dentro
+                        das categorias.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- PRODUTOS -->
+
+            <a href="{{ url_for('admin.produtos') }}" class="card">
+
+                <span class="icon">
+                    🍽
+                </span>
+
+                <div class="content">
+
+                    <h3>
+                        Produtos
+                    </h3>
+
+                    <p>
+                        Cadastre e gerencie os produtos
+                        do seu cardápio.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- APARÊNCIA -->
+
+            <a href="{{ url_for('admin.aparencia') }}" class="card">
+
+                <span class="icon">
+                    🎨
+                </span>
+
+                <div class="content">
+
+                    <h3>
+                        Aparência
+                    </h3>
+
+                    <p>
+                        Personalize a aparência
+                        do seu cardápio.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- DESTAQUES -->
+
+
+        </div>
+
+    </details>
+
+</section>
+<section class="section">
+
+    <a href="{{ url_for(
+            'public.estabelecimento',
+            slug=estabelecimento.slug
+        ) }}" class="card" target="_blank">
+
+        <span class="icon">
+            ↗
+        </span>
+
+        <div class="content">
+
+            <span class="label">
+                VISUALIZAÇÃO
+            </span>
+
+            <h3>
+                Ver meu cardápio
+            </h3>
+
+            <p>
+                Veja como seu cardápio está sendo
+                apresentado aos seus clientes.
+            </p>
+
+        </div>
+
+        <span class="arrow">
+            →
+        </span>
+
+    </a>
+
+</section>
+
+{% endblock %}

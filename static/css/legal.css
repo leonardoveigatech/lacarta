@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+/* LA CARTA - DOCUMENTOS LEGAIS */
+
+.legal-page {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.2rem 3rem;
+}
+
+/* HEADER */
+
+.legal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 0.5rem 2.5rem;
+  border-bottom: 2px solid #e8c992;
+  margin-bottom: 2.5rem;
+}
+
+.legal-label {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b08a3e;
+  margin-bottom: 0.6rem;
+}
+
+.legal-header h1 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #2c0404;
+}
+
+.legal-header p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(29, 2, 2, 0.55);
+  margin-top: 0.8rem;
+}
+
+/* SEÇÕES */
+
+.legal-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.2rem;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid rgba(29, 2, 2, 0.08);
+}
+
+.legal-section:last-of-type {
+  border-bottom: none;
+}
+
+.legal-section h2 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  color: #2c0404;
+  margin-bottom: 1rem;
+}
+
+.legal-section p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: rgba(29, 2, 2, 0.68);
+}
+
+.legal-section p + p {
+  margin-top: 0.9rem;
+}
+
+/* LISTAS */
+
+.legal-section ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.3rem;
+}
+
+.legal-section li {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: rgba(29, 2, 2, 0.68);
+  margin-bottom: 0.45rem;
+}
+
+/* LINKS */
+
+.legal-section a {
+  color: #8f6d2f;
+  font-weight: 500;
+}
+
+/* INFORMAÇÕES */
+
+.legal-info {
+  background-color: rgba(232, 201, 146, 0.12);
+  border-left: 3px solid #e8c992;
+  padding: 1rem 1.1rem;
+  margin: 0.4rem 0 1rem;
+}
+
+.legal-info p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.legal-info p + p {
+  margin-top: 0.35rem;
+}
+
+/* FINAL */
+
+.legal-final {
+  background-color: #2c0404;
+  border-radius: 22px;
+  padding: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.legal-final p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  text-align: center;
+  color: rgba(245, 245, 245, 0.75);
+}
+
+/* DESKTOP */
+
+@media (min-width: 960px) {
+  .legal-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .legal-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .legal-section h2 {
+    font-size: 1.55rem;
+  }
+
+  .legal-section p,
+  .legal-section li {
+    font-size: 0.95rem;
+  }
+}

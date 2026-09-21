@@ -1,0 +1,208 @@
+@charset "UTF-8";
+
+/* LA CARTA - FAQ (PERGUNTAS FREQUENTES) - MOBILE FIRST */
+
+/* ===== ESTRUTURA GERAL ===== */
+
+.faq-page {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.2rem 3rem;
+}
+
+/* ===== HEADER DA PÁGINA ===== */
+
+.faq-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 0.5rem 2.5rem;
+  border-bottom: 2px solid #e8c992;
+  margin-bottom: 2.5rem;
+}
+
+.faq-label {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b08a3e;
+  margin-bottom: 0.6rem;
+}
+
+.faq-header h1 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #2c0404;
+}
+
+.faq-header p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(29, 2, 2, 0.6);
+  max-width: 420px;
+  margin-top: 0.8rem;
+}
+
+/* ===== SEÇÕES ===== */
+
+.faq-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.faq-section h2 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  color: #2c0404;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(232, 201, 146, 0.5);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* ===== ITEM (DETAILS / SUMMARY) ===== */
+
+.faq-item {
+  background-color: #2c0404;
+  border-radius: 18px;
+  padding: 1rem 1.2rem;
+  overflow: hidden;
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  list-style: none;
+  cursor: pointer;
+  font-family: "Cormorant", serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  color: #e8c992;
+  line-height: 1.35;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: #1d0202;
+  background-color: #e8c992;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: rgba(245, 245, 245, 0.7);
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(232, 201, 146, 0.15);
+}
+
+/* Animação sutil ao abrir */
+
+.faq-item[open] summary {
+  color: #f2ede4;
+}
+
+/* ===== CTA FINAL ===== */
+.sobre-cta-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #e8c992;
+  background-color: #2c0404;
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  transition: transform 0.15s ease;
+  margin-top: 2.4rem;
+}
+.faq-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background-color: #2c0404;
+  border-radius: 28px;
+}
+
+.faq-cta h2 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  color: #e8c992;
+}
+
+.faq-cta p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: rgba(245, 245, 245, 0.65);
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.faq-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  transition: transform 0.15s ease;
+}
+
+.faq-cta-button:active {
+  transform: scale(0.98);
+}

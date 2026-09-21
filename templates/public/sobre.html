@@ -1,0 +1,238 @@
+{% extends "public/base_public.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sobre.css') }}">
+{% endblock %}
+
+
+{% block title %}Sobre o La Carta{% endblock %}
+
+{% block content %}
+
+<section class="sobre-page">
+
+    <header class="sobre-header">
+
+        <span class="sobre-label">
+            LA CARTA
+        </span>
+
+        <h1>
+            Sobre o La Carta
+        </h1>
+
+        <p>
+            Informações institucionais sobre a plataforma,
+            seu funcionamento e a relação com os estabelecimentos.
+        </p>
+
+    </header>
+
+
+    <!-- SOBRE A PLATAFORMA -->
+
+    <section class="sobre-section">
+
+        <h2>O que é o La Carta?</h2>
+
+        <p>
+            O La Carta é uma plataforma digital desenvolvida para
+            auxiliar estabelecimentos na criação, organização e
+            disponibilização de seus cardápios digitais.
+        </p>
+
+        <p>
+            A plataforma permite que o estabelecimento apresente
+            seus produtos de forma digital e disponibilize seu
+            cardápio aos clientes através de um endereço eletrônico
+            e de QR Codes.
+        </p>
+
+    </section>
+
+
+    <!-- FUNCIONAMENTO -->
+
+    <section class="sobre-section">
+
+        <h2>Como funciona o serviço?</h2>
+
+        <p>
+            O estabelecimento cadastra suas informações e configura
+            seu cardápio através do ambiente administrativo
+            disponibilizado pelo La Carta.
+        </p>
+
+        <p>
+            Após a configuração, o estabelecimento pode disponibilizar
+            o endereço do seu cardápio e seus QR Codes para que os
+            clientes tenham acesso às informações diretamente pelo
+            celular.
+        </p>
+
+    </section>
+
+
+    <!-- RESPONSABILIDADE -->
+
+    <section class="sobre-section">
+
+        <h2>Responsabilidade pelas informações</h2>
+
+        <p>
+            As informações apresentadas no cardápio, incluindo nomes
+            de produtos, descrições, preços, imagens, disponibilidade
+            e demais conteúdos cadastrados, são de responsabilidade
+            do estabelecimento que administra a respectiva conta.
+        </p>
+
+        <p>
+            O estabelecimento deve manter suas informações atualizadas
+            e verificar regularmente os dados apresentados aos clientes.
+        </p>
+
+    </section>
+
+
+    <!-- CONTRATAÇÃO -->
+
+    <section class="sobre-section">
+
+        <h2>Contratação</h2>
+
+        <p>
+            A utilização dos recursos do La Carta está sujeita às
+            condições comerciais apresentadas no momento da contratação.
+        </p>
+
+        <p>
+            Os valores, recursos disponíveis, condições de pagamento
+            e demais condições comerciais poderão variar de acordo
+            com o plano ou serviço contratado.
+        </p>
+
+    </section>
+
+
+    <!-- CANCELAMENTO -->
+
+    <section class="sobre-section">
+
+        <h2>Cancelamento</h2>
+
+        <p>
+            O cancelamento do serviço poderá ser solicitado de acordo
+            com as condições estabelecidas no momento da contratação.
+        </p>
+
+        <p>
+            Eventuais valores, períodos de utilização, prazos e outras
+            condições relacionadas ao cancelamento serão observados
+            conforme os termos aplicáveis à contratação.
+        </p>
+
+    </section>
+
+
+    <!-- SEGURANÇA -->
+
+    <section class="sobre-section">
+
+        <h2>Segurança</h2>
+
+        <p>
+            O La Carta adota medidas técnicas e organizacionais
+            destinadas a proteger as informações armazenadas na
+            plataforma e reduzir riscos relacionados ao acesso
+            não autorizado.
+        </p>
+
+        <p>
+            O estabelecimento também é responsável pela proteção
+            de suas credenciais de acesso e deve evitar compartilhar
+            sua senha com terceiros.
+        </p>
+
+    </section>
+
+
+    <!-- PRIVACIDADE -->
+
+    <section class="sobre-section">
+
+        <h2>Privacidade e proteção de dados</h2>
+
+        <p>
+            O tratamento de dados realizado através da plataforma
+            deve observar as normas aplicáveis de proteção de dados
+            e privacidade.
+        </p>
+
+        <p>
+            Para informações detalhadas sobre coleta, utilização,
+            armazenamento e tratamento de dados, consulte nossa
+            Política de Privacidade.
+        </p>
+
+    </section>
+
+
+    <!-- SUPORTE -->
+
+    <section class="sobre-section">
+
+        <h2>Suporte</h2>
+
+        <p>
+            O La Carta disponibiliza canais de atendimento para
+            auxiliar os estabelecimentos na utilização da plataforma
+            e na resolução de dúvidas relacionadas ao serviço.
+        </p>
+
+    </section>
+
+
+    <!-- DOCUMENTOS -->
+
+    <section class="sobre-section sobre-documentos">
+
+        <h2>Documentos importantes</h2>
+
+        <div class="sobre-links">
+
+            <a href="{{ url_for('public.termos_de_uso') }}">
+                Termos de Uso
+            </a>
+
+            <a href="{{ url_for('public.politica_privacidade') }}">
+                Política de Privacidade
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="sobre-cta">
+
+        <h2>
+            Quer conhecer o La Carta?
+        </h2>
+
+        <p>
+            Conheça a plataforma e descubra como transformar
+            o cardápio do seu estabelecimento em uma experiência digital.
+        </p>
+
+        <a href="{{ url_for('admin.estabelecimento') }}" class="sobre-cta-button">
+
+            Voltar para o início
+
+        </a>
+
+    </section>
+
+</section>
+
+{% endblock %}

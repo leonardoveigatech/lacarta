@@ -1,0 +1,175 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Redes sociais | La Carta
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block content %}
+
+<section class="section">
+
+    <div class="heading">
+
+        <span class="label">
+            Configurações
+        </span>
+
+        <h1>
+            Redes sociais
+        </h1>
+
+        <p>
+            Adicione os links das redes sociais do seu estabelecimento.
+        </p>
+
+    </div>
+
+
+    <form method="POST" class="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <!-- INSTAGRAM -->
+        <div class="form-group">
+
+            <label for="instagram_url">
+                Instagram
+            </label>
+
+            <input type="url" id="instagram_url" name="instagram_url" placeholder="https://instagram.com/seuusuario"
+                value="{{ redes.instagram.url if redes.instagram else '' }}">
+
+            <label class="switch">
+
+                <input type="checkbox" name="instagram_ativo" {% if redes.instagram and redes.instagram.ativo %} checked
+                    {% endif %}>
+
+                <span class="slider"></span>
+
+                <span>
+                    Exibir no cardápio
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- FACEBOOK -->
+        <div class="form-group">
+
+            <label for="facebook_url">
+                Facebook
+            </label>
+
+            <input type="url" id="facebook_url" name="facebook_url" placeholder="https://facebook.com/seuperfil"
+                value="{{ redes.facebook.url if redes.facebook else '' }}">
+
+            <label class="switch">
+
+                <input type="checkbox" name="facebook_ativo" {% if redes.facebook and redes.facebook.ativo %} checked {%
+                    endif %}>
+
+                <span class="slider"></span>
+
+                <span>
+                    Exibir no cardápio
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- TIKTOK -->
+        <div class="form-group">
+
+            <label for="tiktok_url">
+                TikTok
+            </label>
+
+            <input type="url" id="tiktok_url" name="tiktok_url" placeholder="https://tiktok.com/@seuusuario"
+                value="{{ redes.tiktok.url if redes.tiktok else '' }}">
+
+            <label class="switch">
+
+                <input type="checkbox" name="tiktok_ativo" {% if redes.tiktok and redes.tiktok.ativo %} checked {% endif
+                    %}>
+
+                <span class="slider"></span>
+
+                <span>
+                    Exibir no cardápio
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- YOUTUBE -->
+        <div class="form-group">
+
+            <label for="youtube_url">
+                YouTube
+            </label>
+
+            <input type="url" id="youtube_url" name="youtube_url" placeholder="https://youtube.com/@seucanal"
+                value="{{ redes.youtube.url if redes.youtube else '' }}">
+
+            <label class="switch">
+
+                <input type="checkbox" name="youtube_ativo" {% if redes.youtube and redes.youtube.ativo %} checked {%
+                    endif %}>
+
+                <span class="slider"></span>
+
+                <span>
+                    Exibir no cardápio
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- WHATSAPP -->
+        <div class="form-group">
+
+            <label for="whatsapp_url">
+                WhatsApp
+            </label>
+
+            <input type="url" id="whatsapp_url" name="whatsapp_url" placeholder="https://wa.me/5511999999999"
+                value="{{ redes.whatsapp.url if redes.whatsapp else '' }}">
+
+            <label class="switch">
+
+                <input type="checkbox" name="whatsapp_ativo" {% if redes.whatsapp and redes.whatsapp.ativo %} checked {%
+                    endif %}>
+
+                <span class="slider"></span>
+
+                <span>
+                    Exibir no cardápio
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button type="submit" class="botao">
+                Salvar alterações
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

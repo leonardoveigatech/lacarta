@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% if sucesso %}
+        E-mail confirmado | La Carta
+        {% elif sucesso is none %}
+        Confirmar e-mail | La Carta
+        {% else %}
+        Confirmação de e-mail | La Carta
+        {% endif %}
+    </title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+</head>
+
+<body>
+
+    {% if sucesso %}
+
+    <h1>E-mail confirmado</h1>
+
+    <p>
+        {{ mensagem }}
+    </p>
+
+    <a href="{{ url_for('admin.login') }}" class="sobre-cta-button">
+        Acessar minha conta
+    </a>
+
+    {% elif sucesso is none %}
+
+    <h1>Confirmar e-mail</h1>
+
+    <p>
+        Clique no botão abaixo para confirmar seu endereço de e-mail
+        e ativar sua conta no La Carta.
+    </p>
+
+    <form method="POST">
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <button type="submit">
+            Confirmar e-mail
+        </button>
+
+    </form>
+
+    {% else %}
+
+    <h1>Não foi possível confirmar</h1>
+
+    <p>
+        {{ mensagem }}
+    </p>
+
+    <a href="{{ url_for('admin.login') }}" class="sobre-cta-button">
+        Ir para o login
+    </a>
+
+    {% endif %}
+
+</body>
+
+</html>

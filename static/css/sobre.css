@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+/* LA CARTA - SOBRE (PÁGINA INSTITUCIONAL) - MOBILE FIRST */
+
+/* ===== ESTRUTURA GERAL ===== */
+
+.sobre-page {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.2rem 3rem;
+}
+
+/* ===== HEADER DA PÁGINA ===== */
+
+.sobre-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 0.5rem 2.5rem;
+  border-bottom: 2px solid #e8c992;
+  margin-bottom: 2.5rem;
+}
+
+.sobre-label {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b08a3e;
+  margin-bottom: 0.6rem;
+}
+
+.sobre-header h1 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #2c0404;
+}
+
+.sobre-header p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(29, 2, 2, 0.6);
+  max-width: 420px;
+  margin-top: 0.8rem;
+}
+
+/* ===== SEÇÕES DE TEXTO ===== */
+
+.sobre-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.2rem;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid rgba(29, 2, 2, 0.08);
+}
+
+.sobre-section:last-of-type {
+  border-bottom: none;
+}
+
+.sobre-section h2 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  color: #2c0404;
+  margin-bottom: 0.9rem;
+}
+
+.sobre-section p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: rgba(29, 2, 2, 0.65);
+}
+
+.sobre-section p + p {
+  margin-top: 0.8rem;
+}
+
+/* ===== DOCUMENTOS ===== */
+
+.sobre-documentos .sobre-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.sobre-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #e8c992;
+  background-color: #2c0404;
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  transition: transform 0.15s ease;
+}
+
+.sobre-links a::after {
+  content: "→";
+  font-size: 0.9rem;
+  color: #e8c992;
+}
+
+.sobre-links a:active {
+  transform: scale(0.98);
+}
+
+/* ===== CTA FINAL ===== */
+
+.sobre-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background-color: #2c0404;
+  border-radius: 28px;
+  margin-top: 0.5rem;
+}
+
+.sobre-cta h2 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  color: #e8c992;
+}
+
+.sobre-cta p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: rgba(245, 245, 245, 0.65);
+  max-width: 320px;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sobre-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  transition: transform 0.15s ease;
+}
+
+.sobre-cta-button:active {
+  transform: scale(0.98);
+}

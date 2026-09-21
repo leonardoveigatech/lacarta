@@ -1,0 +1,351 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Suporte | La Carta
+{% endblock %}
+
+{% block content %}
+
+<section class="secao">
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                SUPORTE
+            </span>
+
+            <h1>
+                Como podemos ajudar?
+            </h1>
+
+            <p>
+                Conte o que está acontecendo e envie sua solicitação.
+                Sua mensagem será encaminhada diretamente para o suporte
+                do La Carta pelo WhatsApp.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form id="formSuporte" class="form form-secoes">
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    SEUS DADOS
+                </span>
+
+                <h2>
+                    Identificação
+                </h2>
+
+                <p>
+                    Essas informações serão enviadas junto com sua solicitação.
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="nome">
+                    Nome
+                </label>
+
+                <input type="text" id="nome" name="nome" value="{{ usuario.nome }}" maxlength="100" required>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input type="email" id="email" name="email" value="{{ usuario.email }}" maxlength="150" required>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             SOLICITAÇÃO
+        ====================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    SOLICITAÇÃO
+                </span>
+
+                <h2>
+                    O que você precisa?
+                </h2>
+
+                <p>
+                    Quanto mais detalhes você fornecer, melhor poderemos
+                    entender e resolver sua solicitação.
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="tipo">
+                    Tipo de solicitação
+                </label>
+
+                <select id="tipo" name="tipo" required>
+
+                    <option value="" selected disabled>
+                        Selecione uma opção
+                    </option>
+
+                    <option value="Problema técnico">
+                        Problema técnico
+                    </option>
+
+                    <option value="Dúvida sobre o sistema">
+                        Dúvida sobre o sistema
+                    </option>
+
+                    <option value="Alteração no cardápio">
+                        Alteração no cardápio
+                    </option>
+
+                    <option value="Personalização">
+                        Personalização
+                    </option>
+
+                    <option value="Solicitação de orçamento">
+                        Solicitação de orçamento
+                    </option>
+
+                    <option value="Outra solicitação">
+                        Outra solicitação
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="assunto">
+                    Assunto
+                </label>
+
+                <input type="text" id="assunto" name="assunto" maxlength="150"
+                    placeholder="Ex.: Meu cardápio não está atualizando" required>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="descricao">
+                    Descreva o que está acontecendo
+                </label>
+
+                <textarea id="descricao" name="descricao" rows="7" maxlength="2000"
+                    placeholder="Explique o problema, o que você precisa ou como gostaria que fosse feito..."
+                    required></textarea>
+
+                <small>
+                    Descreva o máximo de detalhes possível.
+                </small>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="urgencia">
+                    Prazo / urgência
+                </label>
+
+                <select id="urgencia" name="urgencia" required>
+
+                    <option value="" selected disabled>
+                        Selecione uma opção
+                    </option>
+
+                    <option value="Sem urgência">
+                        Sem urgência
+                    </option>
+
+                    <option value="Preciso em breve">
+                        Preciso em breve
+                    </option>
+
+                    <option value="Preciso com urgência">
+                        Preciso com urgência
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             OBSERVAÇÕES
+        ====================================================== -->
+
+        <div class="form-bloco">
+
+            <div class="form-bloco-topo">
+
+                <span class="label">
+                    INFORMAÇÕES ADICIONAIS
+                </span>
+
+                <h2>
+                    Tem mais alguma coisa?
+                </h2>
+
+                <p>
+                    Se quiser, adicione outras informações importantes.
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="observacoes">
+                    Observações
+                </label>
+
+                <textarea id="observacoes" name="observacoes" rows="5" maxlength="1500"
+                    placeholder="Alguma informação adicional..."></textarea>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             BOTÃO
+        ====================================================== -->
+
+        <button class="buttonSolicitar" type="submit">
+            Enviar solicitação pelo WhatsApp
+        </button>
+
+    </form>
+
+</section>
+
+
+<script>
+
+    document
+        .getElementById("formSuporte")
+        .addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const nome = document
+                .getElementById("nome")
+                .value
+                .trim();
+
+            const email = document
+                .getElementById("email")
+                .value
+                .trim();
+
+            const tipo = document
+                .getElementById("tipo")
+                .value
+                .trim();
+
+            const assunto = document
+                .getElementById("assunto")
+                .value
+                .trim();
+
+            const descricao = document
+                .getElementById("descricao")
+                .value
+                .trim();
+
+            const urgencia = document
+                .getElementById("urgencia")
+                .value
+                .trim();
+
+            const observacoes = document
+                .getElementById("observacoes")
+                .value
+                .trim();
+
+
+            let mensagem =
+                `*SOLICITAÇÃO DE SUPORTE — LA CARTA*
+
+Olá! Gostaria de solicitar ajuda.
+
+*Nome:*
+${nome}
+
+*E-mail:*
+${email}
+
+*Tipo de solicitação:*
+${tipo}
+
+*Assunto:*
+${assunto}
+
+*Descrição:*
+${descricao}
+
+*Prazo / urgência:*
+${urgencia}`;
+
+
+            if (observacoes) {
+
+                mensagem += `
+
+*Observações adicionais:*
+${observacoes}`;
+
+            }
+
+
+            const numeroWhatsApp = "5548991286349";
+
+            const url =
+                "https://wa.me/" +
+                numeroWhatsApp +
+                "?text=" +
+                encodeURIComponent(mensagem);
+
+
+            window.open(
+                url,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Configurações | La Carta
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+
+    ```
+    <div class="heading">
+
+        <span class="label">
+            Configurações
+        </span>
+
+        <h1>
+            Configurações
+        </h1>
+
+        <p>
+            Gerencie as informações, preferências e segurança da sua conta.
+        </p>
+
+    </div>
+
+
+    <div class="cards-grid">
+
+
+        <!-- MEU ESTABELECIMENTO -->
+
+        <a href="{{ url_for('admin.estabelecimento') }}" class="card">
+
+            <div class="card-icon">
+                🏪
+            </div>
+
+            <div class="card-content">
+
+                <h2>
+                    Meu estabelecimento
+                </h2>
+
+                <p>
+                    Edite o nome, descrição, contato, endereço e outras informações do estabelecimento.
+                </p>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- HORÁRIOS -->
+
+        <a href="{{ url_for('admin.horarios') }}" class="card">
+
+            <div class="card-icon">
+                🕐
+            </div>
+
+            <div class="card-content">
+
+                <h2>
+                    Horários
+                </h2>
+
+                <p>
+                    Configure os horários de funcionamento do estabelecimento.
+                </p>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- REDES SOCIAIS -->
+
+        <a href="{{ url_for('admin.redes_sociais') }}" class="card">
+
+            <div class="card-icon">
+                📱
+            </div>
+
+            <div class="card-content">
+
+                <h2>
+                    Redes sociais
+                </h2>
+
+                <p>
+                    Gerencie os links das redes sociais exibidos no seu cardápio.
+                </p>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- MINHA CONTA -->
+
+        <a href="{{ url_for('admin.conta') }}" class="card">
+
+            <div class="card-icon">
+                👤
+            </div>
+
+            <div class="card-content">
+
+                <h2>
+                    Minha conta
+                </h2>
+
+                <p>
+                    Consulte e gerencie as informações da sua conta administrativa.
+                </p>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- SEGURANÇA -->
+
+        <a href="{{ url_for('admin.seguranca') }}" class="card">
+
+            <div class="card-icon">
+                🔒
+            </div>
+
+            <div class="card-content">
+
+                <h2>
+                    Segurança
+                </h2>
+
+                <p>
+                    Gerencie sua senha e as opções relacionadas à segurança da conta.
+                </p>
+
+            </div>
+
+        </a>
+
+
+    </div>
+    ```
+
+</section>
+
+{% endblock %}

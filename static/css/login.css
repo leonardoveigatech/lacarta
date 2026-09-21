@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+/* LA CARTA - LOGIN - MOBILE FIRST */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  background-color: #2c0404;
+  color: #f2ede4;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  background-image: url(/static/imagens/bgqrcodelogin.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 64%;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: rgba(44, 4, 4, 0.5);
+
+  z-index: -1;
+}
+h1 {
+  font-family: "Cormorant", serif;
+  font-variant: small-caps;
+  font-size: 1.8rem;
+  letter-spacing: 0.08em;
+  color: #e8c992;
+  text-align: center;
+  font-weight: 600;
+}
+
+body > p {
+  font-size: 0.85rem;
+  color: rgba(245, 245, 245, 0.65);
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* ===== FORMULÁRIO ===== */
+
+form {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+form br {
+  display: none;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+form label {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.6);
+}
+
+form input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(232, 201, 146, 0.25);
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem;
+  color: #f2ede4;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+form input:focus {
+  border-color: #e8c992;
+}
+
+button {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem;
+  margin-top: 0.4rem;
+  transition: transform 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.sobre-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1d0202;
+  background-color: #e8c992;
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  transition: transform 0.15s ease;
+  margin-top: 4rem;
+}
+
+.sobre-cta-button:active {
+  transform: scale(0.98);
+}
+
+/* MEDIA LOGIN */
+
+@media (min-width: 960px) {
+  body {
+    background-image:
+      url(/static/imagens/bgqrcodelogin.png),
+      url(/static/imagens/bgqrcodelogin.png);
+    background-position:
+      left center,
+      right center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 28%, 28%;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: rgba(44, 4, 4, 0.623);
+
+    z-index: -1;
+  }
+}

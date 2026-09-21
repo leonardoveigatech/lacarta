@@ -1,0 +1,327 @@
+{% extends "admin/base.html" %}
+
+
+{% block title %}
+Horários | La Carta
+{% endblock %}
+
+{% block description %}
+Defina os dias e horários em que seu estabelecimento estará aberto.
+{% endblock %}
+
+
+{% block content %}
+
+<section class="secao">
+
+    <!-- TOPO -->
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                Configurações
+            </span>
+
+            <h1>
+                Horários de funcionamento
+            </h1>
+
+            <p>
+                Defina os dias e horários em que seu estabelecimento estará aberto.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <form method="POST" action="{{ url_for('admin.horarios') }}" class="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        {% set dias = {
+        1: "Segunda-feira",
+        2: "Terça-feira",
+        3: "Quarta-feira",
+        4: "Quinta-feira",
+        5: "Sexta-feira",
+        6: "Sábado",
+        7: "Domingo"
+        } %}
+
+        {% for dia, nome_dia in dias.items() %}
+
+        <div class="campo">
+
+            <div class="dia-horario">
+
+                <div class="dia-horario-topo">
+
+                    <strong>
+                        {{ nome_dia }}
+                    </strong>
+
+                    <label class="campo-checkbox">
+
+                        <input type="checkbox" class="dia-checkbox" data-dia="{{ dia }}" name="dias_funcionamento"
+                            value="{{ dia }}" {% if horarios[dia][0].abertura or horarios[dia][0].fechamento or
+                            horarios[dia][1].abertura or horarios[dia][1].fechamento %} checked {% endif %}>
+
+                        Aberto neste dia
+
+                    </label>
+
+                </div>
+
+
+                <div class="periodos-horario">
+
+                    {% for periodo in range(2) %}
+
+                    <div class="periodo-horario">
+
+                        <span>
+                            {{ periodo + 1 }}º período
+                        </span>
+
+                        <div class="periodo-horario-campos">
+
+                            <input type="time" name="horarios[{{ dia }}][{{ periodo }}][abertura]"
+                                value="{{ horarios[dia][periodo].abertura }}"
+                                aria-label="Abertura de {{ nome_dia }} - {{ periodo + 1 }}º período">
+
+                            <span>
+                                até
+                            </span>
+
+                            <input type="time" name="horarios[{{ dia }}][{{ periodo }}][fechamento]"
+                                value="{{ horarios[dia][periodo].fechamento }}"
+                                aria-label="Fechamento de {{ nome_dia }} - {{ periodo + 1 }}º período">
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+        <!-- AÇÕES -->
+
+        <div class="acoes">
+
+            <a href="{{ url_for('admin.estabelecimento') }}" class="botao secundario">
+                Cancelar
+            </a>
+
+            <button type="submit" class="botao">
+                Salvar horários
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+
+<!-- ======================================================
+     CONTROLE DOS DIAS
+     Quando o dia é desmarcado, os campos dos dois períodos
+     são desabilitados e limpos. Campo desabilitado não é
+     enviado no submit, então o dia fecha sozinho, sem
+     precisar de lógica extra no backend — e sem afetar
+     nenhum outro dia.
+======================================================= -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const checkboxes = document.querySelectorAll(".dia-checkbox");
+
+        checkboxes.forEach(function (checkbox) {
+
+            const dia = checkbox.dataset.dia;
+
+            const campos = document.querySelectorAll(
+                'input[name^="horarios[' + dia + ']"]'
+            );
+
+            function aoMudar() {
+
+                campos.forEach(function (campo) {
+
+                    const periodo = campo.closest(".periodo-horario");
+
+                    if (periodo) {
+                        periodo.classList.toggle(
+                            "dia-fechado",
+                            !checkbox.checked
+                        );
+                    }
+
+                    campo.disabled = !checkbox.checked;
+
+                    if (!checkbox.checked) {
+                        campo.value = "";
+                    }
+
+                });
+
+            }
+
+            // Estado visual inicial (não mexe nos valores, só
+            // reflete o que já veio do banco).
+            function aplicarEstadoInicial() {
+
+                campos.forEach(function (campo) {
+
+                    const periodo = campo.closest(".periodo-horario");
+
+                    if (periodo) {
+                        periodo.classList.toggle(
+                            "dia-fechado",
+                            !checkbox.checked
+                        );
+                    }
+
+                    campo.disabled = !checkbox.checked;
+
+                });
+
+            }
+
+            checkbox.addEventListener("change", aoMudar);
+
+            aplicarEstadoInicial();
+
+        });
+
+    });
+</script>
+
+
+<!-- ======================================================
+     VALIDAÇÃO ANTES DE ENVIAR
+     Impede o envio quando um período está com só um dos
+     dois horários preenchido (isso derrubava o salvamento
+     inteiro no backend, apagando dias que já estavam certos).
+======================================================= -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const form = document.querySelector("form.form");
+
+        if (!form) {
+            return;
+        }
+
+        const pares = [];
+
+        for (let dia = 1; dia <= 7; dia++) {
+
+            for (let periodo = 0; periodo <= 1; periodo++) {
+
+                const abertura = form.querySelector(
+                    `input[name="horarios[${dia}][${periodo}][abertura]"]`
+                );
+
+                const fechamento = form.querySelector(
+                    `input[name="horarios[${dia}][${periodo}][fechamento]"]`
+                );
+
+                if (abertura && fechamento) {
+                    pares.push({ abertura, fechamento });
+                }
+
+            }
+
+        }
+
+        function validarPar(abertura, fechamento) {
+
+            // Campos desabilitados (dia fechado) não entram
+            // na validação nem no envio.
+            if (abertura.disabled || fechamento.disabled) {
+                abertura.setCustomValidity("");
+                fechamento.setCustomValidity("");
+                return;
+            }
+
+            const temAbertura = abertura.value !== "";
+            const temFechamento = fechamento.value !== "";
+
+            if (!temAbertura && !temFechamento) {
+                abertura.setCustomValidity("");
+                fechamento.setCustomValidity("");
+                return;
+            }
+
+            if (!temAbertura) {
+                abertura.setCustomValidity(
+                    "Informe o horário de abertura ou deixe os dois campos vazios."
+                );
+                fechamento.setCustomValidity("");
+                return;
+            }
+
+            if (!temFechamento) {
+                fechamento.setCustomValidity(
+                    "Informe o horário de fechamento ou deixe os dois campos vazios."
+                );
+                abertura.setCustomValidity("");
+                return;
+            }
+
+            if (fechamento.value <= abertura.value) {
+                fechamento.setCustomValidity(
+                    "O fechamento deve ser posterior à abertura."
+                );
+                abertura.setCustomValidity("");
+                return;
+            }
+
+            abertura.setCustomValidity("");
+            fechamento.setCustomValidity("");
+        }
+
+        pares.forEach(function (par) {
+
+            par.abertura.addEventListener("input", function () {
+                validarPar(par.abertura, par.fechamento);
+            });
+
+            par.fechamento.addEventListener("input", function () {
+                validarPar(par.abertura, par.fechamento);
+            });
+
+        });
+
+        form.addEventListener("submit", function (evento) {
+
+            pares.forEach(function (par) {
+                validarPar(par.abertura, par.fechamento);
+            });
+
+            if (!form.checkValidity()) {
+
+                evento.preventDefault();
+
+                form.reportValidity();
+            }
+
+        });
+
+    });
+</script>
+
+{% endblock %}

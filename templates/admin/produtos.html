@@ -1,0 +1,353 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Produtos | La Carta
+{% endblock %}
+
+{% block description %}
+Gerencie os produtos organizados por categoria e subcategoria.
+{% endblock %}
+
+
+{% block content %}
+
+<section class="secao">
+
+    <!-- ==================================================
+         TOPO
+    ================================================== -->
+
+    <div class="topo">
+
+        <div>
+
+            <span class="label">
+                CARDÁPIO
+            </span>
+
+            <h1>
+                Produtos
+            </h1>
+
+            <p>
+                Gerencie os produtos organizados por categoria
+                e subcategoria.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('admin.novo_produto') }}"
+            class="botao"
+        >
+            + Novo produto
+        </a>
+
+    </div>
+
+
+    <!-- ==================================================
+         ESTRUTURA
+    ================================================== -->
+
+    {% if estrutura %}
+
+    {% for item in estrutura %}
+
+
+    <!-- ==================================================
+         CATEGORIA
+    ================================================== -->
+
+    <div class="grupo-categoria">
+
+        <div class="item categoria">
+
+            <div class="info">
+
+                <span class="label">
+                    CATEGORIA
+                </span>
+
+                <h2>
+                    {{ item.categoria.nome }}
+                </h2>
+
+            </div>
+
+
+            <div class="acoes">
+
+                <a
+                    href="{{ url_for(
+                        'admin.visualizar_categoria',
+                        categoria_id=item.categoria.id
+                    ) }}"
+                    class="botao"
+                >
+                    Ver categoria
+                </a>
+
+
+                <a
+                    href="{{ url_for(
+                        'admin.novo_produto',
+                        categoria_id=item.categoria.id
+                    ) }}"
+                    class="botao"
+                >
+                    + Produto
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             SUBCATEGORIAS
+        ================================================== -->
+
+        {% if item.subcategorias %}
+
+        <div class="lista sublista">
+
+            {% for subcategoria in item.subcategorias %}
+
+            <div class="item">
+
+                <div class="info">
+
+                    <span class="label">
+                        SUBCATEGORIA
+                    </span>
+
+                    <h3>
+                        {{ subcategoria.nome }}
+                    </h3>
+
+
+                    <span class="detalhes">
+
+                        {{ subcategoria.produtos|length }}
+
+                        {% if subcategoria.produtos|length == 1 %}
+                        produto
+                        {% else %}
+                        produtos
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="acoes">
+
+                    <a
+                        href="{{ url_for(
+                            'admin.visualizar_subcategoria',
+                            subcategoria_id=subcategoria.id
+                        ) }}"
+                        class="botao"
+                    >
+                        Ver produtos
+                    </a>
+
+
+                    <a
+                        href="{{ url_for(
+                            'admin.novo_produto',
+                            categoria_id=item.categoria.id,
+                            subcategoria_id=subcategoria.id
+                        ) }}"
+                        class="botao"
+                    >
+                        + Produto
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ==================================================
+             PRODUTOS DIRETOS
+        ================================================== -->
+
+        {% if item.produtos_sem_subcategoria %}
+
+        <div class="bloco-diretos">
+
+            <div class="topo pequeno">
+
+                <div>
+
+                    <span class="label">
+                        PRODUTOS DIRETOS
+                    </span>
+
+                    <h3>
+                        Sem subcategoria
+                    </h3>
+
+                    <p>
+                        Produtos cadastrados diretamente em
+                        {{ item.categoria.nome }}.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="lista">
+
+                {% for produto in item.produtos_sem_subcategoria %}
+
+                <div class="item">
+
+                    <div class="info">
+
+                        <h3>
+                            {{ produto.nome }}
+                        </h3>
+
+
+                        {% if produto.descricao %}
+
+                        <p>
+                            {{ produto.descricao }}
+                        </p>
+
+                        {% endif %}
+
+
+                        <div class="detalhes">
+
+                            <span>
+                                R$ {{ "%.2f"|format(produto.preco) }}
+                            </span>
+
+
+                            {% if produto.disponivel %}
+
+                            <span class="status ativo">
+                                Disponível
+                            </span>
+
+                            {% else %}
+
+                            <span class="status inativo">
+                                Indisponível
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="acoes">
+
+                        <a
+                            href="{{ url_for(
+                                'admin.editar_produto',
+                                produto_id=produto.id
+                            ) }}"
+                            class="botao"
+                        >
+                            Editar
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'admin.excluir_produto_rota',
+                                produto_id=produto.id
+                            ) }}"
+                            onsubmit="return confirm(
+                                'Tem certeza que deseja excluir este produto?'
+                            );"
+                        >
+
+                            <button
+                                type="submit"
+                                class="botao excluir"
+                            >
+                                Excluir
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- SEPARADOR -->
+
+    {% if not loop.last %}
+
+    <div class="separador"></div>
+
+    {% endif %}
+
+
+    {% endfor %}
+
+
+    {% else %}
+
+
+    <!-- ==================================================
+         NENHUMA CATEGORIA
+    ================================================== -->
+
+    <div class="vazio">
+
+        <span class="label">
+            CARDÁPIO
+        </span>
+
+        <h2>
+            Nenhuma categoria cadastrada
+        </h2>
+
+        <p>
+            Crie uma categoria antes de cadastrar produtos.
+        </p>
+
+        <a
+            href="{{ url_for('admin.nova_categoria') }}"
+            class="botao"
+        >
+            + Criar categoria
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

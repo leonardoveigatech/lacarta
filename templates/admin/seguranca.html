@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Segurança | La Carta{% endblock %}
+
+{% block content %}
+<section class="secao">
+    <div class="topo">
+        <div>
+            <span class="label">CONFIGURAÇÕES</span>
+            <h1>Segurança</h1>
+            <p>Proteja o acesso à sua conta.</p>
+        </div>
+    </div>
+
+    <div class="acoes">
+        <a class="botao" href="{{ url_for('admin.alterar_senha') }}">Alterar senha</a>
+    </div>
+</section>
+{% endblock %}
