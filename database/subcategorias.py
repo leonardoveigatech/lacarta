@@ -1,9 +1,6 @@
 from database.connection import get_connection
 
 
-# ==========================================================
-# BUSCAR SUBCATEGORIAS DA CATEGORIA
-# ==========================================================
 
 def buscar_por_categoria(
     categoria_id,
@@ -43,9 +40,6 @@ def buscar_por_categoria(
         conexao.close()
 
 
-# ==========================================================
-# BUSCAR SUBCATEGORIA POR ID
-# ==========================================================
 
 def buscar_por_id(
     subcategoria_id,
@@ -83,10 +77,6 @@ def buscar_por_id(
         cursor.close()
         conexao.close()
 
-
-# ==========================================================
-# CRIAR SUBCATEGORIA
-# ==========================================================
 
 def criar_subcategoria(
     estabelecimento_id,
@@ -140,9 +130,6 @@ def criar_subcategoria(
         conexao.close()
 
 
-# ==========================================================
-# ATUALIZAR SUBCATEGORIA
-# ==========================================================
 
 def atualizar_subcategoria(
     subcategoria_id,
@@ -184,9 +171,6 @@ def atualizar_subcategoria(
         conexao.close()
 
 
-# ==========================================================
-# ALTERAR DISPONIBILIDADE
-# ==========================================================
 
 def alterar_disponibilidade(
     subcategoria_id,
@@ -225,9 +209,6 @@ def alterar_disponibilidade(
         conexao.close()
 
 
-# ==========================================================
-# EXCLUIR SUBCATEGORIA
-# ==========================================================
 
 def excluir_subcategoria(
     subcategoria_id,
