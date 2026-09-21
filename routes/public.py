@@ -15,9 +15,6 @@ public = Blueprint("public", __name__)
 
 
 
-# ============================================================
-# CSS PERSONALIZADO DO ESTABELECIMENTO
-# ============================================================
 
 @public.route("/<slug>/aparencia.css")
 def aparencia_css(slug):
@@ -53,9 +50,7 @@ def aparencia_css(slug):
         if aparencia["cor_texto"]:
             cor_texto = aparencia["cor_texto"]
 
-    # ============================================================
-    # CALCULA AUTOMATICAMENTE UMA COR DE TEXTO LEGÍVEL
-    # ============================================================
+   
 
     def cor_contraste(hex_color):
 
@@ -256,9 +251,7 @@ def aparencia_css(slug):
         css,
         mimetype="text/css"
     )
-# ============================================================
-# INÍCIO GERAL DO LA CARTA
-# ============================================================
+
 @public.route("/")
 def inicio():
 
@@ -266,10 +259,6 @@ def inicio():
         "public/inicio.html"
     )
 
-
-# ============================================================
-# FAQ DO LA CARTA
-# ============================================================
 
 @public.route("/faq")
 def faq():
@@ -280,9 +269,7 @@ def faq():
     )
 
 
-# ============================================================
-# SOBRE O LA CARTA
-# ============================================================
+
 
 @public.route("/sobre")
 def sobre():
@@ -291,9 +278,7 @@ def sobre():
         "public/sobre.html",
         pagina_institucional=True
     )
-# ============================================================
-# TERMOS DE USO
-# ============================================================
+
 
 @public.route("/termos-de-uso")
 def termos_de_uso():
@@ -304,9 +289,7 @@ def termos_de_uso():
     )
 
 
-# ============================================================
-# POLÍTICA DE PRIVACIDADE
-# ============================================================
+
 
 @public.route("/politica-de-privacidade")
 def politica_privacidade():
@@ -317,9 +300,6 @@ def politica_privacidade():
     )
 
 
-# ============================================================
-# INÍCIO DO ESTABELECIMENTO
-# ============================================================
 
 @public.route("/<slug>")
 def estabelecimento(slug):
@@ -353,10 +333,6 @@ def estabelecimento(slug):
     )
 
 
-# ============================================================
-# CARDÁPIO DO ESTABELECIMENTO
-# ============================================================
-
 @public.route("/<slug>/cardapio")
 def cardapio(slug):
 
@@ -381,9 +357,7 @@ def cardapio(slug):
     )
 
 
-# ============================================================
-# CATEGORIA DO CARDÁPIO
-# ============================================================
+
 
 @public.route(
     "/<slug>/cardapio/categoria/<int:categoria_id>"
@@ -415,9 +389,6 @@ def categoria(slug, categoria_id):
     )
 
 
-# ============================================================
-# SUBCATEGORIA DO CARDÁPIO
-# ============================================================
 
 @public.route(
     "/<slug>/cardapio/subcategoria/<int:subcategoria_id>"
@@ -449,9 +420,6 @@ def subcategoria(slug, subcategoria_id):
     )
 
 
-# ============================================================
-# BUSCA DE PRODUTOS
-# ============================================================
 
 @public.route("/<slug>/buscar")
 def buscar(slug):
