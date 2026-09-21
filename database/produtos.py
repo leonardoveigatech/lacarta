@@ -1,10 +1,6 @@
 from database.connection import get_connection
 
 
-# ==========================================================
-# BUSCAR PRODUTOS DISPONÍVEIS DO ESTABELECIMENTO
-# ==========================================================
-
 def buscar_por_estabelecimento(estabelecimento_id):
 
     conexao = get_connection()
@@ -44,10 +40,6 @@ def buscar_por_estabelecimento(estabelecimento_id):
         conexao.close()
 
 
-# ==========================================================
-# BUSCAR TODOS OS PRODUTOS DO ESTABELECIMENTO
-# ==========================================================
-
 def buscar_todos_por_estabelecimento(estabelecimento_id):
 
     conexao = get_connection()
@@ -85,10 +77,6 @@ def buscar_todos_por_estabelecimento(estabelecimento_id):
         cursor.close()
         conexao.close()
 
-
-# ==========================================================
-# BUSCAR PRODUTOS POR CATEGORIA
-# ==========================================================
 
 def buscar_por_categoria(
     categoria_id,
@@ -135,9 +123,6 @@ def buscar_por_categoria(
         conexao.close()
 
 
-# ==========================================================
-# BUSCAR PRODUTOS POR SUBCATEGORIA
-# ==========================================================
 
 def buscar_por_subcategoria(
     subcategoria_id,
@@ -184,11 +169,6 @@ def buscar_por_subcategoria(
         conexao.close()
 
 
-# ==========================================================
-
-# ==========================================================
-# BUSCAR PRODUTO POR ID
-# ==========================================================
 
 def buscar_por_id(
     produto_id,
@@ -233,11 +213,6 @@ def buscar_por_id(
         cursor.close()
         conexao.close()
 
-
-
-
-# BUSCAR PRODUTO POR ID
-# ==========================================================
 def buscar_por_termo(
     estabelecimento_id,
     termo
@@ -300,10 +275,6 @@ def buscar_por_termo(
         cursor.close()
         conexao.close()
 
-
-# ==========================================================
-# CRIAR PRODUTO
-# ==========================================================
 
 def criar_produto(
     estabelecimento_id,
@@ -379,10 +350,6 @@ def criar_produto(
         cursor.close()
         conexao.close()
 
-
-# ==========================================================
-# ATUALIZAR PRODUTO
-# ==========================================================
 
 def atualizar_produto(
     produto_id,
