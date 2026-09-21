@@ -166,9 +166,6 @@ admin = Blueprint(
 )
 
 
-# ==========================================================
-# AUTENTICAÇÃO
-# ==========================================================
 def usuario_logado():
 
     usuario_id = session.get("usuario_id")
@@ -238,9 +235,6 @@ def token_email_valido(token):
         and token["expira_em"] >= datetime.now()
     )
 
-# ==========================================================
-# DASHBOARD
-# ==========================================================
 
 @admin.route("/")
 def dashboard():
@@ -351,9 +345,7 @@ def login():
     return render_template(
         "admin/login.html"
     )
-# ==========================================================
-# LOGOUT
-# ==========================================================
+
 @admin.route("/logout", methods=["POST"])
 def logout():
 
@@ -366,10 +358,6 @@ def logout():
         url_for("admin.login")
     )
 
-
-# ==========================================================
-# ESTABELECIMENTO
-# ==========================================================
 
 @admin.route("/estabelecimento")
 def estabelecimento():
@@ -458,8 +446,6 @@ def editar_estabelecimento():
 
     logo = request.files.get("logo")
 
-    # Aceita os dois nomes para evitar quebra caso o HTML atual use
-    # imagemCapa (como no cadastro) ou imagem_capa.
     imagem_capa = request.files.get("imagemCapa")
 
     if not imagem_capa:
@@ -517,9 +503,6 @@ def editar_estabelecimento():
     )
 
 
-# ==========================================================
-# CATEGORIAS
-# ==========================================================
 
 @admin.route("/categorias")
 def categorias():
@@ -541,10 +524,6 @@ def categorias():
         categorias=categorias
     )
 
-
-# ==========================================================
-# VISUALIZAR CATEGORIA
-# ==========================================================
 
 @admin.route(
     "/categorias/<int:categoria_id>"
@@ -593,9 +572,6 @@ def visualizar_categoria(categoria_id):
     )
 
 
-# ==========================================================
-# NOVA CATEGORIA
-# ==========================================================
 
 @admin.route(
     "/categorias/nova",
@@ -653,9 +629,6 @@ def nova_categoria():
     )
 
 
-# ==========================================================
-# EDITAR CATEGORIA
-# ==========================================================
 @admin.route(
     "/categorias/editar/<int:categoria_id>",
     methods=["GET", "POST"]
@@ -724,9 +697,7 @@ def editar_categoria(categoria_id):
         usuario=usuario,
         categoria=categoria
     )
-# ==========================================================
-# EXCLUIR CATEGORIA
-# ==========================================================
+
 
 @admin.route(
     "/categorias/excluir/<int:categoria_id>",
@@ -778,9 +749,6 @@ def excluir_categoria_rota(categoria_id):
     )
 
 
-# ==========================================================
-# DISPONIBILIDADE DA CATEGORIA
-# ==========================================================
 @admin.route(
     "/categorias/disponibilidade/<int:categoria_id>",
     methods=["POST"]
@@ -818,10 +786,6 @@ def alterar_disponibilidade_categoria_rota(categoria_id):
         url_for("admin.categorias")
     )
 
-# ==========================================================
-# SUBCATEGORIAS
-# ==========================================================
-
 @admin.route(
     "/categorias/<int:categoria_id>/subcategorias"
 )
@@ -857,9 +821,6 @@ def subcategorias(categoria_id):
     )
 
 
-# ==========================================================
-# SUBCATEGORIAS JSON
-# ==========================================================
 
 @admin.route(
     "/categorias/<int:categoria_id>/subcategorias/json"
@@ -895,9 +856,6 @@ def subcategorias_json(categoria_id):
     }
 
 
-# ==========================================================
-# NOVA SUBCATEGORIA
-# ==========================================================
 
 @admin.route(
     "/categorias/<int:categoria_id>/subcategorias/nova",
@@ -969,10 +927,6 @@ def nova_subcategoria(categoria_id):
         categoria=categoria
     )
 
-
-# ==========================================================
-# EDITAR SUBCATEGORIA
-# ==========================================================
 
 @admin.route(
     "/subcategorias/editar/<int:subcategoria_id>",
@@ -1054,9 +1008,6 @@ def editar_subcategoria(subcategoria_id):
     )
 
 
-# ==========================================================
-# EXCLUIR SUBCATEGORIA
-# ==========================================================
 
 @admin.route(
     "/subcategorias/excluir/<int:subcategoria_id>",
@@ -1099,9 +1050,6 @@ def excluir_subcategoria_rota(subcategoria_id):
     )
 
 
-# ==========================================================
-# VISUALIZAR SUBCATEGORIA
-# ==========================================================
 
 @admin.route(
     "/subcategorias/<int:subcategoria_id>"
@@ -1147,9 +1095,7 @@ def visualizar_subcategoria(subcategoria_id):
     )
 
 
-# ==========================================================
-# PRODUTOS
-# ==========================================================
+
 
 @admin.route("/produtos")
 def produtos():
@@ -1231,9 +1177,7 @@ def novo_produto():
         estabelecimento_id
     )
 
-    # ======================================================
-    # GET
-    # ======================================================
+    
 
     if request.method == "GET":
 
@@ -1311,9 +1255,7 @@ def novo_produto():
             subcategoria_id=subcategoria_id
         )
 
-    # ======================================================
-    # POST
-    # ======================================================
+    
     token_csrf = request.form.get("csrf_token")
     validar_csrf_token(token_csrf)
 
@@ -1453,9 +1395,7 @@ def novo_produto():
             categoria_id=categoria_id
         )
     )
-# ==========================================================
-# EDITAR PRODUTO
-# ==========================================================
+    
 @admin.route(
     "/produtos/editar/<int:produto_id>",
     methods=["GET", "POST"]
@@ -1646,9 +1586,7 @@ def editar_produto(produto_id):
     )
 
 
-# ==========================================================
-# EXCLUIR PRODUTO
-# ==========================================================
+
 
 @admin.route(
     "/produtos/excluir/<int:produto_id>",
@@ -1706,8 +1644,7 @@ def excluir_produto_rota(produto_id):
     )
 
 
-# ==========================================================
-# ATIVAR PRODUTO
+
 # ==========================================================
 
 @admin.route(
@@ -1738,9 +1675,6 @@ def ativar_produto(produto_id):
     )
 
 
-# ==========================================================
-# DESATIVAR PRODUTO
-# ==========================================================
 
 @admin.route(
     "/produtos/desativar/<int:produto_id>",
@@ -1770,9 +1704,6 @@ def desativar_produto(produto_id):
     )
 
 
-# ==========================================================
-# APARÊNCIA
-# ==========================================================
 @admin.route("/aparencia", methods=["GET", "POST"])
 def aparencia():
     usuario = usuario_logado()
@@ -1917,7 +1848,6 @@ def aparencia():
         aparencia=aparencia_atual
     )
 # QR CODES
-# ==========================================================
 
 @admin.route("/qr-codes")
 def qr_codes():
@@ -1940,10 +1870,6 @@ def qr_codes():
     )
 
 
-# ==========================================================
-# LINK DO CARDÁPIO
-# ==========================================================
-
 @admin.route("/link-cardapio")
 def link_cardapio():
 
@@ -1965,7 +1891,6 @@ def link_cardapio():
     )
 
 
-# ==========================================================
 # HORÁRIOS
 @admin.route(
     "/horarios",
@@ -1982,9 +1907,7 @@ def horarios():
 
     estabelecimento_id = usuario["estabelecimento_id"]
 
-    # ==========================================================
-    # SALVAR
-    # ==========================================================
+ 
 
     if request.method == "POST":
         token = request.form.get("csrf_token")
@@ -2055,16 +1978,13 @@ def horarios():
             url_for("admin.horarios")
         )
 
-    # ==========================================================
-    # BUSCAR DO BANCO
-    # ==========================================================
+   
 
     horarios_banco = buscar_horarios_por_estabelecimento(
         estabelecimento_id
     )
 
-    # ==========================================================
-    # ESTRUTURA FIXA
+ 
     # 7 DIAS × 2 PERÍODOS
     # ==========================================================
 
@@ -2083,9 +2003,7 @@ def horarios():
             }
         ]
 
-    # ==========================================================
     # PREENCHE COM O BANCO
-    # ==========================================================
 
     for horario in horarios_banco:
 
@@ -2108,18 +2026,14 @@ def horarios():
             "fechamento": horario["hora_fechamento"]
         }
 
-    # ==========================================================
-    # PÁGINA
-    # ==========================================================
+ 
 
     return render_template(
         "admin/horarios.html",
         usuario=usuario,
         horarios=horarios
     )
-# ==========================================================
-# REDES SOCIAIS
-# ==========================================================
+
 
 @admin.route(
     "/redes-sociais",
@@ -2149,9 +2063,7 @@ def redes_sociais():
         for rede in redes
     }
 
-    # ======================================================
-    # SALVAR
-    # ======================================================
+   
 
     if request.method == "POST":
 
@@ -2197,9 +2109,7 @@ def redes_sociais():
                     plataforma
                 )
 
-                # ------------------------------------------
                 # URL VAZIA
-                # ------------------------------------------
 
                 if not url:
 
@@ -2212,9 +2122,7 @@ def redes_sociais():
 
                     continue
 
-                # ------------------------------------------
                 # VALIDAÇÃO SERVER-SIDE DA URL
-                # ------------------------------------------
 
                 url_analisada = urlparse(
                     url
@@ -2234,9 +2142,7 @@ def redes_sociais():
                         url_for("admin.redes_sociais")
                     )
 
-                # ------------------------------------------
                 # CRIAR
-                # ------------------------------------------
 
                 if rede is None:
 
@@ -2246,9 +2152,7 @@ def redes_sociais():
                         url
                     )
 
-                # ------------------------------------------
                 # ATUALIZAR
-                # ------------------------------------------
 
                 else:
 
@@ -2265,9 +2169,6 @@ def redes_sociais():
                         ativo
                     )
 
-                # ------------------------------------------
-                # STATUS DA NOVA REDE
-                # ------------------------------------------
 
                 if rede is None:
 
@@ -2312,9 +2213,7 @@ def redes_sociais():
             url_for("admin.redes_sociais")
         )
 
-    # ======================================================
-    # PÁGINA
-    # ======================================================
+
 
     return render_template(
         "admin/redes_sociais.html",
@@ -2576,9 +2475,6 @@ def confirmar_email(token):
         url_for("admin.login")
     )
 
-# ==========================================================
-# SEGURANÇA
-# ==========================================================
 
 @admin.route("/seguranca")
 def seguranca():
@@ -2610,7 +2506,6 @@ def suporte():
         usuario=usuario
     )
 
-# -------------- 
 
 
 @admin.route(
