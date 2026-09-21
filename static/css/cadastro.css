@@ -44,7 +44,6 @@ input[type="checkbox"] {
   height: auto;
 }
 
-/* ===== MAIN / PROGRESSO ===== */
 
 .cadastroMain {
   max-width: 480px;
@@ -81,7 +80,6 @@ input[type="checkbox"] {
   transition: width 0.3s ease;
 }
 
-/* ===== STEPS ===== */
 
 .formStep {
   display: none;
@@ -114,7 +112,6 @@ input[type="checkbox"] {
   border-bottom: 1px solid rgba(232, 201, 146, 0.15);
 }
 
-/* ===== CAMPOS ===== */
 
 .campo {
   display: flex;
@@ -178,7 +175,6 @@ input[type="checkbox"] {
   flex: 2;
 }
 
-/* ===== MENSAGENS DE ERRO ===== */
 
 .mensagemErro {
   display: block;
@@ -201,7 +197,6 @@ input[type="checkbox"] {
   display: none;
 }
 
-/* ===== CHECKBOX TERMOS ===== */
 
 .campoCheckbox {
   display: flex;
@@ -258,7 +253,6 @@ input[type="checkbox"] {
   text-decoration: none;
 }
 
-/* ===== UPLOAD DE IMAGEM ===== */
 
 .campoUpload {
   display: flex;
@@ -302,7 +296,6 @@ input[type="checkbox"] {
   color: rgba(245, 245, 245, 0.7);
 }
 
-/* ===== FUNCIONAMENTO / DIAS E HORÁRIOS ===== */
 
 .horarioDia {
   padding: 1rem 0;
@@ -356,7 +349,6 @@ input[type="checkbox"] {
   pointer-events: none;
 }
 
-/* ===== BOTÕES ===== */
 
 .btnAvancar {
   width: 100%;
