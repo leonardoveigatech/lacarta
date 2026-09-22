@@ -6,12 +6,6 @@ duvidas.addEventListener("click", () => {
 });
 
 // ------------------
-
-// Separado em dois grupos, porque só os dropdowns principais do
-// nav (Por que / Recursos / Como funciona) precisam ser mutuamente
-// exclusivos. Os itens expansíveis dentro de Recursos (Gestão pelo
-// Painel, QR Code) continuam independentes — fechar um não deve
-// fechar o .navDropdown pai que os contém.
 const navTriggers = document.querySelectorAll('.navTrigger');
 const itemTriggers = document.querySelectorAll('.itemTrigger');
 
