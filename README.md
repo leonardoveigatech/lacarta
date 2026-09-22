@@ -13,7 +13,7 @@ O projeto foi desenvolvido como uma aplicação completa, envolvendo backend, ba
 ### Cardápio público
 
 <p align="center">
-<img width="1920" height="1080" alt="Captura de tela 2026-09-21 214418" src="https://github.com/user-attachments/assets/0fc676b4-d675-47eb-8980-37f0d8fe76b3"/>
+<img width="1280" height="720" alt="Captura de tela 2026-09-21 214418" src="https://github.com/user-attachments/assets/0fc676b4-d675-47eb-8980-37f0d8fe76b3"/>
 <img width="220"  alt="Captura de tela 2026-09-21 215905" src="https://github.com/user-attachments/assets/82c4c162-331b-4bf7-b9aa-ce448b7ad084" />
 <img width="220"  alt="Captura de tela 2026-09-21 215841" src="https://github.com/user-attachments/assets/276e9919-7a7b-47b9-bc41-5ab4a6e3a56b" />
 <img width="220"  alt="Captura de tela 2026-09-21 215806" src="https://github.com/user-attachments/assets/e910b304-9ee7-4912-a9c9-0b082e0609ce" />
@@ -25,8 +25,8 @@ O projeto foi desenvolvido como uma aplicação completa, envolvendo backend, ba
 ### Painel administrativo
 
 <p align="center">
-<img width="600" height="566" src="https://github.com/user-attachments/assets/e7f4184b-d8fd-4c95-a159-024bbb9cd456" />
-<img width="600" height="586" src="https://github.com/user-attachments/assets/51614728-4380-400f-b4b6-7b09630498ea" />
+<img width="1280" height="720" src="https://github.com/user-attachments/assets/e7f4184b-d8fd-4c95-a159-024bbb9cd456" />
+<img width="1280" height="720" src="https://github.com/user-attachments/assets/51614728-4380-400f-b4b6-7b09630498ea" />
 
 </p>
 
