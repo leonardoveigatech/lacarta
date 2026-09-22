@@ -1,6 +1,4 @@
-// ==========================
 // MENU HAMBURGUER
-// ==========================
 
 const menuButton = document.getElementById('menuButton');
 const closeButton = document.getElementById('closeButton');
@@ -21,9 +19,7 @@ if (closeButton && asideMenu) {
 }
 
 
-// ==========================
 // CADASTRO
-// ==========================
 
 const form = document.getElementById('formCadastro');
 const steps = document.querySelectorAll('.formStep');
@@ -33,9 +29,7 @@ const progressLabel = document.getElementById('progressLabel');
 const totalSteps = steps.length;
 
 
-// ==========================
 // NAVEGAÇÃO
-// ==========================
 
 function irParaPasso(numero) {
 
@@ -63,9 +57,7 @@ function irParaPasso(numero) {
 }
 
 
-// ==========================
 // ERROS
-// ==========================
 
 function mostrarErro(input, mensagem) {
 
@@ -141,9 +133,7 @@ function limparErroGeral(id) {
 }
 
 
-// ==========================
 // LIMPAR ERRO AO CORRIGIR
-// ==========================
 
 document.querySelectorAll(
     '#formCadastro input, #formCadastro textarea, #formCadastro select'
@@ -160,9 +150,7 @@ document.querySelectorAll(
 });
 
 
-// ==========================
 // TERMOS
-// ==========================
 
 const termos = document.getElementById('termos');
 const erroTermos = document.getElementById('erroTermos');
@@ -182,9 +170,7 @@ if (termos) {
 }
 
 
-// ==========================
 // VALIDAÇÃO CAMPO OBRIGATÓRIO
-// ==========================
 
 function validarCampoObrigatorio(input, mensagem) {
 
@@ -208,9 +194,7 @@ function validarCampoObrigatorio(input, mensagem) {
 }
 
 
-// ==========================
 // PASSO 1
-// ==========================
 
 function validarPasso1() {
 
@@ -347,9 +331,7 @@ function validarPasso1() {
 }
 
 
-// ==========================
 // PASSO 2
-// ==========================
 
 function validarPasso2() {
 
@@ -383,9 +365,7 @@ function validarPasso2() {
 }
 
 
-// ==========================
 // VALIDAÇÃO DE HORÁRIOS
-// ==========================
 
 function validarHorarioPeriodo(
     abertura,
@@ -446,9 +426,7 @@ function validarHorarioPeriodo(
 }
 
 
-// ==========================
 // VALIDAR DIA
-// ==========================
 
 function validarDia(dia) {
 
@@ -545,9 +523,7 @@ function validarDia(dia) {
 }
 
 
-// ==========================
-// PASSO 3
-// ==========================
+
 
 function validarPasso3() {
 
@@ -648,9 +624,7 @@ function validarPasso3() {
 }
 
 
-// ==========================
-// VALIDAR PASSO
-// ==========================
+
 
 function validarPasso(numero) {
 
@@ -670,9 +644,6 @@ function validarPasso(numero) {
 }
 
 
-// ==========================
-// BOTÕES AVANÇAR
-// ==========================
 
 document.querySelectorAll('[data-next]').forEach(botao => {
 
@@ -699,9 +670,7 @@ document.querySelectorAll('[data-next]').forEach(botao => {
 });
 
 
-// ==========================
-// BOTÕES VOLTAR
-// ==========================
+
 
 document.querySelectorAll('[data-prev]').forEach(botao => {
 
@@ -717,9 +686,6 @@ document.querySelectorAll('[data-prev]').forEach(botao => {
 });
 
 
-// ==========================
-// DIAS DE FUNCIONAMENTO
-// ==========================
 
 document.querySelectorAll(
     'input[name="dias_funcionamento"]'
@@ -834,9 +800,6 @@ document.querySelectorAll(
 });
 
 
-// ==========================
-// SEGUNDO PERÍODO
-// ==========================
 
 document.querySelectorAll(
     '.btnAdicionarPeriodo'
@@ -883,9 +846,6 @@ document.querySelectorAll(
 });
 
 
-// ==========================
-// UPLOAD DE IMAGENS
-// ==========================
 
 document.querySelectorAll(
     '.uploadBox'
@@ -1011,9 +971,6 @@ document.querySelectorAll(
 });
 
 
-// ==========================
-// ENVIO DO FORMULÁRIO
-// ==========================
 
 if (form) {
 
@@ -1065,8 +1022,6 @@ if (form) {
 }
 
 
-// ==========================
-// INÍCIO
-// ==========================
+
 
 irParaPasso(1);
