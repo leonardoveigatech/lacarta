@@ -26,21 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | SUBCATEGORIA QUE VEIO PELA URL
-    |--------------------------------------------------------------------------
-    */
 
     const subcategoriaInicial =
         subcategoriaSelect.dataset.selected || "";
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | CARREGAR SUBCATEGORIAS
-    |--------------------------------------------------------------------------
-    */
 
     async function carregarSubcategorias(
         categoriaId,
@@ -108,12 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 option.textContent = subcategoria.nome;
 
 
-                /*
-                |--------------------------------------------------------------------------
-                | MANTER A SUBCATEGORIA QUE VEIO DO BOTÃO "+ PRODUTO"
-                |--------------------------------------------------------------------------
-                */
-
                 if (
                     manterSelecionada &&
                     String(subcategoria.id) ===
@@ -151,11 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | MUDANÇA DE CATEGORIA
-    |--------------------------------------------------------------------------
-    */
+   
 
     categoriaSelect.addEventListener(
         "change",
@@ -165,12 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.value;
 
 
-            /*
-            | Quando o usuário troca manualmente
-            | de categoria, não devemos manter
-            | a subcategoria antiga.
-            */
-
+        
             carregarSubcategorias(
                 categoriaId,
                 false
@@ -180,19 +155,11 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | CARREGAMENTO INICIAL
-    |--------------------------------------------------------------------------
-    */
+   
 
     if (categoriaSelect.value) {
 
-        /*
-        | Se já existe uma subcategoria enviada
-        | pela rota, preservamos ela.
-        */
-
+     
         if (subcategoriaInicial) {
 
             carregarSubcategorias(
@@ -202,11 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         } else {
 
-            /*
-            | Se abriu o formulário normalmente
-            | apenas carregamos as subcategorias
-            | da categoria.
-            */
+           
 
             carregarSubcategorias(
                 categoriaSelect.value,
