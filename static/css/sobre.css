@@ -1,8 +1,6 @@
 @charset "UTF-8";
 
-/* LA CARTA - SOBRE (PÁGINA INSTITUCIONAL) - MOBILE FIRST */
 
-/* ===== ESTRUTURA GERAL ===== */
 
 .sobre-page {
   display: flex;
@@ -10,7 +8,6 @@
   padding: 0 1.2rem 3rem;
 }
 
-/* ===== HEADER DA PÁGINA ===== */
 
 .sobre-header {
   display: flex;
@@ -51,7 +48,6 @@
   margin-top: 0.8rem;
 }
 
-/* ===== SEÇÕES DE TEXTO ===== */
 
 .sobre-section {
   display: flex;
@@ -86,7 +82,6 @@
   margin-top: 0.8rem;
 }
 
-/* ===== DOCUMENTOS ===== */
 
 .sobre-documentos .sobre-links {
   display: flex;
@@ -121,7 +116,6 @@
   transform: scale(0.98);
 }
 
-/* ===== CTA FINAL ===== */
 
 .sobre-cta {
   display: flex;
