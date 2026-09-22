@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* LA CARTA — PAINEL ADMINISTRATIVO — CONFIGURAÇÕES / MOBILE FIRST */
+/* LA CARTA — PAINEL ADMINISTRATIVO — mobile first */
 
 * {
   box-sizing: border-box;
@@ -9,11 +9,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ==========================================================
-   SEÇÃO / CARD
-   Fundo levemente mais claro que o resto do painel — sinaliza
-   "essa é a área de edição" e separa do fundo geral da página.
-   ========================================================== */
 .section {
   width: 100%;
   max-width: 640px;
@@ -24,9 +19,7 @@
   font-weight: 300;
 }
 
-/* ==========================================================
-   CABEÇALHO DA SEÇÃO
-   ========================================================== */
+
 .heading {
   display: flex;
   flex-direction: column;
@@ -57,12 +50,10 @@
   font-size: 0.85rem;
   line-height: 1.6;
   color: #1d0202ce;
-  max-width: 46ch; /* evita linha de leitura longa demais */
+  max-width: 46ch; /* evita leitura longa demais */
 }
 
-/* ==========================================================
-   FORMULÁRIO
-   ========================================================== */
+
 .form {
   display: flex;
   flex-direction: column;
@@ -105,8 +96,6 @@
   line-height: 1.5;
 }
 
-/* Feedback de foco bem visível — o admin precisa saber na hora
-   qual campo está editando, sem precisar procurar */
 .field input:focus,
 .field textarea:focus {
   border-color: #e8c992;
@@ -118,16 +107,12 @@
   color: rgba(245, 245, 245, 0.35);
 }
 
-/* Texto de ajuda embaixo do campo */
 .field small {
   font-size: 0.75rem;
   line-height: 1.5;
   color: rgba(245, 245, 245, 0.5);
 }
 
-/* Campo somente leitura (link do cardápio) — precisa parecer
-   visualmente "travado", pra não parecer um bug quando o admin
-   tenta editar e não consegue */
 .field input[readonly] {
   background-color: rgba(255, 255, 255, 0.02);
   border-style: dashed;
@@ -135,7 +120,6 @@
   cursor: not-allowed;
 }
 
-/* ========================================================== */
 .actions {
   display: flex;
   flex-direction: column-reverse;
@@ -160,7 +144,6 @@
   cursor: pointer;
 }
 
-/* Cancelar — <a class="button"> */
 .actions a.button {
   background: none;
   border: 1px solid rgba(232, 201, 146, 0.4);
@@ -171,7 +154,6 @@
   background-color: rgba(232, 201, 146, 0.1);
 }
 
-/* Salvar — <button type="submit" class="button"> */
 .actions button.button {
   background-color: #1d0202ea;
   border: none;
@@ -242,11 +224,7 @@
   object-fit: cover;
 }
 
-/* MEDIA DESKTOP */
 
-/* LA CARTA — PAINEL ADMINISTRATIVO — CONFIGURAÇÕES — DESKTOP */
-
-/* LA CARTA — PAINEL ADMINISTRATIVO — CONFIGURAÇÕES — DESKTOP */
 
 @media (min-width: 768px) {
   .section {
@@ -258,8 +236,6 @@
     font-size: 2.1rem;
   }
 
-  /* Form vira grid de 2 colunas — só telefone/whatsapp (3º e 4º
-     campos) ficam lado a lado; o resto ocupa a linha inteira */
   .form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -287,9 +263,7 @@
     padding: 0.95rem 2.2rem;
   }
 
-  /* :hover — no mobile só existe :active (toque); no desktop o
-     mouse passa por cima antes de clicar, então precisa de
-     feedback visual próprio, usando as cores atuais de cada botão */
+  
   .actions a.button:hover {
     background-color: rgba(
       134,
