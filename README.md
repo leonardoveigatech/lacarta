@@ -6,6 +6,9 @@ O La Carta é uma aplicação web desenvolvida para permitir que estabelecimento
 
 O projeto foi desenvolvido como uma aplicação completa, envolvendo backend, banco de dados, autenticação, controle de acesso, gerenciamento de conteúdo e interface responsiva.
 
+## 📱 Interface
+
+
 ### Cardápio público
 
 <p align="center">
