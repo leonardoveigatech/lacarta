@@ -6,10 +6,6 @@ O La Carta é uma aplicação web desenvolvida para permitir que estabelecimento
 
 O projeto foi desenvolvido como uma aplicação completa, envolvendo backend, banco de dados, autenticação, controle de acesso, gerenciamento de conteúdo e interface responsiva.
 
----
-
-## 📱 Interface
-
 ### Cardápio público
 
 <p align="center">
@@ -34,13 +30,13 @@ O projeto foi desenvolvido como uma aplicação completa, envolvendo backend, ba
 
 # Sobre o projeto
 
-O La Carta foi desenvolvido utilizando Python e Flask no backend, MySQL (persistência de dados) e Jinja2, HTML, CSS e JavaScript para a interface, porque eu preciso que o HTML se adapte aos dados de cada estabelecimento, então eu não pude simplesmente criar um HTML único, pois cada estabelecimento vai ter o seu de acordo com seu cardápio.
+O La Carta foi desenvolvido utilizando Python e Flask no backend, MySQL para persistência de dados e Jinja2, HTML, CSS e JavaScript para a construção da interface.
 
-A aplicação possui uma arquitetura preparada para múltiplos estabelecimentos, mantendo os dados de cada estabelecimento isolados por meio de seu identificador.
+A aplicação utiliza templates dinâmicos para adaptar a apresentação do cardápio aos dados e configurações de cada estabelecimento, permitindo que diferentes contas utilizem a mesma estrutura de aplicação com conteúdos independentes.
+
+A arquitetura foi preparada para múltiplos estabelecimentos, mantendo os dados de cada estabelecimento isolados por meio de seu identificador.
 
 O projeto também possui recursos relacionados à segurança da aplicação, autenticação de usuários e gerenciamento de sessões.
-
----
 
 # Funcionalidades
 
