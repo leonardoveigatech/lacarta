@@ -64,7 +64,6 @@ header nav {
   width: 100%;
 }
 
-/* Reset base para os botões do nav — sem isso herdam o estilo padrão do navegador */
 
 header nav button {
   font-family: inherit;
@@ -82,7 +81,6 @@ header nav button {
   padding: 1rem 2.2rem;
 }
 
-/* Gatilhos principais: Por que / Recursos / Como funciona */
 
 header nav .navTrigger {
   position: relative;
@@ -105,8 +103,7 @@ header nav .navTrigger[aria-expanded="true"] {
   font-weight: 600;
 }
 
-/* Separador • entre os gatilhos — :last-of-type ignora as divs no meio,
-   contando só os elementos <button> entre si */
+
 
 header nav .navTrigger:not(:last-of-type)::after {
   content: "•";
@@ -118,7 +115,6 @@ header nav .navTrigger:not(:last-of-type)::after {
   pointer-events: none;
 }
 
-/* Painel do dropdown (Por que / Recursos / Como funciona) */
 
 .navDropdown {
   width: 100%;
@@ -156,7 +152,6 @@ header nav .navTrigger:not(:last-of-type)::after {
   padding-bottom: 0;
 }
 
-/* Itens da lista que expandem descrição própria (Gestão pelo Painel, QR code) */
 
 .itemTrigger {
   width: 100%;
@@ -190,7 +185,6 @@ header nav .navTrigger:not(:last-of-type)::after {
   color: rgba(245, 245, 245, 0.7);
 }
 
-/* HERO / SEÇÃO PRINCIPAL */
 
 main {
   min-height: 70vh;
@@ -282,7 +276,6 @@ main {
   background-color: rgba(232, 201, 146, 0.12);
 }
 
-/* ===== BLOCO INFORMATIVO (IMAGEM + TEXTO) ===== */
 
 .info {
   display: flex;
@@ -401,7 +394,6 @@ footer section > div:nth-child(1) a:active {
   transform: scale(0.97);
 }
 
-/* Bloco 2: Dúvidas Frequentes (botão outline) */
 
 .btn-faq {
   font-family: "Montserrat", sans-serif;
@@ -423,7 +415,6 @@ footer section > div:nth-child(2) button:active {
   background-color: rgba(232, 201, 146, 0.12);
 }
 
-/* Bloco 3: Links institucionais */
 
 footer section > div:nth-child(3) {
   display: flex;
