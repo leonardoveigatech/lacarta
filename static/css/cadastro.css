@@ -44,7 +44,6 @@ input[type="checkbox"] {
   height: auto;
 }
 
-
 .cadastroMain {
   max-width: 480px;
   margin: 0 auto;
@@ -80,7 +79,6 @@ input[type="checkbox"] {
   transition: width 0.3s ease;
 }
 
-
 .formStep {
   display: none;
   flex-direction: column;
@@ -111,7 +109,6 @@ input[type="checkbox"] {
   padding-bottom: 0.6rem;
   border-bottom: 1px solid rgba(232, 201, 146, 0.15);
 }
-
 
 .campo {
   display: flex;
@@ -175,7 +172,6 @@ input[type="checkbox"] {
   flex: 2;
 }
 
-
 .mensagemErro {
   display: block;
   min-height: 1em;
@@ -196,7 +192,6 @@ input[type="checkbox"] {
 .mensagemErroGeral[hidden] {
   display: none;
 }
-
 
 .campoCheckbox {
   display: flex;
@@ -253,7 +248,6 @@ input[type="checkbox"] {
   text-decoration: none;
 }
 
-
 .campoUpload {
   display: flex;
   flex-direction: column;
@@ -295,7 +289,6 @@ input[type="checkbox"] {
   font-size: 0.82rem;
   color: rgba(245, 245, 245, 0.7);
 }
-
 
 .horarioDia {
   padding: 1rem 0;
@@ -348,7 +341,6 @@ input[type="checkbox"] {
   cursor: not-allowed;
   pointer-events: none;
 }
-
 
 .btnAvancar {
   width: 100%;
@@ -420,5 +412,134 @@ input[type="checkbox"] {
   .logoImg {
     width: 20%;
     height: auto;
+  }
+}
+
+/* ===== ESCOLHA DE ASSINATURA ===== */
+.passoPlanos {
+  max-width: 100%;
+}
+.planosIntroducao,
+.avisoPagamentoPlano {
+  color: rgba(245, 245, 245, 0.76);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.gradePlanos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+.cartaoPlano {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(232, 201, 146, 0.28);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.2s;
+}
+.cartaoPlano:hover {
+  border-color: #e8c992;
+  transform: translateY(-2px);
+}
+.cartaoPlano:has(input:checked) {
+  border: 2px solid #e8c992;
+  background: rgba(232, 201, 146, 0.09);
+  box-shadow: 0 0 0 2px rgba(232, 201, 146, 0.08);
+}
+.cartaoPlano input[type="radio"] {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  accent-color: #e8c992;
+  width: 18px;
+  height: 18px;
+}
+.planoNome {
+  color: #e8c992;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+.planoPreco {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  color: #f2ede4;
+  line-height: 1.2;
+}
+.planoPreco span {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  color: rgba(245, 245, 245, 0.65);
+}
+.planoSelo {
+  align-self: flex-start;
+  border-radius: 999px;
+  background: rgba(232, 201, 146, 0.15);
+  color: #e8c992;
+  padding: 0.32rem 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+.planoSelo.neutro {
+  color: rgba(245, 245, 245, 0.72);
+  background: rgba(255, 255, 255, 0.08);
+}
+.planoDetalhe {
+  color: rgba(245, 245, 245, 0.8);
+  font-size: 0.78rem;
+}
+.planoEconomia {
+  color: #e8c992;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+.planoVantagens {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.25rem;
+  color: rgba(245, 245, 245, 0.83);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.planoDestaque {
+  border-color: rgba(232, 201, 146, 0.65);
+}
+.planoDestaqueSelo {
+  align-self: flex-start;
+  border-radius: 999px;
+  background: #e8c992;
+  color: #2c0404;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+@media (min-width: 700px) {
+  .cadastroMain:has(.passoPlanos) {
+    max-width: 900px;
+  }
+  .gradePlanos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1050px) {
+  .gradePlanos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .cartaoPlano {
+    padding: 1rem;
+  }
+  .planoPreco {
+    font-size: 1.55rem;
   }
 }

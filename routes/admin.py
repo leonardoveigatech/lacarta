@@ -49,6 +49,7 @@ from database.estabelecimentos import (
     buscar_por_id as buscar_estabelecimento_por_id,
     atualizar_estabelecimento
 )
+from database.billing import assinatura_bloqueada
 
 from database.categorias import (
     buscar_por_estabelecimento,
@@ -209,7 +210,7 @@ def usuario_logado():
         usuario["estabelecimento_id"]
     )
 
-    if estabelecimento is None or not estabelecimento["ativo"]:
+    if estabelecimento is None:
         session.clear()
         return None
 
@@ -256,12 +257,6 @@ def dashboard():
             url_for("admin.login")
         )
 
-    if not estabelecimento["ativo"]:
-        session.clear()
-        return redirect(
-            url_for("admin.login")
-        )
-
     return render_template(
         "admin/dashboard.html",
         usuario=usuario,
@@ -299,15 +294,11 @@ def login():
 
         if not usuario["ativo"]:
             return "E-mail ou senha inválidos", 401
-
         estabelecimento = buscar_estabelecimento_por_id(
-            usuario["estabelecimento_id"]
-        )
+    usuario["estabelecimento_id"]
+)
 
-        if (
-            estabelecimento is None
-            or not estabelecimento["ativo"]
-        ):
+        if estabelecimento is None:
             return "E-mail ou senha inválidos", 401
 
         if not verificar_senha(
@@ -1862,6 +1853,29 @@ def qr_codes():
     estabelecimento = buscar_estabelecimento_por_id(
         usuario["estabelecimento_id"]
     )
+    
+    if estabelecimento is None:
+        return redirect(
+            url_for("admin.login")
+        )
+
+    if assinatura_bloqueada(estabelecimento["id"]):
+        flash(
+            "A assinatura está vencida ou inativa. A geração do QR Code está bloqueada.",
+            "erro"
+        )
+        return redirect(url_for("admin.dashboard"))
+
+    if not estabelecimento["ativo"]:
+        flash(
+            "O cardápio está temporariamente indisponível. "
+            "A geração do QR Code está bloqueada.",
+            "erro"
+        )
+
+        return redirect(
+            url_for("admin.dashboard")
+        )
 
     return render_template(
         "admin/qr_codes.html",
@@ -1883,6 +1897,16 @@ def link_cardapio():
     estabelecimento = buscar_estabelecimento_por_id(
         usuario["estabelecimento_id"]
     )
+
+    if estabelecimento is None:
+        return redirect(url_for("admin.login"))
+
+    if assinatura_bloqueada(estabelecimento["id"]):
+        flash(
+            "A assinatura está vencida ou inativa. O acesso ao compartilhamento do cardápio está bloqueado.",
+            "erro"
+        )
+        return redirect(url_for("admin.dashboard"))
 
     return render_template(
         "admin/link_cardapio.html",

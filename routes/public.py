@@ -9,9 +9,21 @@ from database.categorias import (
 from database.horarios import buscar_por_estabelecimento as buscar_horarios_por_estabelecimento
 from database.aparencia import buscar_por_estabelecimento as buscar_aparencia_por_estabelecimento
 from database.redes_sociais import buscar_por_estabelecimento as buscar_redes_sociais_por_estabelecimento
+from database.billing import assinatura_bloqueada
 
 
 public = Blueprint("public", __name__)
+
+
+def acesso_publico_bloqueado(estabelecimento):
+    """Verifica se o estabelecimento pode exibir páginas públicas do cardápio."""
+    if not estabelecimento or not estabelecimento.get("ativo"):
+        return True
+    return assinatura_bloqueada(estabelecimento["id"])
+
+
+def resposta_cardapio_indisponivel():
+    return render_template("public/cardapio_indisponivel.html"), 403
 
 
 
@@ -309,6 +321,9 @@ def estabelecimento(slug):
     if estabelecimento is None:
         return "Estabelecimento não encontrado", 404
 
+    if acesso_publico_bloqueado(estabelecimento):
+        return resposta_cardapio_indisponivel()
+
     horarios = buscar_horarios_por_estabelecimento(
         estabelecimento["id"]
     )
@@ -332,14 +347,18 @@ def estabelecimento(slug):
         redes=redes_ativas
     )
 
-
 @public.route("/<slug>/cardapio")
 def cardapio(slug):
 
     estabelecimento = buscar_por_slug(slug)
 
     if estabelecimento is None:
-        return "Estabelecimento não encontrado", 404
+        return render_template(
+            "public/cardapio_indisponivel.html"
+        ), 404
+
+    if acesso_publico_bloqueado(estabelecimento):
+        return resposta_cardapio_indisponivel()
 
     categorias = buscar_cardapio_por_estabelecimento(
         estabelecimento["id"]
@@ -357,8 +376,6 @@ def cardapio(slug):
     )
 
 
-
-
 @public.route(
     "/<slug>/cardapio/categoria/<int:categoria_id>"
 )
@@ -368,6 +385,9 @@ def categoria(slug, categoria_id):
 
     if estabelecimento is None:
         return "Estabelecimento não encontrado", 404
+
+    if acesso_publico_bloqueado(estabelecimento):
+        return resposta_cardapio_indisponivel()
 
     categoria = buscar_categoria_com_produtos(
         categoria_id,
@@ -400,6 +420,9 @@ def subcategoria(slug, subcategoria_id):
     if estabelecimento is None:
         return "Estabelecimento não encontrado", 404
 
+    if acesso_publico_bloqueado(estabelecimento):
+        return resposta_cardapio_indisponivel()
+
     subcategoria = buscar_subcategoria_com_produtos(
         subcategoria_id,
         estabelecimento["id"]
@@ -428,6 +451,9 @@ def buscar(slug):
 
     if estabelecimento is None:
         return "Estabelecimento não encontrado", 404
+
+    if acesso_publico_bloqueado(estabelecimento):
+        return resposta_cardapio_indisponivel()
 
     termo = request.args.get(
         "q",

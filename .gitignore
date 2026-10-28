@@ -36,3 +36,5 @@ htmlcov/
 
 # Uploads gerados pela aplicação
 static/uploads/
+# Dados privados de runtime (comprovantes Pix, sessões, etc.)
+instance/

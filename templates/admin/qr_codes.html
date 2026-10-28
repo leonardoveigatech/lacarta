@@ -9,125 +9,262 @@ QR Code | La Carta
 <section class="secao">
 
     <div class="topo">
-
         <div>
+            <span class="label">COMPARTILHAMENTO</span>
 
-            <span class="label">
-                COMPARTILHAMENTO
-            </span>
-
-            <h1>
-                QR Code
-            </h1>
+            <h1>QR Code</h1>
 
             <p>
                 Gere o QR Code do seu cardápio para colocar
                 em mesas, balcões, materiais impressos e redes sociais.
             </p>
-
         </div>
-
     </div>
 
-
     <div class="form form-secoes">
-
 
         <div class="form-bloco">
 
             <div class="form-bloco-topo">
+                <span class="label">ACESSO RÁPIDO</span>
 
-                <span class="label">
-                    ACESSO RÁPIDO
-                </span>
-
-                <h2>
-                    QR Code do cardápio
-                </h2>
+                <h2>QR Code do cardápio</h2>
 
                 <p>
                     Seus clientes poderão apontar a câmera do celular
                     para acessar diretamente o cardápio digital.
                 </p>
-
             </div>
 
+            <!-- Apresentação do QR Code -->
+            <div class="qr-area">
 
-            <div id="qrCode" style="
-                    display:flex;
-                    justify-content:center;
-                    align-items:center;
-                    min-height:280px;
-                    padding:2rem;
-                ">
+                <div class="qr-cartao">
+
+                    <div class="qr-marca">
+                        {{ estabelecimento.nome }}
+                    </div>
+
+                    <div class="qr-moldura">
+                        <div id="qrCode"></div>
+                    </div>
+
+                    <p class="qr-instrucao">
+                        Aponte a câmera e confira nosso cardápio
+                    </p>
+
+                </div>
+
             </div>
-
 
             <div class="campo">
-
                 <label for="linkQrCode">
                     Endereço do cardápio
                 </label>
 
                 <input type="text" id="linkQrCode"
                     value="{{ url_for('public.cardapio', slug=estabelecimento.slug, _external=True) }}" readonly>
-
             </div>
 
-
-            <button class="buttonQR" type="button" onclick="baixarQRCode()">
-                Baixar QR Code
+            <button class="buttonQR" id="baixarQRCodeBtn" type="button">
+                Baixar QR Code para impressão
             </button>
 
+            <p class="qr-nota">
+                Imagem em alta resolução, pronta para imprimir.
+            </p>
 
         </div>
-
 
     </div>
 
 </section>
 
+<style>
+    .qr-area {
+        display: flex;
+        justify-content: center;
+        padding: 24px 12px;
+    }
+
+    .qr-cartao {
+        width: 100%;
+        max-width: 320px;
+        box-sizing: border-box;
+        padding: 24px 20px 20px;
+        background: #ffffff;
+        border: 1px solid #e6ded2;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .qr-marca {
+        margin-bottom: 18px;
+        color: #542b2b;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 21px;
+        font-weight: bold;
+        letter-spacing: 3px;
+    }
+
+    .qr-moldura {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        background: #ffffff;
+        border: 1px solid #eee8df;
+        border-radius: 6px;
+        line-height: 0;
+    }
+
+    #qrCode {
+        display: block;
+        width: 220px;
+        height: 220px;
+        background: #ffffff;
+        line-height: 0;
+    }
+
+    #qrCode canvas,
+    #qrCode img {
+        display: block;
+        width: 220px;
+        height: 220px;
+    }
+
+    .qr-instrucao {
+        margin: 18px 0 0;
+        color: #49413b;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .qr-nota {
+        margin-top: 12px;
+        color: #77716a;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    @media (max-width: 380px) {
+        .qr-cartao {
+            padding: 20px 12px 16px;
+        }
+
+        #qrCode {
+            width: 200px;
+            height: 200px;
+        }
+
+        #qrCode canvas,
+        #qrCode img {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        .qr-cartao,
+        .qr-cartao * {
+            visibility: visible;
+        }
+
+        .qr-cartao {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            max-width: none;
+            border: 1px solid #e6ded2;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+</style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
+    (function () {
+        const linkCardapio =
+            document.getElementById("linkQrCode").value;
 
-    const linkCardapio =
-        document.getElementById("linkQrCode").value;
+        const elementoQRCode =
+            document.getElementById("qrCode");
 
+        const botaoDownload =
+            document.getElementById("baixarQRCodeBtn");
 
-    new QRCode(
-        document.getElementById("qrCode"),
-        {
+        const TAMANHO_QR = 1000;
+
+        // QR Code de alta resolução para o arquivo baixado.
+        new QRCode(elementoQRCode, {
             text: linkCardapio,
-            width: 240,
-            height: 240
-        }
-    );
+            width: TAMANHO_QR,
+            height: TAMANHO_QR,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
 
+        botaoDownload.addEventListener("click", function () {
+            const canvasOriginal =
+                elementoQRCode.querySelector("canvas");
 
-    function baixarQRCode() {
+            if (!canvasOriginal) {
+                alert("Aguarde a geração do QR Code e tente novamente.");
+                return;
+            }
 
-        const canvas =
-            document.querySelector("#qrCode canvas");
+            /*
+             * Margem branca de 10% em cada lado.
+             * O arquivo final terá 1200 x 1200 pixels.
+             */
+            const MARGEM = 100;
+            const TAMANHO_FINAL = TAMANHO_QR + (MARGEM * 2);
 
-        if (!canvas) {
-            return;
-        }
+            const canvasFinal =
+                document.createElement("canvas");
 
-        const link =
-            document.createElement("a");
+            canvasFinal.width = TAMANHO_FINAL;
+            canvasFinal.height = TAMANHO_FINAL;
 
-        link.download =
-            "qr-code-la-carta.png";
+            const contexto = canvasFinal.getContext("2d");
 
-        link.href =
-            canvas.toDataURL("image/png");
+            // Fundo branco e margem de segurança.
+            contexto.fillStyle = "#ffffff";
+            contexto.fillRect(
+                0,
+                0,
+                TAMANHO_FINAL,
+                TAMANHO_FINAL
+            );
 
-        link.click();
+            // Preserva o QR Code original sem deformá-lo.
+            contexto.drawImage(
+                canvasOriginal,
+                MARGEM,
+                MARGEM,
+                TAMANHO_QR,
+                TAMANHO_QR
+            );
 
-    }
+            const link = document.createElement("a");
 
+            link.download = "qr-code-la-carta.png";
+            link.href = canvasFinal.toDataURL("image/png");
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        });
+    })();
 </script>
 
 {% endblock %}

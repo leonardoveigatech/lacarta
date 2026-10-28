@@ -35,7 +35,7 @@ import os
 import re
 import unicodedata
 
-from datetime import datetime
+from datetime import datetime, date
 
 
 auth = Blueprint("auth", __name__)
@@ -506,6 +506,16 @@ def cadastro():
         "termos"
     )
 
+    planos_disponiveis = {
+        "mensal": {"nome": "Mensal", "meses": 1, "total": "59.90", "mensal": "59.90"},
+        "trimestral": {"nome": "Trimestral", "meses": 3, "total": "170.72", "mensal": "56.90666667"},
+        "semestral": {"nome": "Semestral", "meses": 6, "total": "323.46", "mensal": "53.91"},
+        "anual": {"nome": "Anual", "meses": 12, "total": "610.98", "mensal": "50.915"},
+    }
+    plano_escolhido = request.form.get("plano", "mensal").strip().lower()
+    if plano_escolhido not in planos_disponiveis:
+        return render_template("auth/cadastro.html", erro="Selecione um plano válido.")
+
 
 
     if not nome:
@@ -742,7 +752,17 @@ def cadastro():
 
         estabelecimento_id = cursor.lastrowid
 
-       
+        # A assinatura fica pendente até o proprietário confirmar o Pix.
+        plano = planos_disponiveis[plano_escolhido]
+        cursor.execute(
+            """INSERT INTO assinaturas
+                (estabelecimento_id, plano, valor_mensal, valor_total, periodo_meses,
+                 dia_vencimento, data_inicio, vencimento, status, observacoes)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 'pendente', %s)""",
+            (estabelecimento_id, plano["nome"], plano["mensal"], plano["total"],
+             plano["meses"], 21, date.today(), date.today(),
+             "Plano escolhido no cadastro; aguardando confirmação do primeiro pagamento.")
+        )
 
         senha_hash = generate_password_hash(
             senha
@@ -900,6 +920,7 @@ def cadastro():
 
     except Exception as erro:
 
+        print("ERRO REAL NO CADASTRO:", repr(erro))
         if conexao:
             conexao.rollback()
 

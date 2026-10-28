@@ -6,27 +6,58 @@ from config import SMTP_CONFIG
 
 def enviar_email(destinatario, assunto, mensagem):
     """Envia e-mail transacional usando as credenciais SMTP do ambiente."""
+
     obrigatorios = ("host", "username", "password", "from_email")
 
-    if any(not SMTP_CONFIG[campo] for campo in obrigatorios):
-        raise RuntimeError("As configurações de e-mail não foram concluídas.")
+    faltantes = [
+        campo
+        for campo in obrigatorios
+        if not SMTP_CONFIG.get(campo)
+    ]
+
+    if faltantes:
+        raise RuntimeError(
+            "Configurações SMTP ausentes: " + ", ".join(faltantes)
+        )
 
     email = EmailMessage()
     email["Subject"] = assunto
-    email["From"] = f'{SMTP_CONFIG["from_name"]} <{SMTP_CONFIG["from_email"]}>'
+    email["From"] = (
+        f'{SMTP_CONFIG["from_name"]} '
+        f'<{SMTP_CONFIG["from_email"]}>'
+    )
     email["To"] = destinatario
     email.set_content(mensagem)
 
-    with smtplib.SMTP(
-        SMTP_CONFIG["host"],
-        SMTP_CONFIG["port"],
-        timeout=15
-    ) as servidor:
-        if SMTP_CONFIG["use_tls"]:
-            servidor.starttls()
+    try:
+        with smtplib.SMTP(
+            SMTP_CONFIG["host"],
+            SMTP_CONFIG["port"],
+            timeout=15
+        ) as servidor:
 
-        servidor.login(
-            SMTP_CONFIG["username"],
-            SMTP_CONFIG["password"]
+            servidor.ehlo()
+
+            if SMTP_CONFIG["use_tls"]:
+                servidor.starttls()
+                servidor.ehlo()
+
+            servidor.login(
+                SMTP_CONFIG["username"],
+                SMTP_CONFIG["password"]
+            )
+
+            resultado = servidor.send_message(email)
+
+            if resultado:
+                raise RuntimeError(
+                    "O servidor não aceitou todos os destinatários."
+                )
+
+    except Exception as erro:
+        print(
+            "ERRO NO ENVIO DE E-MAIL:",
+            type(erro).__name__,
+            str(erro)
         )
-        servidor.send_message(email)
+        raise

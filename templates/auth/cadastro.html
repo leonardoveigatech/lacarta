@@ -933,17 +933,82 @@
                 <div class="mensagemErroGeral" id="erroPasso3" role="alert"></div>
 
                 <div class="botoesNavegacao">
-
-                    <button type="button" class="btnVoltar" data-prev="2">
-                        Voltar
-                    </button>
-
-                    <button type="submit" class="btnAvancar">
-                        Concluir cadastro
-                    </button>
-
+                    <button type="button" class="btnVoltar" data-prev="2">Voltar</button>
+                    <button type="button" class="btnAvancar" data-next="4">Escolher assinatura</button>
                 </div>
 
+            </section>
+
+            <section class="formStep passoPlanos" data-step="4">
+                <h1>Escolha sua assinatura</h1>
+                <p class="planosIntroducao">Todos os planos incluem os recursos do La Carta. A diferença é o período
+                    contratado e o desconto por pagamento antecipado.</p>
+
+                <div class="gradePlanos">
+                    <label class="cartaoPlano">
+                        <input type="radio" name="plano" value="mensal" checked required>
+                        <span class="planoNome">MENSAL</span>
+                        <span class="planoPreco">R$ 59,90<span>/mês</span></span>
+                        <span class="planoSelo neutro">Sem desconto</span>
+                        <span class="planoVantagens">
+                            <span>✓ Pagamento mês a mês</span>
+                            <span>✓ Mais flexibilidade</span>
+                            <span>✓ Ideal para começar</span>
+                        </span>
+                    </label>
+
+                    <label class="cartaoPlano">
+                        <input type="radio" name="plano" value="trimestral">
+                        <span class="planoNome">TRIMESTRAL</span>
+                        <span class="planoSelo">5% OFF</span>
+                        <span class="planoPreco">R$ 170,72</span>
+                        <span class="planoDetalhe">3 meses · R$ 56,91/mês</span>
+                        <span class="planoEconomia">Economia de R$ 9,98</span>
+                        <span class="planoVantagens">
+                            <span>✓ 3 meses de serviço</span>
+                            <span>✓ Menos renovações</span>
+                            <span>✓ Custo mensal reduzido</span>
+                        </span>
+                    </label>
+
+                    <label class="cartaoPlano">
+                        <input type="radio" name="plano" value="semestral">
+                        <span class="planoNome">SEMESTRAL</span>
+                        <span class="planoSelo">10% OFF</span>
+                        <span class="planoPreco">R$ 323,46</span>
+                        <span class="planoDetalhe">6 meses · R$ 53,91/mês</span>
+                        <span class="planoEconomia">Economia de R$ 36,00</span>
+                        <span class="planoVantagens">
+                            <span>✓ 6 meses de serviço</span>
+                            <span>✓ Mais previsibilidade</span>
+                            <span>✓ Economia maior</span>
+                        </span>
+                    </label>
+
+                    <label class="cartaoPlano planoDestaque">
+                        <input type="radio" name="plano" value="anual">
+                        <span class="planoDestaqueSelo">MAIOR ECONOMIA</span>
+                        <span class="planoNome">ANUAL</span>
+                        <span class="planoSelo">15% OFF</span>
+                        <span class="planoPreco">R$ 610,98</span>
+                        <span class="planoDetalhe">12 meses · R$ 50,92/mês</span>
+                        <span class="planoEconomia">Economia de R$ 107,82</span>
+                        <span class="planoVantagens">
+                            <span>✓ 12 meses de serviço</span>
+                            <span>✓ Menor custo mensal</span>
+                            <span>✓ Mais tranquilidade no ano</span>
+                        </span>
+                    </label>
+                </div>
+
+                <p class="avisoPagamentoPlano">Após concluir o cadastro, você poderá acessar a área
+                    <strong>Pagamentos</strong> para consultar os dados da assinatura e pagar via Pix. A ativação
+                    acontece após a conferência manual do pagamento.</p>
+                <div class="mensagemErroGeral" id="erroPasso4" role="alert"></div>
+                <div class="botoesNavegacao">
+                    <button type="button" class="btnVoltar" data-prev="3">Voltar</button>
+                    <button type="submit" class="btnAvancar">Concluir cadastro</button>
+                </div>
             </section>
 
         </form>

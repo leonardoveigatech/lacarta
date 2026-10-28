@@ -1,0 +1,357 @@
+{% extends "admin/base.html" %}
+{% block title %}Pagamentos | La Carta{% endblock %}
+{% block content %}
+<section class="secao pagamentos-page">
+    <div class="topo">
+        <div><span class="label">ASSINATURA</span>
+            <h1>Pagamentos</h1>
+            <p>Consulte seu plano, pague sua mensalidade via Pix e acompanhe seus comprovantes.</p>
+        </div>
+    </div>
+
+    {% with mensagens = get_flashed_messages(with_categories=true) %}{% for categoria, mensagem in mensagens %}<div
+        class="aviso aviso-{{ categoria }}">{{ mensagem }}</div>{% endfor %}{% endwith %}
+    {% if assinatura_atrasada %}<div class="alerta-pagamento" role="alert"><strong>Seu cardápio está temporariamente
+            indisponível.</strong><br>Regularize a assinatura. O acesso público será liberado após a confirmação manual
+        do pagamento pelo La Carta.</div>{% endif %}
+
+    {% if not assinatura %}
+    <div class="painel-pagamento">
+        <h2>Nenhuma assinatura cadastrada</h2>
+        <p>Entre em contato com o suporte do La Carta para configurar seu plano e sua mensalidade.</p>
+    </div>
+    {% else %}
+    <div class="resumo-grid">
+        <div class="painel-pagamento"><span class="label">SEU PLANO</span>
+            <h2>{{ assinatura.plano }}</h2>
+            <p class="valor-grande">R$ {{ '%.2f'|format((assinatura.valor_total if assinatura.valor_total is defined and
+                assinatura.valor_total else assinatura.valor_mensal)|float) }}</p>
+            <p>Valor do período contratado</p>
+            <p class="detalhe-plano">{% set meses_plano = assinatura.periodo_meses|default(1, true)|int %}{% if
+                meses_plano == 1 %}1 mês{% elif meses_plano == 3 %}3 meses{% elif meses_plano == 6 %}6 meses{% elif
+                meses_plano == 12 %}12 meses{% else %}{{ meses_plano }} meses{% endif %} · equivalente a R$ {{
+                '%.2f'|format(assinatura.valor_mensal|float) }}/mês</p>
+        </div>
+        <div class="painel-pagamento"><span class="label">VENCIMENTO</span>
+            <h2>{{ assinatura.vencimento.strftime('%d/%m/%Y') if assinatura.vencimento else 'A definir' }}</h2>
+            <p>Data limite para pagamento</p>
+        </div>
+        <div class="painel-pagamento"><span class="label">STATUS DA ASSINATURA</span>
+            <h2>{{ assinatura.status|replace('_',' ')|capitalize }}</h2>
+            <p>{% if assinatura_atrasada %}Regularização necessária{% else %}Consulte abaixo o status da cobrança
+                atual{% endif %}</p>
+        </div>
+    </div>
+
+    <div class="pagamentos-colunas">
+        <div class="painel-pagamento">
+            <span class="label">1 · PAGAR ASSINATURA</span>
+            <h2>Pix com valor preenchido</h2>
+            {% if pix and pix.ativo and pix.chave_pix and pagamento %}
+            <p>Escaneie o QR Code abaixo no aplicativo do seu banco. O valor total do período contratado é preenchido
+                automaticamente.
+            </p>
+            <div class="qr-area">{% if pix_copia_cola %}<div id="pixQrCode" aria-label="QR Code Pix da mensalidade">
+                </div>{% else %}<p>QR Code indisponível para esta cobrança. Confira o status abaixo.</p>{% endif %}
+            </div>
+            <p class="valor-cobranca">Valor a pagar: <strong>R$ {{ '%.2f'|format(pagamento.valor|float) }}</strong></p>
+            {% if pix_copia_cola %}<label for="pixCopiaCola">Pix Copia e Cola</label><textarea id="pixCopiaCola"
+                readonly rows="4">{{ pix_copia_cola }}</textarea><button class="botao-secundario" type="button"
+                id="copiarPix">Copiar código Pix</button>{% endif %}
+            <hr>
+            <p><strong>Beneficiário:</strong> {{ pix.nome_beneficiario or '—' }}</p>
+            <p><strong>Instituição:</strong> {{ pix.instituicao_financeira or '—' }}</p>
+            <p><strong>Chave Pix:</strong> <span class="quebra-palavra">{{ pix.chave_pix }}</span></p>
+            <p class="nota-pix">A confirmação não é automática. Depois de pagar, envie o comprovante nesta página. A
+                equipe La Carta fará a conferência manual antes de liberar o cardápio.</p>
+            {% elif not pagamento %}<p>Não há cobrança aberta no momento. Se sua assinatura está ativa e precisa de uma
+                nova cobrança, entre em contato com o suporte.</p>
+            {% else %}<p>Os dados Pix ainda não foram configurados pelo La Carta. Entre em contato com o suporte.</p>{%
+            endif %}
+        </div>
+
+        <div class="painel-pagamento">
+            <span class="label">2 · COMPROVAR PAGAMENTO</span>
+            <h2>Enviar comprovante</h2>
+            {% if pagamento and pagamento.status == 'comprovante_enviado' %}
+            <div class="estado estado-pendente"><strong>Comprovante recebido</strong>
+                <p>Seu comprovante está aguardando conferência. Não é necessário enviá-lo novamente, a menos que a
+                    equipe solicite.</p>
+            </div>
+            {% elif pagamento and pagamento.status == 'pendente' %}
+            <p>Após fazer o Pix, preencha os dados abaixo e anexe o comprovante.</p>
+            <form method="POST" enctype="multipart/form-data" class="form-comprovante">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="campo"><label for="nome_pagador">Nome de quem realizou o Pix</label><input id="nome_pagador"
+                        name="nome_pagador" maxlength="150" autocomplete="name" required></div>
+                <div class="campo"><label for="comprovante">Arquivo do comprovante</label><input id="comprovante"
+                        name="comprovante" type="file" accept=".jpg,.jpeg,.png,.webp,.pdf" required><small>JPG, PNG,
+                        WEBP ou PDF · máximo de 5 MB</small></div>
+                <div class="campo"><label for="observacao_cliente">Observação (opcional)</label><textarea
+                        id="observacao_cliente" name="observacao_cliente" rows="3" maxlength="2000"
+                        placeholder="Ex.: pagamento referente à mensalidade de outubro"></textarea></div>
+                <button class="primary-button" type="submit">Enviar comprovante para conferência</button>
+            </form>
+            {% else %}<p>Não há uma cobrança aberta para envio de comprovante neste momento.</p>{% endif %}
+        </div>
+    </div>
+
+    <div class="painel-pagamento historico-pagamentos"><span class="label">3 · ACOMPANHAMENTO</span>
+        <h2>Histórico de cobranças</h2>
+        {% if historico %}<div class="tabela-responsiva">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Vencimento</th>
+                        <th>Pagamento enviado</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>{% for item in historico %}<tr>
+                        <td>{{ item.descricao }}</td>
+                        <td>R$ {{ '%.2f'|format(item.valor|float) }}</td>
+                        <td>{{ item.data_vencimento.strftime('%d/%m/%Y') if item.data_vencimento else '—' }}</td>
+                        <td>{{ item.enviado_em.strftime('%d/%m/%Y %H:%M') if item.enviado_em else '—' }}</td>
+                        <td><span class="status status-{{ item.status }}">{{ item.status|replace('_',' ')|capitalize
+                                }}</span></td>
+                    </tr>{% endfor %}</tbody>
+            </table>
+        </div>
+        {% else %}<p>Ainda não há cobranças no histórico.</p>{% endif %}
+    </div>
+    {% endif %}
+</section>
+<style>
+    .pagamentos-page {
+        max-width: 1200px;
+        margin: 0 auto
+    }
+
+    .resumo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin: 20px 0
+    }
+
+    .painel-pagamento {
+        background: #fff;
+        border: 1px solid #eadfdf;
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 18px;
+        box-shadow: 0 3px 14px #3105050a
+    }
+
+    .painel-pagamento h2 {
+        margin: 8px 0 12px
+    }
+
+    .detalhe-plano {
+        font-size: 13px;
+        color: #756767;
+        margin-top: 6px;
+        line-height: 1.5;
+    }
+
+    .valor-grande {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 10px 0 0;
+        color: #310505
+    }
+
+    .pagamentos-colunas {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px
+    }
+
+    .qr-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 210px;
+        padding: 15px;
+        background: #fffafa;
+        border: 1px dashed #d8c5c5;
+        border-radius: 12px;
+        margin: 16px 0
+    }
+
+    .qr-area canvas,
+    .qr-area img {
+        max-width: 100%;
+        height: auto
+    }
+
+    .valor-cobranca {
+        font-size: 18px
+    }
+
+    .pagamentos-page textarea {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 8px 0;
+        padding: 12px;
+        border: 1px solid #d9cccc;
+        border-radius: 8px;
+        resize: vertical
+    }
+
+    .botao-secundario {
+        padding: 10px 14px;
+        border: 0;
+        border-radius: 8px;
+        background: #310505;
+        color: #fff;
+        cursor: pointer
+    }
+
+    .nota-pix {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #5e5050
+    }
+
+    .form-comprovante .campo {
+        margin: 16px 0
+    }
+
+    .form-comprovante label,
+    .pagamentos-page label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 7px
+    }
+
+    .form-comprovante input:not([type=file]),
+    .form-comprovante input[type=file],
+    .form-comprovante textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        border: 1px solid #d9cccc;
+        border-radius: 8px
+    }
+
+    .form-comprovante small {
+        display: block;
+        margin-top: 6px;
+        color: #756767
+    }
+
+    .alerta-pagamento,
+    .aviso {
+        padding: 16px 18px;
+        margin: 0 0 18px;
+        border-radius: 10px;
+        line-height: 1.55
+    }
+
+    .alerta-pagamento {
+        background: #fff3cd;
+        border: 1px solid #ffe08a;
+        color: #5f4700
+    }
+
+    .aviso-success {
+        background: #e5f6e9;
+        color: #205b2e
+    }
+
+    .aviso-error {
+        background: #fde8e8;
+        color: #8b1e1e
+    }
+
+    .aviso-warning {
+        background: #fff3cd;
+        color: #654d00
+    }
+
+    .estado {
+        padding: 16px;
+        border-radius: 10px
+    }
+
+    .estado-pendente {
+        background: #fff3cd;
+        color: #664d03
+    }
+
+    .estado p {
+        margin-bottom: 0
+    }
+
+    .tabela-responsiva {
+        overflow-x: auto
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        white-space: nowrap
+    }
+
+    .status {
+        display: inline-block;
+        padding: 5px 8px;
+        border-radius: 20px;
+        background: #f0eeee;
+        font-size: 12px
+    }
+
+    .status-pago {
+        background: #e2f5e8;
+        color: #226235
+    }
+
+    .status-comprovante_enviado {
+        background: #fff0c2;
+        color: #725500
+    }
+
+    .status-rejeitado {
+        background: #fde6e6;
+        color: #8a2424
+    }
+
+    .quebra-palavra {
+        overflow-wrap: anywhere
+    }
+
+    @media(max-width:850px) {
+        .resumo-grid {
+            grid-template-columns: 1fr
+        }
+
+        .pagamentos-colunas {
+            grid-template-columns: 1fr
+        }
+    }
+</style>
+{% if pix_copia_cola %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const payload = document.getElementById('pixCopiaCola')?.value;
+        const area = document.getElementById('pixQrCode');
+        if (payload && area && window.QRCode) new QRCode(area, { text: payload, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M });
+        document.getElementById('copiarPix')?.addEventListener('click', async function () {
+            const campo = document.getElementById('pixCopiaCola');
+            try { await navigator.clipboard.writeText(campo.value); alert('Código Pix copiado.'); }
+            catch (e) { campo.select(); document.execCommand('copy'); alert('Código Pix copiado.'); }
+        });
+    });
+</script>{% endif %}
+{% endblock %}

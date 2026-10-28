@@ -371,7 +371,8 @@ function validarHorarioPeriodo(
     abertura,
     fechamento,
     diaNome,
-    numeroPeriodo
+    numeroPeriodo,
+    obrigatorio = false
 ) {
 
     const temAbertura =
@@ -381,8 +382,20 @@ function validarHorarioPeriodo(
         fechamento.value !== '';
 
 
+    // O primeiro período é obrigatório para cada dia selecionado.
+    // O segundo período é opcional, mas, se começar a preenchê-lo,
+    // abertura e fechamento precisam ser informados.
     if (!temAbertura && !temFechamento) {
-        return true;
+        if (!obrigatorio) {
+            return true;
+        }
+
+        mostrarErro(
+            abertura,
+            `Informe os horários de abertura e fechamento do ${numeroPeriodo}º período de ${diaNome}.`
+        );
+
+        return false;
     }
 
 
@@ -488,7 +501,8 @@ function validarDia(dia) {
             abertura1,
             fechamento1,
             nomeDia,
-            1
+            1,
+            true
         )
     ) {
 

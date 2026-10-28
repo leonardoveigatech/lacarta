@@ -1,0 +1,228 @@
+{% extends "admin/base.html" %}
+{% block title %}Gestão de pagamentos | La Carta{% endblock %}
+{% block content %}
+<section class="secao">
+    <div class="topo">
+        <div><span class="label">ÁREA INTERNA LA CARTA</span>
+            <h1>Gestão de pagamentos</h1>
+            <p>Configure o Pix, gerencie assinaturas e confira os comprovantes enviados.</p>
+        </div>
+        <form method="POST" action="{{ url_for('payments.logout_proprietario') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Sair do painel</button>
+        </form>
+    </div>
+    <div class="form form-secoes">
+        <div class="form-bloco">
+            <h2>Configuração do Pix</h2>
+            <form method="POST"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden"
+                    name="acao" value="pix">
+                <div class="campo"><label>Chave Pix</label><input name="chave_pix" maxlength="255"
+                        value="{{ pix.chave_pix if pix and pix.chave_pix else '' }}" required></div>
+                <div class="campo"><label>Tipo de chave</label><select name="tipo_chave">
+                        <option value="CPF/CNPJ" {% if pix and pix.tipo_chave=='CPF/CNPJ' %}selected{% endif %}>CPF/CNPJ
+                        </option>
+                        <option value="E-mail" {% if pix and pix.tipo_chave=='E-mail' %}selected{% endif %}>E-mail
+                        </option>
+                        <option value="Telefone" {% if pix and pix.tipo_chave=='Telefone' %}selected{% endif %}>Telefone
+                        </option>
+                        <option value="Aleatória" {% if pix and pix.tipo_chave=='Aleatória' %}selected{% endif %}>
+                            Aleatória</option>
+                    </select></div>
+                <div class="campo"><label>Nome do beneficiário</label><input name="nome_beneficiario" maxlength="150"
+                        value="{{ pix.nome_beneficiario if pix and pix.nome_beneficiario else '' }}"></div>
+                <div class="campo"><label>Instituição financeira</label><input name="instituicao_financeira"
+                        maxlength="150"
+                        value="{{ pix.instituicao_financeira if pix and pix.instituicao_financeira else '' }}"></div>
+                <div class="campo"><label>Cidade do beneficiário</label><input name="cidade_beneficiario"
+                        maxlength="100"
+                        value="{{ pix.cidade_beneficiario if pix and pix.cidade_beneficiario else '' }}"></div><button
+                    class="primary-button" type="submit">Salvar dados Pix</button>
+            </form>
+        </div>
+    </div>
+    <div class="form form-secoes">
+        <div class="form-bloco">
+            <h2>Cadastrar estabelecimento e acesso do cliente</h2>
+            <p>Use este formulário para cadastrar manualmente um novo cliente e criar o acesso ao painel administrativo.
+            </p>
+            <form method="POST"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden"
+                    name="acao" value="estabelecimento">
+                <div class="campos-grid">
+                    <div class="campo"><label>Nome do estabelecimento *</label><input name="nome_estabelecimento"
+                            maxlength="100" required placeholder="Ex.: Pizzaria da Ilha"></div>
+                    <div class="campo"><label>Slug do cardápio *</label><input name="slug" maxlength="100" required
+                            placeholder="Ex.: pizzaria-da-ilha"><small>Será usado no endereço público do cardápio.
+                            Espaços e acentos são ajustados automaticamente.</small></div>
+                    <div class="campo"><label>Nome do responsável *</label><input name="nome_responsavel"
+                            maxlength="100" required></div>
+                    <div class="campo"><label>E-mail de acesso *</label><input name="email" type="email" maxlength="255"
+                            required autocomplete="off"></div>
+                    <div class="campo"><label>Senha inicial *</label><input name="senha_inicial" type="password"
+                            minlength="8" required autocomplete="new-password"><small>Use pelo menos 8 caracteres e
+                            compartilhe com o cliente por um canal seguro.</small></div>
+                    <div class="campo"><label>Telefone</label><input name="telefone" maxlength="30"></div>
+                    <div class="campo"><label>WhatsApp</label><input name="whatsapp" maxlength="30"></div>
+                    <div class="campo"><label>Endereço</label><input name="endereco" maxlength="255"></div>
+                </div>
+                <div class="campo"><label>Descrição (opcional)</label><textarea name="descricao" rows="2"></textarea>
+                </div><button class="primary-button" type="submit">Cadastrar estabelecimento</button>
+            </form>
+        </div>
+    </div>
+    <div class="form form-secoes">
+        <div class="form-bloco">
+            <h2>Cadastrar ou atualizar assinatura</h2>
+            <form method="POST"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden"
+                    name="acao" value="assinatura">
+                <div class="campo"><label>Estabelecimento</label><select name="estabelecimento_id" required>{% for e in
+                        estabelecimentos %}<option value="{{ e.estabelecimento_id }}">{{ e.estabelecimento_nome }} (ID
+                            {{ e.estabelecimento_id }}){% if e.assinatura_id %} — assinatura atual: {{ e.plano }}{%
+                            endif %}</option>{% endfor %}</select></div>
+                <div class="campo"><label>Plano</label><input name="plano" maxlength="50"
+                        placeholder="Básico ou Completo" required></div>
+                <div class="campo"><label>Valor mensal (R$)</label><input name="valor_mensal" type="number" min="0.01"
+                        step="0.01" required></div>
+                <div class="campo"><label>Dia de vencimento (1 a 28)</label><input name="dia_vencimento" type="number"
+                        min="1" max="28" value="21" required></div>
+                <div class="campo"><label>Data de início</label><input name="data_inicio" type="date"
+                        value="{{ today if today else '' }}" required></div>
+                <div class="campo"><label>Próximo vencimento</label><input name="vencimento" type="date" required></div>
+                <div class="campo"><label>Status</label><select name="status">
+                        <option value="ativa">Ativa</option>
+                        <option value="inadimplente">Inadimplente</option>
+                        <option value="suspensa">Suspensa</option>
+                        <option value="cancelada">Cancelada</option>
+                    </select></div>
+                <div class="campo"><label>Observações</label><textarea name="observacoes" rows="2"></textarea></div>
+                <button class="primary-button" type="submit">Salvar assinatura</button>
+            </form>
+            <p><small>Ao atualizar uma assinatura, selecione o estabelecimento e preencha novamente os dados do
+                    plano.</small></p>
+        </div>
+    </div>
+    <div class="form form-secoes">
+        <div class="form-bloco">
+            <h2>Assinaturas cadastradas</h2>
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estabelecimento</th>
+                            <th>Plano</th>
+                            <th>Mensalidade</th>
+                            <th>Vencimento</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>{% for e in estabelecimentos %}<tr>
+                            <td>{{ e.estabelecimento_nome }} (#{{ e.estabelecimento_id }})</td>
+                            <td>{{ e.plano or 'Não cadastrada' }}</td>
+                            <td>{% if e.valor_mensal is not none %}R$ {{ '%.2f'|format(e.valor_mensal|float) }}{% else
+                                %}—{% endif %}</td>
+                            <td>{{ e.vencimento.strftime('%d/%m/%Y') if e.vencimento else '—' }}</td>
+                            <td>{{ e.assinatura_status or '—' }}</td>
+                        </tr>{% endfor %}</tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="form form-secoes">
+        <div class="form-bloco">
+            <h2>Cobranças e comprovantes</h2>
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Valor</th>
+                            <th>Vencimento</th>
+                            <th>Status</th>
+                            <th>Comprovante</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>{% for p in pagamentos %}<tr>
+                            <td>{{ p.estabelecimento_nome }}<br><small>{{ p.descricao }}</small></td>
+                            <td>R$ {{ '%.2f'|format(p.valor|float) }}</td>
+                            <td>{{ p.data_vencimento.strftime('%d/%m/%Y') if p.data_vencimento else '—' }}</td>
+                            <td>{{ p.status|replace('_',' ')|capitalize }}</td>
+                            <td>{% if p.comprovante %}<a
+                                    href="{{ url_for('payments.abrir_comprovante', pagamento_id=p.id) }}"
+                                    target="_blank" rel="noopener">Abrir arquivo</a>{% else %}—{% endif %}</td>
+                            <td>{% if p.status in ['pendente','comprovante_enviado'] %}<form method="POST"
+                                    class="acoes"><input type="hidden" name="csrf_token"
+                                        value="{{ csrf_token() }}"><input type="hidden" name="pagamento_id"
+                                        value="{{ p.id }}"><button name="acao" value="confirmar" type="submit"
+                                        onclick="return confirm('Confirmar que o valor foi recebido?')">Confirmar</button><button
+                                        name="acao" value="rejeitar" type="submit"
+                                        onclick="return confirm('Rejeitar este comprovante?')">Rejeitar</button></form>
+                                {% else %}—{% endif %}</td>
+                        </tr>{% else %}<tr>
+                            <td colspan="6">Nenhuma cobrança registrada.</td>
+                        </tr>{% endfor %}</tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .campos-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 18px
+    }
+
+    .campos-grid .campo small {
+        display: block;
+        margin-top: 5px;
+        color: #777
+    }
+
+    .tabela-responsiva {
+        overflow-x: auto
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        vertical-align: top
+    }
+
+    .acoes {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap
+    }
+
+    .acoes button {
+        cursor: pointer;
+        padding: 7px 9px;
+        border: 0;
+        border-radius: 6px
+    }
+
+    .acoes button[value="confirmar"] {
+        background: #176b3a;
+        color: white
+    }
+
+    .acoes button[value="rejeitar"] {
+        background: #8d2424;
+        color: white
+    }
+
+    @media(max-width:700px) {
+        .campos-grid {
+            grid-template-columns: 1fr
+        }
+    }
+</style>
+{% endblock %}

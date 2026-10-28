@@ -14,6 +14,7 @@ from utils.csrf import gerar_csrf_token, validar_csrf_token
 from routes.public import public
 from routes.admin import admin
 from routes.auth import auth
+from routes.payments import payments
 
 
 app = Flask(__name__)
@@ -61,8 +62,9 @@ def erro_interno(erro):
 app.register_blueprint(auth)
 app.register_blueprint(public)
 app.register_blueprint(admin)
+app.register_blueprint(payments)
 
 
 if __name__ == "__main__":
     print("DEBUG LA CARTA ATIVO")
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=False, use_reloader=False)

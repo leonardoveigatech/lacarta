@@ -181,6 +181,13 @@
 
 
 
+            <!-- ASSINATURA E PAGAMENTOS -->
+            <a href="{{ url_for('payments.pagina_cliente') }}" class="link">
+                <span class="icon">$</span>
+                <span>Pagamentos</span>
+            </a>
+
+
             <!-- APARÊNCIA -->
 
             <a href="{{ url_for('admin.aparencia') }}" class="link">
@@ -411,6 +418,15 @@
 
         {% endwith %}
 
+
+        {% if assinatura_atrasada %}
+        <div
+            style="margin:18px 0;padding:15px 18px;border-radius:10px;background:#fff3cd;border:1px solid #ffe08a;color:#5f4700;line-height:1.5;">
+            <strong>Atenção: assinatura em atraso ou suspensa.</strong> O cardápio público está bloqueado até a
+            regularização.
+            <a href="{{ url_for('payments.pagina_cliente') }}" style="font-weight:bold;color:#310505;">Ver pagamento</a>
+        </div>
+        {% endif %}
 
         {% block content %}
         {% endblock %}

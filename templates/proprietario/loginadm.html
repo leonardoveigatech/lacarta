@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acesso do proprietário | La Carta</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --vinho: #541c2b;
+            --dourado: #c6a15b;
+            --texto: #29252a;
+            --muted: #77717a;
+            --fundo: #f6f3ef
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: var(--fundo);
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--texto)
+        }
+
+        .card {
+            width: min(100%, 420px);
+            background: #fff;
+            padding: 38px;
+            border-radius: 18px;
+            box-shadow: 0 18px 55px #2a17200f;
+            border: 1px solid #eee7e1
+        }
+
+        .marca {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            letter-spacing: .5px;
+            color: var(--vinho);
+            margin: 0
+        }
+
+        .tag {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dourado);
+            font-weight: 700;
+            margin: 8px 0 28px
+        }
+
+        h1 {
+            font-size: 22px;
+            margin: 0 0 8px
+        }
+
+        .sub {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--muted);
+            margin: 0 0 24px
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin: 17px 0 7px
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ddd5d0;
+            border-radius: 9px;
+            font: inherit;
+            outline: none
+        }
+
+        input:focus {
+            border-color: var(--dourado);
+            box-shadow: 0 0 0 3px #c6a15b24
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 14px;
+            border: 0;
+            border-radius: 9px;
+            background: var(--vinho);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        button:hover {
+            filter: brightness(1.12)
+        }
+
+        .erro {
+            padding: 11px 12px;
+            border-radius: 8px;
+            background: #fff0ef;
+            color: #9b2c25;
+            font-size: 13px;
+            margin-bottom: 15px
+        }
+
+        .privado {
+            margin-top: 22px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <p class="marca">La Carta</p>
+        <p class="tag">Painel administrativo</p>
+        <h1>Acesso do proprietário</h1>
+        <p class="sub">Entre para gerenciar estabelecimentos, assinaturas, cobranças e pagamentos.</p>
+        {% if erro %}<div class="erro" role="alert">{{ erro }}</div>{% endif %}
+        <form method="post" autocomplete="on">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="email">E-mail do proprietário</label>
+            <input id="email" name="email" type="email" autocomplete="username" required maxlength="254">
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" autocomplete="current-password" required>
+            <button type="submit">Entrar no painel</button>
+        </form>
+        <p class="privado">Área restrita • La Carta</p>
+    </main>
+</body>
+
+</html>
