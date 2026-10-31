@@ -7,7 +7,7 @@ from decimal import Decimal, InvalidOperation
 from functools import wraps
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, abort, current_app, send_from_directory
 from werkzeug.utils import secure_filename
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from database.connection import get_connection
 from database.billing import buscar_assinatura, assinatura_bloqueada
 from database.usuarios import buscar_por_id as buscar_usuario_por_id
