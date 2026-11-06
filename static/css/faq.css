@@ -1,204 +1,50 @@
 @charset "UTF-8";
 
-/* LA CARTA - FAQ (PERGUNTAS FREQUENTES) - MOBILE FIRST */
+/* LA CARTA — FAQ (perguntas frequentes) */
 
+.faq-page { width: 100%; max-width: 760px; margin: 0 auto; padding: 1.2rem 1.1rem 3rem; }
 
-.faq-page {
-  display: flex;
-  flex-direction: column;
-  padding: 0 1.2rem 3rem;
-}
-
-
-.faq-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 2rem 0.5rem 2.5rem;
-  border-bottom: 2px solid #e8c992;
-  margin-bottom: 2.5rem;
-}
-
-.faq-label {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #b08a3e;
-  margin-bottom: 0.6rem;
-}
-
-.faq-header h1 {
-  font-family: "Cormorant", serif;
-  font-weight: 600;
-  font-size: 2rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #2c0404;
-}
-
-.faq-header p {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: rgba(29, 2, 2, 0.6);
-  max-width: 420px;
-  margin-top: 0.8rem;
-}
-
-
-.faq-section {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 3rem;
-}
-
-.faq-section h2 {
-  font-family: "Cormorant", serif;
-  font-weight: 600;
-  font-size: 1.4rem;
-  letter-spacing: 0.03em;
-  color: #2c0404;
-  margin-bottom: 1.2rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid rgba(232, 201, 146, 0.5);
-}
-
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-
-.faq-item {
-  background-color: #2c0404;
-  border-radius: 18px;
-  padding: 1rem 1.2rem;
-  overflow: hidden;
-}
-
-.faq-item summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  list-style: none;
-  cursor: pointer;
-  font-family: "Cormorant", serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  letter-spacing: 0.02em;
-  color: #e8c992;
-  line-height: 1.35;
-}
-
-.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
-.faq-item summary::after {
-  content: "+";
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  font-size: 1.1rem;
-  color: #1d0202;
-  background-color: #e8c992;
-  border-radius: 50%;
-  transition: transform 0.25s ease;
-}
-
-.faq-item[open] summary::after {
-  transform: rotate(45deg);
-}
-
-.faq-item p {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.85;
-  color: rgba(245, 245, 245, 0.7);
-  margin-top: 0.8rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid rgba(232, 201, 146, 0.15);
-}
-
-/* Animação sutil ao abrir */
-
-.faq-item[open] summary {
-  color: #f2ede4;
-}
-
-/* ===== CTA FINAL ===== */
 .sobre-cta-button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-decoration: none;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  color: #e8c992;
-  background-color: #2c0404;
-  border-radius: 14px;
-  padding: 1rem 1.2rem;
-  transition: transform 0.15s ease;
-  margin-top: 2.4rem;
+  display: inline-flex; align-items: center; padding: 0.6rem 1rem; margin-bottom: 0.5rem; text-decoration: none;
+  font: 500 0.82rem "Montserrat", sans-serif; color: var(--cor-principal);
+  border: 1px solid var(--linha); border-radius: 10px; background: var(--superficie);
+  transition: border-color 0.2s var(--ease);
 }
-.faq-cta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 2.5rem 1.5rem;
-  background-color: #2c0404;
-  border-radius: 28px;
-}
+.sobre-cta-button::before { content: "←"; margin-right: 0.5rem; color: var(--cor-secundaria); }
+.sobre-cta-button:hover { border-color: var(--cor-secundaria); }
 
-.faq-cta h2 {
-  font-family: "Cormorant", serif;
-  font-weight: 600;
-  font-size: 1.3rem;
-  letter-spacing: 0.03em;
-  color: #e8c992;
-}
+.faq-header { display: flex; flex-direction: column; align-items: flex-start; padding: 1.5rem 0 2rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--linha); }
+.faq-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; color: var(--cor-secundaria); margin-bottom: 0.5rem; }
+.faq-header h1 { font: 600 clamp(2.2rem, 8vw, 3.2rem)/1.05 "Cormorant", serif; color: var(--cor-principal); }
+.faq-header p { max-width: 460px; margin-top: 0.8rem; font-size: 0.95rem; line-height: 1.65; color: var(--suave); }
 
-.faq-cta p {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
-  font-size: 0.85rem;
-  color: rgba(245, 245, 245, 0.65);
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-}
+.faq-section { display: flex; flex-direction: column; margin-bottom: 2.8rem; }
+.faq-section h2 { margin-bottom: 1rem; font: 600 1.5rem "Cormorant", serif; color: var(--cor-principal); }
+.faq-list { display: flex; flex-direction: column; gap: 0.6rem; }
 
+.faq-item { background: var(--superficie); border: 1px solid var(--linha); border-radius: 12px; padding: 0 1.1rem; transition: border-color 0.2s var(--ease); }
+.faq-item[open] { border-color: color-mix(in srgb, var(--cor-secundaria) 60%, transparent); }
+.faq-item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; list-style: none; cursor: pointer;
+  font: 600 1.15rem/1.35 "Cormorant", serif; color: var(--cor-texto);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;
+  font: 400 1.1rem "Montserrat", sans-serif; color: var(--texto-sobre-principal); background: var(--cor-principal); border-radius: 50%;
+  transition: transform 0.25s var(--ease);
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { padding: 0.9rem 0 1.1rem; font-size: 0.92rem; line-height: 1.75; color: var(--suave); border-top: 1px solid var(--linha); }
+
+.faq-cta { display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1.5rem; text-align: center; background: var(--cor-principal); border-radius: 18px; }
+.faq-cta h2 { font: 600 1.6rem "Cormorant", serif; color: var(--texto-sobre-principal); }
+.faq-cta p { margin: 0.5rem 0 1.5rem; font-size: 0.9rem; color: color-mix(in srgb, var(--texto-sobre-principal) 75%, transparent); }
 .faq-cta-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #1d0202;
-  background-color: #e8c992;
-  border-radius: 999px;
-  padding: 0.9rem 2rem;
-  transition: transform 0.15s ease;
+  display: inline-flex; align-items: center; justify-content: center; padding: 0.95rem 2rem; text-decoration: none;
+  font: 600 0.8rem "Montserrat", sans-serif; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--cor-secundaria); color: var(--texto-sobre-secundaria); border-radius: 12px; transition: transform 0.15s var(--ease);
 }
+.faq-cta-button:active { transform: scale(0.98); }
 
-.faq-cta-button:active {
-  transform: scale(0.98);
-}
+@media (min-width: 1024px) { .faq-page { padding-top: 0.5rem; } }

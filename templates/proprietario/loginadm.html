@@ -4,142 +4,601 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <title>Acesso do proprietário | La Carta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <style>
+        /* LA CARTA — ÁREA DO PROPRIETÁRIO (CSS exclusivo; não depende de admin.css) */
+
         :root {
-            color-scheme: light;
-            --vinho: #541c2b;
-            --dourado: #c6a15b;
-            --texto: #29252a;
-            --muted: #77717a;
-            --fundo: #f6f3ef
+            --vinho-900: #1d0202;
+            --vinho-700: #5a0a0a;
+            --ouro: #e8c992;
+            --ouro-esc: #9a7a3a;
+            --fundo: #f6f3ef;
+            --card: #fff;
+            --texto: #241a1c;
+            --suave: #6f6468;
+            --linha: #e6dfd8;
+            --verde: #176b3a;
+            --vermelho: #8d2424;
+            --ambar: #8a5a00;
+            --azul: #1f4f8a;
+            --pad: 1.25rem;
+            --max: 1120px;
         }
 
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 24px;
             background: var(--fundo);
-            font-family: Arial, Helvetica, sans-serif;
-            color: var(--texto)
+            color: var(--texto);
+            font: 400 0.95rem/1.55 "Montserrat", sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
+
+        h1,
+        h2 {
+            font-family: "Cormorant", serif;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+
+        a {
+            color: var(--vinho-700);
+        }
+
+        small {
+            color: var(--suave);
+            font-size: 0.78rem;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--ouro-esc);
+            outline-offset: 2px;
+        }
+
+        /* BOTÕES */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font: 500 0.8rem/1 "Montserrat", sans-serif;
+            letter-spacing: 0.03em;
+            padding: 0.8rem 1.3rem;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+        }
+
+        .btn-primary {
+            background: var(--vinho-700);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--vinho-900);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ouro);
+            border-color: rgba(232, 201, 146, 0.4);
+            padding: 0.6rem 1rem;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--ouro);
+            background: rgba(232, 201, 146, 0.08);
+        }
+
+        .btn-ok {
+            background: var(--verde);
+            color: #fff;
+            padding: 0.55rem 0.8rem;
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--vermelho);
+            border-color: var(--vermelho);
+            padding: 0.55rem 0.8rem;
+        }
+
+        .btn-danger:hover {
+            background: var(--vermelho);
+            color: #fff;
+        }
+
+        /* FORMULÁRIOS */
+
+        .campo {
+            margin-bottom: 1rem;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            font: inherit;
+            color: var(--texto);
+            background: #fff;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid #d6cdc5;
+            border-radius: 3px;
+        }
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+            outline: none;
+            border-color: var(--ouro-esc);
+            box-shadow: 0 0 0 3px rgba(154, 122, 58, 0.18);
+        }
+
+        .campo small {
+            display: block;
+            margin-top: 0.35rem;
+        }
+
+        .campos-grid {
+            display: grid;
+            gap: 0 1.2rem;
+        }
+
+        .ajuda {
+            color: var(--suave);
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        form .ajuda:last-child {
+            margin: 1rem 0 0;
+        }
+
+        /* BARRA SUPERIOR */
+
+        .topbar {
+            background: var(--vinho-900);
+            color: #f2ede4;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topbar-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0.8rem var(--pad);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+        }
+
+        .brand-name {
+            font: 600 1.5rem/1 "Cormorant", serif;
+            color: var(--ouro);
+        }
+
+        .brand-area {
+            font-size: 0.75rem;
+            color: rgba(242, 237, 228, 0.6);
+        }
+
+        .subnav {
+            border-top: 1px solid rgba(232, 201, 146, 0.15);
+        }
+
+        .subnav-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 var(--pad);
+            display: flex;
+            gap: 1.6rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .subnav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .subnav a {
+            color: rgba(242, 237, 228, 0.7);
+            text-decoration: none;
+            font-size: 0.82rem;
+            white-space: nowrap;
+            padding: 0.75rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .subnav a:hover {
+            color: var(--ouro);
+            border-bottom-color: var(--ouro);
+        }
+
+        /* PÁGINA */
+
+        .page {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 2rem var(--pad) 4rem;
+        }
+
+        .page-head {
+            margin-bottom: 1.6rem;
+        }
+
+        .page-head h1 {
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            color: var(--vinho-700);
+        }
+
+        .page-head p {
+            color: var(--suave);
+            margin-top: 0.4rem;
+        }
+
+        .flashes {
+            display: grid;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .flash {
+            padding: 0.8rem 1rem;
+            border-radius: 3px;
+            font-size: 0.88rem;
+            background: #eef2f7;
+            border-left: 3px solid var(--azul);
+        }
+
+        .flash-success {
+            background: #e9f5ee;
+            border-color: var(--verde);
+            color: #0f4a28;
+        }
+
+        .flash-error,
+        .flash-danger {
+            background: #fbecec;
+            border-color: var(--vermelho);
+            color: #6d1b1b;
+        }
+
+        .flash-warning {
+            background: #fdf3df;
+            border-color: var(--ambar);
+            color: #5f4000;
+        }
+
+        /* RESUMO */
+
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .resumo>div {
+            background: var(--card);
+            border: 1px solid var(--linha);
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .resumo strong {
+            display: block;
+            font: 600 2rem/1 "Cormorant", serif;
+            color: var(--vinho-700);
+        }
+
+        .resumo span {
+            font-size: 0.75rem;
+            color: var(--suave);
+        }
+
+        .resumo .alerta {
+            border-color: var(--ambar);
+        }
+
+        .resumo .alerta strong {
+            color: var(--ambar);
+        }
+
+        /* CARDS */
 
         .card {
-            width: min(100%, 420px);
-            background: #fff;
-            padding: 38px;
-            border-radius: 18px;
-            box-shadow: 0 18px 55px #2a17200f;
-            border: 1px solid #eee7e1
+            background: var(--card);
+            border: 1px solid var(--linha);
+            border-radius: 4px;
+            padding: 1.4rem;
+            margin-bottom: 1.4rem;
+            scroll-margin-top: 7rem;
         }
 
-        .marca {
-            font-family: Georgia, serif;
-            font-size: 30px;
-            letter-spacing: .5px;
-            color: var(--vinho);
-            margin: 0
+        .card h2 {
+            font-size: 1.6rem;
+            color: var(--vinho-700);
+            margin-bottom: 1rem;
         }
 
-        .tag {
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--dourado);
-            font-weight: 700;
-            margin: 8px 0 28px
+        .duas-colunas {
+            display: grid;
+            gap: 1.4rem;
         }
 
-        h1 {
-            font-size: 22px;
-            margin: 0 0 8px
+        .duas-colunas .card {
+            margin-bottom: 0;
         }
 
-        .sub {
-            font-size: 14px;
-            line-height: 1.5;
-            color: var(--muted);
-            margin: 0 0 24px
+        /* TABELAS */
+
+        .tabela-responsiva {
+            overflow-x: auto;
+            margin: 0 -0.2rem;
         }
 
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 700;
-            margin: 17px 0 7px
-        }
-
-        input {
+        table {
             width: 100%;
-            padding: 13px 14px;
-            border: 1px solid #ddd5d0;
-            border-radius: 9px;
-            font: inherit;
-            outline: none
+            border-collapse: collapse;
+            min-width: 640px;
         }
 
-        input:focus {
-            border-color: var(--dourado);
-            box-shadow: 0 0 0 3px #c6a15b24
+        th {
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--suave);
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid var(--linha);
+            white-space: nowrap;
         }
 
-        button {
-            width: 100%;
-            margin-top: 24px;
-            padding: 14px;
-            border: 0;
-            border-radius: 9px;
-            background: var(--vinho);
-            color: white;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer
+        td {
+            padding: 0.9rem 0.8rem;
+            border-bottom: 1px solid #f0eae4;
+            vertical-align: top;
         }
 
-        button:hover {
-            filter: brightness(1.12)
+        tr:last-child td {
+            border-bottom: none;
         }
 
-        .erro {
-            padding: 11px 12px;
-            border-radius: 8px;
-            background: #fff0ef;
-            color: #9b2c25;
-            font-size: 13px;
-            margin-bottom: 15px
+        td.num {
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        td.vazio {
+            text-align: center;
+            color: var(--suave);
+            padding: 2rem;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        /* STATUS */
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+            font-size: 0.74rem;
+            font-weight: 500;
+            background: #eee;
+            color: #555;
+            text-transform: capitalize;
+        }
+
+        .s-pendente,
+        .s-inadimplente {
+            background: #fdf3df;
+            color: var(--ambar);
+        }
+
+        .s-comprovante_enviado {
+            background: #e6eef8;
+            color: var(--azul);
+        }
+
+        .s-confirmado,
+        .s-pago,
+        .s-ativa {
+            background: #e9f5ee;
+            color: var(--verde);
+        }
+
+        .s-rejeitado,
+        .s-suspensa {
+            background: #fbecec;
+            color: var(--vermelho);
+        }
+
+        .s-cancelada {
+            background: #eee;
+            color: #666;
+        }
+
+        /* LOGIN */
+
+        body.login {
+            min-height: 100vh;
+            display: grid;
+            background: var(--fundo);
+        }
+
+        .login-side {
+            background: var(--vinho-900);
+            color: rgba(242, 237, 228, 0.75);
+            padding: 2.2rem var(--pad);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .login-side .brand-name {
+            font-size: 2.2rem;
+        }
+
+        .login-side p {
+            font-size: 0.9rem;
+            max-width: 34ch;
+        }
+
+        .login-main {
+            display: grid;
+            place-items: center;
+            padding: 2.5rem var(--pad);
+        }
+
+        .login-form {
+            width: min(100%, 400px);
+        }
+
+        .login-form h1 {
+            font-size: 2.2rem;
+            color: var(--vinho-700);
+        }
+
+        .login-form .sub {
+            color: var(--suave);
+            margin: 0.5rem 0 1.6rem;
+            font-size: 0.9rem;
+        }
+
+        .login-form .flash {
+            margin-bottom: 1.2rem;
         }
 
         .privado {
-            margin-top: 22px;
+            margin-top: 1.4rem;
             text-align: center;
-            color: var(--muted);
-            font-size: 12px
+            font-size: 0.75rem;
+            color: var(--suave);
+        }
+
+        /* DESKTOP */
+
+        @media (min-width: 760px) {
+            :root {
+                --pad: 2rem;
+            }
+
+            .campos-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .duas-colunas {
+                grid-template-columns: 1fr 1fr;
+                align-items: start;
+            }
+
+            .card {
+                padding: 2rem;
+            }
+
+            .resumo>div {
+                padding: 1.3rem 1.5rem;
+            }
+
+            .resumo strong {
+                font-size: 2.6rem;
+            }
+        }
+
+        @media (min-width: 900px) {
+            body.login {
+                grid-template-columns: 5fr 6fr;
+            }
+
+            .login-side {
+                padding: 4rem;
+                justify-content: flex-end;
+            }
+
+            .login-side .brand-name {
+                font-size: 3.4rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
+            }
         }
     </style>
 </head>
 
-<body>
-    <main class="card">
-        <p class="marca">La Carta</p>
-        <p class="tag">Painel administrativo</p>
-        <h1>Acesso do proprietário</h1>
-        <p class="sub">Entre para gerenciar estabelecimentos, assinaturas, cobranças e pagamentos.</p>
-        {% if erro %}<div class="erro" role="alert">{{ erro }}</div>{% endif %}
-        <form method="post" autocomplete="on">
+<body class="login">
+    <div class="login-side">
+        <span class="brand-name">La Carta</span>
+        <p>Painel interno de gestão de estabelecimentos, assinaturas e pagamentos.</p>
+    </div>
+
+    <main class="login-main">
+        <form class="login-form" method="post" autocomplete="on">
+            <h1>Acesso do proprietário</h1>
+            <p class="sub">Entre para gerenciar estabelecimentos, assinaturas, cobranças e pagamentos.</p>
+
+            {% if erro %}<div class="flash flash-error" role="alert">{{ erro }}</div>{% endif %}
+
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <label for="email">E-mail do proprietário</label>
-            <input id="email" name="email" type="email" autocomplete="username" required maxlength="254">
-            <label for="senha">Senha</label>
-            <input id="senha" name="senha" type="password" autocomplete="current-password" required>
-            <button type="submit">Entrar no painel</button>
+
+            <div class="campo">
+                <label for="email">E-mail do proprietário</label>
+                <input id="email" name="email" type="email" autocomplete="username" required maxlength="254" autofocus>
+            </div>
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input id="senha" name="senha" type="password" autocomplete="current-password" required>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit">Entrar no painel</button>
+            <p class="privado">Área restrita</p>
         </form>
-        <p class="privado">Área restrita • La Carta</p>
     </main>
 </body>
 

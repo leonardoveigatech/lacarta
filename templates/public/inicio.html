@@ -9,237 +9,170 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant:wght@400;500&family=Montserrat:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600&family=Montserrat:wght@300;400;500&display=swap"
         rel="stylesheet">
     <title>La Carta Menus</title>
 </head>
 
 <body>
-    <header>
-        <nav class="navegacao">
+    <!-- Barra fixa: fica FORA do smooth-wrapper para continuar fixa com o scroll suave -->
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('public.inicio') }}" aria-label="La Carta">
+            <img src="{{ url_for('static', filename='imagens/logosvgatual.svg') }}" alt="La Carta">
+        </a>
 
-            <button type="button" class="navTrigger" data-toggle="justificativa" aria-expanded="false">
-                Por que o La Carta?
-            </button>
-
-            <div class="navDropdown" id="justificativa" hidden>
-                <p>Seu cardápio merece estar à altura do seu negócio.
-
-                    O La Carta é uma plataforma digital criada para transformar a maneira como restaurantes, bares,
-                    cafés e estabelecimentos gastronômicos apresentam seus produtos e se conectam com seus clientes.
-
-                    O cardápio é uma das primeiras experiências que o consumidor tem com o seu negócio. Por isso, ele
-                    precisa fazer parte da identidade e do padrão de qualidade que você oferece.
-
-                    Uma nova experiência para o seu cliente:
-                    O La Carta transforma uma simples consulta de produtos em uma experiência mais moderna, organizada e
-                    profissional, ajudando seu estabelecimento a acompanhar a forma como as pessoas consomem informação
-                    hoje: pelo celular, de maneira rápida e intuitiva.
-
-                    Menos papel. Mais possibilidades.
-
-                    Um cardápio impresso pode se tornar desatualizado a qualquer momento.
-
-                    Uma alteração de preço, um novo produto ou uma mudança no seu menu pode exigir uma nova impressão.
-                    No ambiente digital, seu cardápio acompanha essas mudanças com muito mais facilidade.
-
-                    Seu negócio evolui e seu cardápio evolui junto.
-
-                    O La Carta nasceu para ajudar estabelecimentos gastronômicos a modernizar sua apresentação,
-                    simplificar a gestão do cardápio e proporcionar uma experiência melhor aos seus clientes.
-
-
-                    La Carta:
-                    O seu cardápio transformado em experiência digital.</p>
-            </div>
-
-            <button type="button" class="navTrigger" data-toggle="recursos" aria-expanded="false">
-                Recursos
-            </button>
-
-            <div class="navDropdown" id="recursos" hidden>
-                <ul>
-
-                    <li>
-                        <button type="button" class="itemTrigger" data-toggle="gestaoPainel" aria-expanded="false">
-                            Gestão autônoma pelo Painel Administrativo
-                        </button>
-                        <div id="gestaoPainel" class="info-texto" hidden>
-                            <h2>Gestão pelo Painel Administrativo</h2>
-                            <p>Tenha liberdade para cuidar do seu cardápio quando quiser. Pelo Painel
-                                Administrativo do La Carta, você pode adicionar, editar ou remover produtos, organizar
-                                categorias, atualizar preços e manter todas as informações do seu estabelecimento sempre
-                                atualizadas de forma simples, rápida e independente.</p>
-                        </div>
-                    </li>
-
-                    <li>Cardápio digital</li>
-                    <li>Categorias e produtos</li>
-                    <li>Busca de produtos</li>
-
-                    <li>
-                        <button type="button" class="itemTrigger" data-toggle="qrcode" aria-expanded="false">
-                            QR code
-                        </button>
-                        <div id="qrcode" class="info-texto" hidden>
-                            <h2>QR Code exclusivo do seu estabelecimento</h2>
-                            <p>
-                                Gere o QR Code exclusivo do seu estabelecimento diretamente pelo
-                                Painel Administrativo do La Carta. Depois, é só disponibilizá-lo
-                                nas mesas para que seus clientes acessem seu cardápio digital.
-                            </p>
-                        </div>
-                    </li>
-
-                    <li>Atualização do cardápio</li>
-                    <li>Personalização própria</li>
-
-                </ul>
-            </div>
-
-            <button type="button" class="navTrigger" data-toggle="comoFunciona" aria-expanded="false">
-                Como funciona?
-            </button>
-
-            <div class="navDropdown" id="comoFunciona" hidden>
-                <ul>
-                    <li>Cadastre seu estabelecimento</li>
-                    <li>Monte seu cardápio digital</li>
-                    <li>Gere seus QR codes</li>
-                    <li>Seu cliente acessa diretamente pelo celular</li>
-                </ul>
-            </div>
-            <a class="entrar" id="entrar" href="{{ url_for('admin.login') }}" class="btnEntrar">
-                ENTRAR
-            </a>
-            <a class="entrar" id="entrar" href="{{ url_for('payments.login_proprietario') }}">ADM</a>
+        <nav class="navegacao" aria-label="Principal">
+            <button type="button" class="navTrigger" data-toggle="justificativa" aria-expanded="false">Por que o La
+                Carta?</button>
+            <button type="button" class="navTrigger" data-toggle="recursos" aria-expanded="false">Recursos</button>
+            <button type="button" class="navTrigger" data-toggle="comoFunciona" aria-expanded="false">Como
+                funciona?</button>
         </nav>
-        <img class="Logoimg" src="/static/imagens/logosvgatual.svg" alt="La Carta">
-        <div class="divParagrafos" id="divParagrafos">
-            <h1>
-                Seu cardápio merece estar à altura do seu negócio.
-            </h1>
-            <h2>
-                Transforme seu cardápio em uma experiência digital que valoriza o seu negócio.
-            </h2>
 
+        <div class="acessos">
+            <a class="link-adm" href="{{ url_for('payments.login_proprietario') }}">ADM</a>
+            <a class="btn btn-outline" href="{{ url_for('admin.login') }}">Entrar</a>
         </div>
 
+        <div class="navDropdown" id="justificativa" hidden>
+            <h2>Seu cardápio merece estar à altura do seu negócio.</h2>
+            <p>O La Carta é uma plataforma digital criada para transformar a maneira como restaurantes, bares, cafés e
+                estabelecimentos gastronômicos apresentam seus produtos e se conectam com seus clientes.</p>
+            <p>O cardápio é uma das primeiras experiências que o consumidor tem com o seu negócio. Por isso, ele precisa
+                fazer parte da identidade e do padrão de qualidade que você oferece.</p>
+            <h3>Uma nova experiência para o seu cliente</h3>
+            <p>O La Carta transforma uma simples consulta de produtos em uma experiência mais moderna, organizada e
+                profissional, acompanhando a forma como as pessoas consomem informação hoje: pelo celular, de maneira
+                rápida e intuitiva.</p>
+            <h3>Menos papel. Mais possibilidades.</h3>
+            <p>Um cardápio impresso pode se tornar desatualizado a qualquer momento. Uma alteração de preço, um novo
+                produto ou uma mudança no menu pode exigir uma nova impressão. No ambiente digital, seu cardápio
+                acompanha essas mudanças com muito mais facilidade.</p>
+            <p>Seu negócio evolui e seu cardápio evolui junto.</p>
+        </div>
 
+        <div class="navDropdown" id="recursos" hidden>
+            <ul>
+                <li>
+                    <button type="button" class="itemTrigger" data-toggle="gestaoPainel" aria-expanded="false">
+                        Gestão autônoma pelo Painel Administrativo
+                    </button>
+                    <div id="gestaoPainel" class="info-texto" hidden>
+                        <h3>Gestão pelo Painel Administrativo</h3>
+                        <p>Tenha liberdade para cuidar do seu cardápio quando quiser. Pelo Painel Administrativo do
+                            La Carta, você pode adicionar, editar ou remover produtos, organizar categorias, atualizar
+                            preços e manter todas as informações do seu estabelecimento sempre atualizadas de forma
+                            simples, rápida e independente.</p>
+                    </div>
+                </li>
+                <li>Cardápio digital</li>
+                <li>Categorias e produtos</li>
+                <li>Busca de produtos</li>
+                <li>
+                    <button type="button" class="itemTrigger" data-toggle="qrcode" aria-expanded="false">QR
+                        code</button>
+                    <div id="qrcode" class="info-texto" hidden>
+                        <h3>QR Code exclusivo do seu estabelecimento</h3>
+                        <p>Gere o QR Code exclusivo do seu estabelecimento diretamente pelo Painel Administrativo do
+                            La Carta. Depois, é só disponibilizá-lo nas mesas para que seus clientes acessem seu
+                            cardápio digital.</p>
+                    </div>
+                </li>
+                <li>Atualização do cardápio</li>
+                <li>Personalização própria</li>
+            </ul>
+        </div>
+
+        <div class="navDropdown" id="comoFunciona" hidden>
+            <ul>
+                <li>Cadastre seu estabelecimento</li>
+                <li>Monte seu cardápio digital</li>
+                <li>Gere seus QR codes</li>
+                <li>Seu cliente acessa diretamente pelo celular</li>
+            </ul>
+        </div>
     </header>
-    <main>
-        <section class="sectionPrincipal">
-            <div class="QueroDiv" id="QueroDiv">
-                <a class="Quero" id="Quero" href="{{ url_for('auth.cadastro') }}">
-                    Criar meu cardápio digital
-                </a>
-            </div>
-            <div class="EntrarDiv" id="EntrarDiv">
-                <a class="entrar" id="entrar" href="{{ url_for('admin.login') }}" class="btnEntrar">
-                    ENTRAR
-                </a>
-            </div>
-        </section>
-        <section class="info" id="info">
 
-            <!-- BLOCO 1 -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
 
-            <div class="infoBlock" id="infoBlock1">
-
-                <div class="infoImage" id="infoImage1">
-
-                    <img src="{{ url_for('static', filename='imagens/comutadorlacarta.png') }}"
-                        alt="Cliente acessando um cardápio digital">
-
+            <section class="hero">
+                <div class="hero-inner">
+                    <h1>Seu cardápio merece estar à altura do seu negócio.</h1>
+                    <p>Transforme seu cardápio em uma experiência digital que valoriza o seu negócio.</p>
+                    <div class="hero-cta">
+                        <a class="btn btn-gold" href="{{ url_for('auth.cadastro') }}">Criar meu cardápio digital</a>
+                        <a class="btn btn-outline" href="{{ url_for('admin.login') }}">Entrar</a>
+                    </div>
                 </div>
+            </section>
 
-                <div class="infoText" id="infoText1">
+            <main>
+                <section class="info" id="info">
+                    <article class="infoBlock" id="infoBlock1">
+                        <div class="infoImage">
+                            <img data-speed="0.92"
+                                src="{{ url_for('static', filename='imagens/comutadorlacarta.png') }}"
+                                alt="Cliente acessando um cardápio digital">
+                        </div>
+                        <div class="infoText">
+                            <h2>Seu cardápio no lugar onde seu cliente já está.</h2>
+                            <p>O celular. O La Carta transforma o tradicional cardápio em uma experiência digital
+                                rápida, elegante e intuitiva.</p>
+                            <p>Com um simples QR Code, seu cliente acessa o cardápio diretamente pelo celular, sem
+                                precisar baixar aplicativos ou enfrentar complicações.</p>
+                        </div>
+                    </article>
 
-                    <span>
-                        UMA NOVA EXPERIÊNCIA
-                    </span>
+                    <article class="infoBlock" id="infoBlock2">
+                        <div class="infoImage">
+                            <img data-speed="0.92" src="{{ url_for('static', filename='imagens/cardapiolacarta.png') }}"
+                                alt="Painel administrativo do La Carta">
+                        </div>
+                        <div class="infoText">
+                            <h2>Seu cardápio acompanha a evolução do seu negócio.</h2>
+                            <p>Produtos mudam. Preços mudam. O seu negócio evolui. Seu cardápio também deve acompanhar
+                                essas mudanças.</p>
+                            <p>Com o La Carta, você pode gerenciar suas categorias, produtos e informações de forma
+                                simples através do seu painel administrativo.</p>
+                        </div>
+                    </article>
+                </section>
 
-                    <h2>
-                        Seu cardápio no lugar onde seu cliente já está.
-                    </h2>
+                <section class="passos" aria-labelledby="passos-titulo">
+                    <h2 id="passos-titulo">Como funciona</h2>
+                    <ol>
+                        <li>Cadastre seu estabelecimento</li>
+                        <li>Monte seu cardápio digital</li>
+                        <li>Gere seus QR codes</li>
+                        <li>Seu cliente acessa pelo celular</li>
+                    </ol>
+                </section>
+            </main>
 
-                    <p>
-                        O celular. O La Carta transforma o tradicional
-                        cardápio em uma experiência digital rápida,
-                        elegante e intuitiva.
-                    </p>
-
-                    <p>
-                        Com um simples QR Code, seu cliente acessa
-                        o cardápio diretamente pelo celular, sem precisar
-                        baixar aplicativos ou enfrentar complicações.
-                    </p>
-
+            <footer>
+                <div class="footer-grid">
+                    <div class="footer-contato">
+                        <h3>Entre em contato pelo WhatsApp e saiba mais sobre o La Carta.</h3>
+                        <a class="btn btn-gold"
+                            href="https://wa.me/5548991286349?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20La%20Carta%20e%20como%20posso%20contratar%20a%20plataforma."
+                            target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                    </div>
+                    <nav class="footer-links" aria-label="Rodapé">
+                        <a href="{{ url_for('public.faq') }}" id="duvidasFrequentes">Dúvidas Frequentes</a>
+                        <a href="{{ url_for('public.termos_de_uso') }}">Termos de Uso</a>
+                        <a href="{{ url_for('public.politica_privacidade') }}">Política de Privacidade</a>
+                    </nav>
                 </div>
+                <p class="copy">© 2026 La Carta. Todos os direitos reservados.</p>
+            </footer>
 
-            </div>
+        </div>
+    </div>
 
-
-            <!-- BLOCO 2 -->
-
-            <div class="infoBlock" id="infoBlock2">
-
-                <div class="infoText" id="infoText2">
-
-                    <span>
-                        MAIS CONTROLE PARA O SEU NEGÓCIO
-                    </span>
-
-                    <h2>
-                        Seu cardápio acompanha a evolução do seu negócio.
-                    </h2>
-
-                    <p>
-                        Produtos mudam. Preços mudam. O seu negócio evolui.
-                        Seu cardápio também deve acompanhar essas mudanças.
-                    </p>
-
-                    <p>
-                        Com o La Carta, você pode gerenciar suas categorias,
-                        produtos e informações de forma simples através
-                        do seu painel administrativo.
-                    </p>
-
-                </div>
-
-                <div class="infoImage" id="infoImage2">
-
-                    <img src="{{ url_for('static', filename='imagens/cardapiolacarta.png') }}"
-                        alt="Painel administrativo do La Carta">
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-    <footer>
-        <section>
-            <div>
-                <h3>Entre em contato pelo WhatsApp e saiba mais sobre o La Carta.</h3>
-                <a href="https://wa.me/5548991286349?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20La%20Carta%20e%20como%20posso%20contratar%20a%20plataforma."
-                    target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            </div>
-            <div>
-                <a class="btn-faq" href="{{ url_for('public.faq') }}" id="duvidasFrequentes">
-                    <span>
-                        Dúvidas Frequentes
-                    </span>
-                </a>
-            </div>
-            <div>
-                <a href="{{ url_for('public.termos_de_uso') }}">Termos de Uso</a>
-                <a href="{{ url_for('public.politica_privacidade') }}">Política de Privacidade</a>
-            </div>
-            <p> © 2026 La Carta. Todos os direitos reservados. </p>
-        </section>
-    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js"></script>
     <script src="{{ url_for('static', filename='js/inicio.js') }}"></script>
 </body>
 

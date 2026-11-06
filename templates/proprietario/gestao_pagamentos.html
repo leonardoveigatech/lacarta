@@ -1,53 +1,715 @@
-{% extends "admin/base.html" %}
-{% block title %}Gestão de pagamentos | La Carta{% endblock %}
-{% block content %}
-<section class="secao">
-    <div class="topo">
-        <div><span class="label">ÁREA INTERNA LA CARTA</span>
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gestão de pagamentos | La Carta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* LA CARTA — ÁREA DO PROPRIETÁRIO (CSS exclusivo; não depende de admin.css) */
+
+        :root {
+            --vinho-900: #1d0202;
+            --vinho-700: #5a0a0a;
+            --ouro: #e8c992;
+            --ouro-esc: #9a7a3a;
+            --fundo: #f6f3ef;
+            --card: #fff;
+            --texto: #241a1c;
+            --suave: #6f6468;
+            --linha: #e6dfd8;
+            --verde: #176b3a;
+            --vermelho: #8d2424;
+            --ambar: #8a5a00;
+            --azul: #1f4f8a;
+            --pad: 1.25rem;
+            --max: 1120px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--fundo);
+            color: var(--texto);
+            font: 400 0.95rem/1.55 "Montserrat", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2 {
+            font-family: "Cormorant", serif;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+
+        a {
+            color: var(--vinho-700);
+        }
+
+        small {
+            color: var(--suave);
+            font-size: 0.78rem;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--ouro-esc);
+            outline-offset: 2px;
+        }
+
+        /* BOTÕES */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font: 500 0.8rem/1 "Montserrat", sans-serif;
+            letter-spacing: 0.03em;
+            padding: 0.8rem 1.3rem;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+        }
+
+        .btn-primary {
+            background: var(--vinho-700);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--vinho-900);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ouro);
+            border-color: rgba(232, 201, 146, 0.4);
+            padding: 0.6rem 1rem;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--ouro);
+            background: rgba(232, 201, 146, 0.08);
+        }
+
+        .btn-ok {
+            background: var(--verde);
+            color: #fff;
+            padding: 0.55rem 0.8rem;
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--vermelho);
+            border-color: var(--vermelho);
+            padding: 0.55rem 0.8rem;
+        }
+
+        .btn-danger:hover {
+            background: var(--vermelho);
+            color: #fff;
+        }
+
+        /* FORMULÁRIOS */
+
+        .campo {
+            margin-bottom: 1rem;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            font: inherit;
+            color: var(--texto);
+            background: #fff;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid #d6cdc5;
+            border-radius: 3px;
+        }
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+            outline: none;
+            border-color: var(--ouro-esc);
+            box-shadow: 0 0 0 3px rgba(154, 122, 58, 0.18);
+        }
+
+        .campo small {
+            display: block;
+            margin-top: 0.35rem;
+        }
+
+        .campos-grid {
+            display: grid;
+            gap: 0 1.2rem;
+        }
+
+        .ajuda {
+            color: var(--suave);
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        form .ajuda:last-child {
+            margin: 1rem 0 0;
+        }
+
+        /* BARRA SUPERIOR */
+
+        .topbar {
+            background: var(--vinho-900);
+            color: #f2ede4;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topbar-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0.8rem var(--pad);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+        }
+
+        .brand-name {
+            font: 600 1.5rem/1 "Cormorant", serif;
+            color: var(--ouro);
+        }
+
+        .brand-area {
+            font-size: 0.75rem;
+            color: rgba(242, 237, 228, 0.6);
+        }
+
+        .subnav {
+            border-top: 1px solid rgba(232, 201, 146, 0.15);
+        }
+
+        .subnav-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 var(--pad);
+            display: flex;
+            gap: 1.6rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .subnav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .subnav a {
+            color: rgba(242, 237, 228, 0.7);
+            text-decoration: none;
+            font-size: 0.82rem;
+            white-space: nowrap;
+            padding: 0.75rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .subnav a:hover {
+            color: var(--ouro);
+            border-bottom-color: var(--ouro);
+        }
+
+        /* PÁGINA */
+
+        .page {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 2rem var(--pad) 4rem;
+        }
+
+        .page-head {
+            margin-bottom: 1.6rem;
+        }
+
+        .page-head h1 {
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            color: var(--vinho-700);
+        }
+
+        .page-head p {
+            color: var(--suave);
+            margin-top: 0.4rem;
+        }
+
+        .flashes {
+            display: grid;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .flash {
+            padding: 0.8rem 1rem;
+            border-radius: 3px;
+            font-size: 0.88rem;
+            background: #eef2f7;
+            border-left: 3px solid var(--azul);
+        }
+
+        .flash-success {
+            background: #e9f5ee;
+            border-color: var(--verde);
+            color: #0f4a28;
+        }
+
+        .flash-error,
+        .flash-danger {
+            background: #fbecec;
+            border-color: var(--vermelho);
+            color: #6d1b1b;
+        }
+
+        .flash-warning {
+            background: #fdf3df;
+            border-color: var(--ambar);
+            color: #5f4000;
+        }
+
+        /* RESUMO */
+
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .resumo>div {
+            background: var(--card);
+            border: 1px solid var(--linha);
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .resumo strong {
+            display: block;
+            font: 600 2rem/1 "Cormorant", serif;
+            color: var(--vinho-700);
+        }
+
+        .resumo span {
+            font-size: 0.75rem;
+            color: var(--suave);
+        }
+
+        .resumo .alerta {
+            border-color: var(--ambar);
+        }
+
+        .resumo .alerta strong {
+            color: var(--ambar);
+        }
+
+        /* CARDS */
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--linha);
+            border-radius: 4px;
+            padding: 1.4rem;
+            margin-bottom: 1.4rem;
+            scroll-margin-top: 7rem;
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            color: var(--vinho-700);
+            margin-bottom: 1rem;
+        }
+
+        .duas-colunas {
+            display: grid;
+            gap: 1.4rem;
+        }
+
+        .duas-colunas .card {
+            margin-bottom: 0;
+        }
+
+        /* TABELAS */
+
+        .tabela-responsiva {
+            overflow-x: auto;
+            margin: 0 -0.2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 640px;
+        }
+
+        th {
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--suave);
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid var(--linha);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.9rem 0.8rem;
+            border-bottom: 1px solid #f0eae4;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td.num {
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        td.vazio {
+            text-align: center;
+            color: var(--suave);
+            padding: 2rem;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        /* STATUS */
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+            font-size: 0.74rem;
+            font-weight: 500;
+            background: #eee;
+            color: #555;
+            text-transform: capitalize;
+        }
+
+        .s-pendente,
+        .s-inadimplente {
+            background: #fdf3df;
+            color: var(--ambar);
+        }
+
+        .s-comprovante_enviado {
+            background: #e6eef8;
+            color: var(--azul);
+        }
+
+        .s-confirmado,
+        .s-pago,
+        .s-ativa {
+            background: #e9f5ee;
+            color: var(--verde);
+        }
+
+        .s-rejeitado,
+        .s-suspensa {
+            background: #fbecec;
+            color: var(--vermelho);
+        }
+
+        .s-cancelada {
+            background: #eee;
+            color: #666;
+        }
+
+        /* LOGIN */
+
+        body.login {
+            min-height: 100vh;
+            display: grid;
+            background: var(--fundo);
+        }
+
+        .login-side {
+            background: var(--vinho-900);
+            color: rgba(242, 237, 228, 0.75);
+            padding: 2.2rem var(--pad);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .login-side .brand-name {
+            font-size: 2.2rem;
+        }
+
+        .login-side p {
+            font-size: 0.9rem;
+            max-width: 34ch;
+        }
+
+        .login-main {
+            display: grid;
+            place-items: center;
+            padding: 2.5rem var(--pad);
+        }
+
+        .login-form {
+            width: min(100%, 400px);
+        }
+
+        .login-form h1 {
+            font-size: 2.2rem;
+            color: var(--vinho-700);
+        }
+
+        .login-form .sub {
+            color: var(--suave);
+            margin: 0.5rem 0 1.6rem;
+            font-size: 0.9rem;
+        }
+
+        .login-form .flash {
+            margin-bottom: 1.2rem;
+        }
+
+        .privado {
+            margin-top: 1.4rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--suave);
+        }
+
+        /* DESKTOP */
+
+        @media (min-width: 760px) {
+            :root {
+                --pad: 2rem;
+            }
+
+            .campos-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .duas-colunas {
+                grid-template-columns: 1fr 1fr;
+                align-items: start;
+            }
+
+            .card {
+                padding: 2rem;
+            }
+
+            .resumo>div {
+                padding: 1.3rem 1.5rem;
+            }
+
+            .resumo strong {
+                font-size: 2.6rem;
+            }
+        }
+
+        @media (min-width: 900px) {
+            body.login {
+                grid-template-columns: 5fr 6fr;
+            }
+
+            .login-side {
+                padding: 4rem;
+                justify-content: flex-end;
+            }
+
+            .login-side .brand-name {
+                font-size: 3.4rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <span class="brand-name">La Carta</span>
+                <span class="brand-area">Área interna</span>
+            </div>
+            <form method="POST" action="{{ url_for('payments.logout_proprietario') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="btn btn-ghost" type="submit">Sair do painel</button>
+            </form>
+        </div>
+        <nav class="subnav" aria-label="Seções">
+            <div class="subnav-inner">
+                <a href="#cobrancas">Cobranças</a>
+                <a href="#assinaturas">Assinaturas</a>
+                <a href="#novo-estabelecimento">Novo estabelecimento</a>
+                <a href="#nova-assinatura">Assinatura</a>
+                <a href="#pix">Pix</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="page">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flashes">
+            {% for category, message in messages %}
+            <div class="flash flash-{{ category }}" role="status">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% set a_conferir = pagamentos|selectattr('status','in',['pendente','comprovante_enviado'])|list|length %}
+        {% set ativas = estabelecimentos|selectattr('assinatura_status','equalto','ativa')|list|length %}
+
+        <div class="page-head">
             <h1>Gestão de pagamentos</h1>
             <p>Configure o Pix, gerencie assinaturas e confira os comprovantes enviados.</p>
         </div>
-        <form method="POST" action="{{ url_for('payments.logout_proprietario') }}">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <button type="submit">Sair do painel</button>
-        </form>
-    </div>
-    <div class="form form-secoes">
-        <div class="form-bloco">
-            <h2>Configuração do Pix</h2>
-            <form method="POST"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden"
-                    name="acao" value="pix">
-                <div class="campo"><label>Chave Pix</label><input name="chave_pix" maxlength="255"
-                        value="{{ pix.chave_pix if pix and pix.chave_pix else '' }}" required></div>
-                <div class="campo"><label>Tipo de chave</label><select name="tipo_chave">
-                        <option value="CPF/CNPJ" {% if pix and pix.tipo_chave=='CPF/CNPJ' %}selected{% endif %}>CPF/CNPJ
-                        </option>
-                        <option value="E-mail" {% if pix and pix.tipo_chave=='E-mail' %}selected{% endif %}>E-mail
-                        </option>
-                        <option value="Telefone" {% if pix and pix.tipo_chave=='Telefone' %}selected{% endif %}>Telefone
-                        </option>
-                        <option value="Aleatória" {% if pix and pix.tipo_chave=='Aleatória' %}selected{% endif %}>
-                            Aleatória</option>
-                    </select></div>
-                <div class="campo"><label>Nome do beneficiário</label><input name="nome_beneficiario" maxlength="150"
-                        value="{{ pix.nome_beneficiario if pix and pix.nome_beneficiario else '' }}"></div>
-                <div class="campo"><label>Instituição financeira</label><input name="instituicao_financeira"
-                        maxlength="150"
-                        value="{{ pix.instituicao_financeira if pix and pix.instituicao_financeira else '' }}"></div>
-                <div class="campo"><label>Cidade do beneficiário</label><input name="cidade_beneficiario"
-                        maxlength="100"
-                        value="{{ pix.cidade_beneficiario if pix and pix.cidade_beneficiario else '' }}"></div><button
-                    class="primary-button" type="submit">Salvar dados Pix</button>
-            </form>
+
+        <div class="resumo">
+            <div><strong>{{ estabelecimentos|length }}</strong><span>Estabelecimentos</span></div>
+            <div><strong>{{ ativas }}</strong><span>Assinaturas ativas</span></div>
+            <div class="{{ 'alerta' if a_conferir }}"><strong>{{ a_conferir }}</strong><span>Cobranças a conferir</span>
+            </div>
         </div>
-    </div>
-    <div class="form form-secoes">
-        <div class="form-bloco">
+
+        <!-- COBRANÇAS -->
+        <section class="card" id="cobrancas">
+            <h2>Cobranças e comprovantes</h2>
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Valor</th>
+                            <th>Vencimento</th>
+                            <th>Status</th>
+                            <th>Comprovante</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pagamentos %}
+                        <tr>
+                            <td>{{ p.estabelecimento_nome }}<br><small>{{ p.descricao }}</small></td>
+                            <td class="num">R$ {{ '%.2f'|format(p.valor|float) }}</td>
+                            <td>{{ p.data_vencimento.strftime('%d/%m/%Y') if p.data_vencimento else '—' }}</td>
+                            <td><span class="badge s-{{ p.status }}">{{ p.status|replace('_',' ')|capitalize }}</span>
+                            </td>
+                            <td>{% if p.comprovante %}<a
+                                    href="{{ url_for('payments.abrir_comprovante', pagamento_id=p.id) }}"
+                                    target="_blank" rel="noopener">Abrir arquivo</a>{% else %}—{% endif %}</td>
+                            <td>
+                                {% if p.status in ['pendente','comprovante_enviado'] %}
+                                <form method="POST" class="acoes">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="pagamento_id" value="{{ p.id }}">
+                                    <button class="btn btn-ok" name="acao" value="confirmar" type="submit"
+                                        onclick="return confirm('Confirmar que o valor foi recebido?')">Confirmar</button>
+                                    <button class="btn btn-danger" name="acao" value="rejeitar" type="submit"
+                                        onclick="return confirm('Rejeitar este comprovante?')">Rejeitar</button>
+                                </form>
+                                {% else %}—{% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="vazio">Nenhuma cobrança registrada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ASSINATURAS -->
+        <section class="card" id="assinaturas">
+            <h2>Assinaturas cadastradas</h2>
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estabelecimento</th>
+                            <th>Plano</th>
+                            <th>Mensalidade</th>
+                            <th>Vencimento</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for e in estabelecimentos %}
+                        <tr>
+                            <td>{{ e.estabelecimento_nome }} <small>(#{{ e.estabelecimento_id }})</small></td>
+                            <td>{{ e.plano or 'Não cadastrada' }}</td>
+                            <td class="num">{% if e.valor_mensal is not none %}R$ {{ '%.2f'|format(e.valor_mensal|float)
+                                }}{% else %}—{% endif %}</td>
+                            <td>{{ e.vencimento.strftime('%d/%m/%Y') if e.vencimento else '—' }}</td>
+                            <td>{% if e.assinatura_status %}<span class="badge s-{{ e.assinatura_status }}">{{
+                                    e.assinatura_status }}</span>{% else %}—{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- NOVO ESTABELECIMENTO -->
+        <section class="card" id="novo-estabelecimento">
             <h2>Cadastrar estabelecimento e acesso do cliente</h2>
-            <p>Use este formulário para cadastrar manualmente um novo cliente e criar o acesso ao painel administrativo.
-            </p>
-            <form method="POST"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden"
-                    name="acao" value="estabelecimento">
+            <p class="ajuda">Use este formulário para cadastrar manualmente um novo cliente e criar o acesso ao painel
+                administrativo.</p>
+            <form method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="acao" value="estabelecimento">
                 <div class="campos-grid">
                     <div class="campo"><label>Nome do estabelecimento *</label><input name="nome_estabelecimento"
                             maxlength="100" required placeholder="Ex.: Pizzaria da Ilha"></div>
@@ -66,163 +728,88 @@
                     <div class="campo"><label>Endereço</label><input name="endereco" maxlength="255"></div>
                 </div>
                 <div class="campo"><label>Descrição (opcional)</label><textarea name="descricao" rows="2"></textarea>
-                </div><button class="primary-button" type="submit">Cadastrar estabelecimento</button>
+                </div>
+                <button class="btn btn-primary" type="submit">Cadastrar estabelecimento</button>
             </form>
+        </section>
+
+        <div class="duas-colunas">
+            <!-- ASSINATURA -->
+            <section class="card" id="nova-assinatura">
+                <h2>Cadastrar ou atualizar assinatura</h2>
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="acao" value="assinatura">
+                    <div class="campo"><label>Estabelecimento</label>
+                        <select name="estabelecimento_id" required>
+                            {% for e in estabelecimentos %}<option value="{{ e.estabelecimento_id }}">{{
+                                e.estabelecimento_nome }} (ID {{ e.estabelecimento_id }}){% if e.assinatura_id %} —
+                                assinatura atual: {{ e.plano }}{% endif %}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="campo"><label>Plano</label><input name="plano" maxlength="50"
+                            placeholder="Básico ou Completo" required></div>
+                    <div class="campos-grid">
+                        <div class="campo"><label>Valor mensal (R$)</label><input name="valor_mensal" type="number"
+                                min="0.01" step="0.01" required></div>
+                        <div class="campo"><label>Dia de vencimento (1 a 28)</label><input name="dia_vencimento"
+                                type="number" min="1" max="28" value="21" required></div>
+                        <div class="campo"><label>Data de início</label><input name="data_inicio" type="date"
+                                value="{{ today if today else '' }}" required></div>
+                        <div class="campo"><label>Próximo vencimento</label><input name="vencimento" type="date"
+                                required></div>
+                    </div>
+                    <div class="campo"><label>Status</label>
+                        <select name="status">
+                            <option value="ativa">Ativa</option>
+                            <option value="inadimplente">Inadimplente</option>
+                            <option value="suspensa">Suspensa</option>
+                            <option value="cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                    <div class="campo"><label>Observações</label><textarea name="observacoes" rows="2"></textarea></div>
+                    <button class="btn btn-primary" type="submit">Salvar assinatura</button>
+                    <p class="ajuda">Ao atualizar uma assinatura, selecione o estabelecimento e preencha novamente os
+                        dados do plano.</p>
+                </form>
+            </section>
+
+            <!-- PIX -->
+            <section class="card" id="pix">
+                <h2>Configuração do Pix</h2>
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="acao" value="pix">
+                    <div class="campo"><label>Chave Pix</label><input name="chave_pix" maxlength="255"
+                            value="{{ pix.chave_pix if pix and pix.chave_pix else '' }}" required></div>
+                    <div class="campo"><label>Tipo de chave</label>
+                        <select name="tipo_chave">
+                            <option value="CPF/CNPJ" {% if pix and pix.tipo_chave=='CPF/CNPJ' %}selected{% endif %}>
+                                CPF/CNPJ</option>
+                            <option value="E-mail" {% if pix and pix.tipo_chave=='E-mail' %}selected{% endif %}>E-mail
+                            </option>
+                            <option value="Telefone" {% if pix and pix.tipo_chave=='Telefone' %}selected{% endif %}>
+                                Telefone</option>
+                            <option value="Aleatória" {% if pix and pix.tipo_chave=='Aleatória' %}selected{% endif %}>
+                                Aleatória</option>
+                        </select>
+                    </div>
+                    <div class="campo"><label>Nome do beneficiário</label><input name="nome_beneficiario"
+                            maxlength="150"
+                            value="{{ pix.nome_beneficiario if pix and pix.nome_beneficiario else '' }}"></div>
+                    <div class="campo"><label>Instituição financeira</label><input name="instituicao_financeira"
+                            maxlength="150"
+                            value="{{ pix.instituicao_financeira if pix and pix.instituicao_financeira else '' }}">
+                    </div>
+                    <div class="campo"><label>Cidade do beneficiário</label><input name="cidade_beneficiario"
+                            maxlength="100"
+                            value="{{ pix.cidade_beneficiario if pix and pix.cidade_beneficiario else '' }}"></div>
+                    <button class="btn btn-primary" type="submit">Salvar dados Pix</button>
+                </form>
+            </section>
         </div>
-    </div>
-    <div class="form form-secoes">
-        <div class="form-bloco">
-            <h2>Cadastrar ou atualizar assinatura</h2>
-            <form method="POST"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden"
-                    name="acao" value="assinatura">
-                <div class="campo"><label>Estabelecimento</label><select name="estabelecimento_id" required>{% for e in
-                        estabelecimentos %}<option value="{{ e.estabelecimento_id }}">{{ e.estabelecimento_nome }} (ID
-                            {{ e.estabelecimento_id }}){% if e.assinatura_id %} — assinatura atual: {{ e.plano }}{%
-                            endif %}</option>{% endfor %}</select></div>
-                <div class="campo"><label>Plano</label><input name="plano" maxlength="50"
-                        placeholder="Básico ou Completo" required></div>
-                <div class="campo"><label>Valor mensal (R$)</label><input name="valor_mensal" type="number" min="0.01"
-                        step="0.01" required></div>
-                <div class="campo"><label>Dia de vencimento (1 a 28)</label><input name="dia_vencimento" type="number"
-                        min="1" max="28" value="21" required></div>
-                <div class="campo"><label>Data de início</label><input name="data_inicio" type="date"
-                        value="{{ today if today else '' }}" required></div>
-                <div class="campo"><label>Próximo vencimento</label><input name="vencimento" type="date" required></div>
-                <div class="campo"><label>Status</label><select name="status">
-                        <option value="ativa">Ativa</option>
-                        <option value="inadimplente">Inadimplente</option>
-                        <option value="suspensa">Suspensa</option>
-                        <option value="cancelada">Cancelada</option>
-                    </select></div>
-                <div class="campo"><label>Observações</label><textarea name="observacoes" rows="2"></textarea></div>
-                <button class="primary-button" type="submit">Salvar assinatura</button>
-            </form>
-            <p><small>Ao atualizar uma assinatura, selecione o estabelecimento e preencha novamente os dados do
-                    plano.</small></p>
-        </div>
-    </div>
-    <div class="form form-secoes">
-        <div class="form-bloco">
-            <h2>Assinaturas cadastradas</h2>
-            <div class="tabela-responsiva">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Estabelecimento</th>
-                            <th>Plano</th>
-                            <th>Mensalidade</th>
-                            <th>Vencimento</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>{% for e in estabelecimentos %}<tr>
-                            <td>{{ e.estabelecimento_nome }} (#{{ e.estabelecimento_id }})</td>
-                            <td>{{ e.plano or 'Não cadastrada' }}</td>
-                            <td>{% if e.valor_mensal is not none %}R$ {{ '%.2f'|format(e.valor_mensal|float) }}{% else
-                                %}—{% endif %}</td>
-                            <td>{{ e.vencimento.strftime('%d/%m/%Y') if e.vencimento else '—' }}</td>
-                            <td>{{ e.assinatura_status or '—' }}</td>
-                        </tr>{% endfor %}</tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="form form-secoes">
-        <div class="form-bloco">
-            <h2>Cobranças e comprovantes</h2>
-            <div class="tabela-responsiva">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Cliente</th>
-                            <th>Valor</th>
-                            <th>Vencimento</th>
-                            <th>Status</th>
-                            <th>Comprovante</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>{% for p in pagamentos %}<tr>
-                            <td>{{ p.estabelecimento_nome }}<br><small>{{ p.descricao }}</small></td>
-                            <td>R$ {{ '%.2f'|format(p.valor|float) }}</td>
-                            <td>{{ p.data_vencimento.strftime('%d/%m/%Y') if p.data_vencimento else '—' }}</td>
-                            <td>{{ p.status|replace('_',' ')|capitalize }}</td>
-                            <td>{% if p.comprovante %}<a
-                                    href="{{ url_for('payments.abrir_comprovante', pagamento_id=p.id) }}"
-                                    target="_blank" rel="noopener">Abrir arquivo</a>{% else %}—{% endif %}</td>
-                            <td>{% if p.status in ['pendente','comprovante_enviado'] %}<form method="POST"
-                                    class="acoes"><input type="hidden" name="csrf_token"
-                                        value="{{ csrf_token() }}"><input type="hidden" name="pagamento_id"
-                                        value="{{ p.id }}"><button name="acao" value="confirmar" type="submit"
-                                        onclick="return confirm('Confirmar que o valor foi recebido?')">Confirmar</button><button
-                                        name="acao" value="rejeitar" type="submit"
-                                        onclick="return confirm('Rejeitar este comprovante?')">Rejeitar</button></form>
-                                {% else %}—{% endif %}</td>
-                        </tr>{% else %}<tr>
-                            <td colspan="6">Nenhuma cobrança registrada.</td>
-                        </tr>{% endfor %}</tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
-<style>
-    .campos-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0 18px
-    }
+    </main>
 
-    .campos-grid .campo small {
-        display: block;
-        margin-top: 5px;
-        color: #777
-    }
+</body>
 
-    .tabela-responsiva {
-        overflow-x: auto
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse
-    }
-
-    th,
-    td {
-        text-align: left;
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        vertical-align: top
-    }
-
-    .acoes {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap
-    }
-
-    .acoes button {
-        cursor: pointer;
-        padding: 7px 9px;
-        border: 0;
-        border-radius: 6px
-    }
-
-    .acoes button[value="confirmar"] {
-        background: #176b3a;
-        color: white
-    }
-
-    .acoes button[value="rejeitar"] {
-        background: #8d2424;
-        color: white
-    }
-
-    @media(max-width:700px) {
-        .campos-grid {
-            grid-template-columns: 1fr
-        }
-    }
-</style>
-{% endblock %}
+</html>

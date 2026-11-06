@@ -2,477 +2,227 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>
-        {% block title %}
-        La Carta
-        {% endblock %}
-    </title>
-
+    <title>{% block title %}La Carta{% endblock %}</title>
     <meta name="description" content="{% block description %}Painel administrativo do La Carta.{% endblock %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-pages.css') }}">
 
-    {% block extra_css %}
-    {% endblock %}
-
+    {% block extra_css %}{% endblock %}
 </head>
-
+{% macro ico(d) %}<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ d|safe }}</svg>{% endmacro %}
+{% set ep = request.endpoint or '' %}
 
 <body>
 
-
-    <!-- =========================
-         CONTROLE DO MENU
-    ========================== -->
-
     <input type="checkbox" id="menu" class="menu-input">
 
-
-    <!-- =========================
-         HEADER
-    ========================== -->
-
     <header class="header">
-
         <div class="header-left">
-
-            <!-- BOTÃO MENU -->
-
             <label for="menu" class="menu-button" aria-label="Abrir menu">
-
-                <span></span>
-                <span></span>
-                <span></span>
-
+                <span></span><span></span><span></span>
             </label>
-
-
-            <!-- LOGO -->
-
-            <a href="{{ url_for('admin.dashboard') }}" class="logo">
-                La Carta
-            </a>
-
-
+            <a href="{{ url_for('admin.dashboard') }}" class="logo">La Carta</a>
             <span class="line"></span>
-
-
-            <span class="panel">
-                Painel Administrativo
-            </span>
-
+            <span class="panel">Painel Administrativo</span>
         </div>
 
-
-        <!-- USUÁRIO -->
-
         <div class="user">
-
-            {% if usuario %}
-
-            <span>
-                {{ usuario.nome }}
-            </span>
-
-            {% endif %}
-
+            {% if usuario %}<span>{{ usuario.nome }}</span>{% endif %}
             <form method="POST" action="{{ url_for('admin.logout') }}">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button class="buttonSair" type="submit">Sair</button>
             </form>
-
         </div>
-
     </header>
-
-
-
-    <!-- =========================
-         OVERLAY
-    ========================== -->
 
     <label for="menu" class="overlay" aria-label="Fechar menu"></label>
 
-
-
-    <!-- =========================
-         SIDEBAR
-    ========================== -->
-
     <aside class="sidebar">
-
-
-        <!-- TOPO -->
-
         <div class="side-top">
-
             <div>
-
-                <strong>
-                    La Carta
-                </strong>
-
-                <small>
-                    Painel Administrativo
-                </small>
-
+                <strong>La Carta</strong>
+                <small>Painel Administrativo</small>
             </div>
-
-
-            <!-- FECHAR -->
-
-            <label for="menu" class="close" aria-label="Fechar menu">
-                ×
-            </label>
-
+            <label for="menu" class="close" aria-label="Fechar menu">×</label>
         </div>
 
-
-
-        <!-- NAVEGAÇÃO -->
-
-        <nav class="nav">
-
-
-            <!-- INÍCIO -->
-
-            <a href="{{ url_for('admin.dashboard') }}" class="link">
-
-                <span class="icon">
-                    ⌂
+        <nav class="nav" aria-label="Menu do painel">
+            <a href="{{ url_for('admin.dashboard') }}" class="link{% if ep == 'admin.dashboard' %} active{% endif %}">
+                <span class="icon">{{ ico('
+                    <path d="M3 11l9-8 9 8M5 10v10h14V10" />') }}
                 </span>
-
-                <span>
-                    Início
-                </span>
-
+                <span>Início</span>
             </a>
 
-
-
-            <!-- CARDÁPIO -->
-
             <div class="group">
-
-                <span class="group-title">
-                    Cardápio
-                </span>
-
-
-                <a href="{{ url_for('admin.categorias') }}" class="link">
-
-                    <span class="icon">
-                        🍽️
+                <span class="group-title">Cardápio</span>
+                <a href="{{ url_for('admin.categorias') }}"
+                    class="link{% if ep == 'admin.categorias' or ep == 'admin.produtos' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <path d="M6 3v7a2 2 0 0 0 2 2v9M10 3v7M18 3c-2 1-3 4-3 7h3v11" />') }}
                     </span>
-
-                    <span>
-                        Cardápio
-                    </span>
-
+                    <span>Cardápio</span>
                 </a>
-
             </div>
 
-
-
-            <!-- ASSINATURA E PAGAMENTOS -->
-            <a href="{{ url_for('payments.pagina_cliente') }}" class="link">
-                <span class="icon">$</span>
+            <a href="{{ url_for('payments.pagina_cliente') }}"
+                class="link{% if ep == 'payments.pagina_cliente' %} active{% endif %}">
+                <span class="icon">{{ ico('
+                    <path d="M12 3v18M16 7.5C15.5 6 14 5 12 5S8 6 8 8s2 2.5 4 3 4 1 4 3-2 3-4 3-3.500-1-4-2.500" />') }}
+                </span>
                 <span>Pagamentos</span>
             </a>
-
-
-            <!-- APARÊNCIA -->
-
-            <a href="{{ url_for('admin.aparencia') }}" class="link">
-
-                <span class="icon">
-                    🎨
+            <a href="{{ url_for('admin.aparencia') }}" class="link{% if ep == 'admin.aparencia' %} active{% endif %}">
+                <span class="icon">{{ ico('
+                    <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+                    <circle cx="16" cy="7" r="2" />
+                    <circle cx="8" cy="17" r="2" />') }}
                 </span>
-
-                <span>
-                    Aparência
-                </span>
-
+                <span>Aparência</span>
             </a>
 
-
-
-            <!-- DIVULGAÇÃO -->
-
             <div class="group">
-
-                <span class="group-title">
-                    Divulgação
-                </span>
-
-
-                <a href="{{ url_for('admin.qr_codes') }}" class="link">
-
-                    <span class="icon">
-                        ▣
+                <span class="group-title">Divulgação</span>
+                <a href="{{ url_for('admin.qr_codes') }}" class="link{% if ep == 'admin.qr_codes' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <rect x="4" y="4" width="6" height="6" />
+                        <rect x="14" y="4" width="6" height="6" />
+                        <rect x="4" y="14" width="6" height="6" />
+                        <path d="M14 14h2v2h-2zM18 18h2v2h-2z" />') }}
                     </span>
-
-                    <span>
-                        QR Codes
-                    </span>
-
+                    <span>QR Codes</span>
                 </a>
-
-
-                <a href="{{ url_for('admin.link_cardapio') }}" class="link">
-
-                    <span class="icon">
-                        🔗
+                <a href="{{ url_for('admin.link_cardapio') }}"
+                    class="link{% if ep == 'admin.link_cardapio' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <path
+                            d="M10 14a4 4 0 0 0 5.700 0l3-3a4 4 0 0 0-5.700-5.700l-1 1M14 10a4 4 0 0 0-5.700 0l-3 3a4 4 0 0 0 5.700 5.700l1-1" />
+                        ') }}
                     </span>
-
-                    <span>
-                        Link do cardápio
-                    </span>
-
+                    <span>Link do cardápio</span>
                 </a>
-
             </div>
 
-
-
-            <!-- CONFIGURAÇÕES -->
-
             <div class="group">
-
-                <span class="group-title">
-                    Configurações
-                </span>
-
-
-                <!-- MEU ESTABELECIMENTO -->
-
-                <a href="{{ url_for('admin.estabelecimento') }}" class="link">
-
-                    <span class="icon">
-                        🏪
+                <span class="group-title">Configurações</span>
+                <a href="{{ url_for('admin.estabelecimento') }}"
+                    class="link{% if ep == 'admin.estabelecimento' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <path
+                            d="M4 9l1.500-5h13L20 9M4 9v11h16V9M4 9a2.700 2.700 0 0 0 5.300 0 2.700 2.700 0 0 0 5.400 0A2.700 2.700 0 0 0 20 9M10 20v-5h4v5" />
+                        ') }}
                     </span>
-
-                    <span>
-                        Meu estabelecimento
-                    </span>
-
+                    <span>Meu estabelecimento</span>
                 </a>
-
-
-                <!-- HORÁRIOS -->
-
-                <a href="{{ url_for('admin.horarios') }}" class="link">
-
-                    <span class="icon">
-                        🕐
+                <a href="{{ url_for('admin.horarios') }}" class="link{% if ep == 'admin.horarios' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 2" />') }}
                     </span>
-
-                    <span>
-                        Horários
-                    </span>
-
+                    <span>Horários</span>
                 </a>
-
-
-                <!-- REDES SOCIAIS -->
-
-                <a href="{{ url_for('admin.redes_sociais') }}" class="link">
-
-                    <span class="icon">
-                        📱
+                <a href="{{ url_for('admin.redes_sociais') }}"
+                    class="link{% if ep == 'admin.redes_sociais' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <circle cx="6" cy="12" r="2.500" />
+                        <circle cx="18" cy="6" r="2.500" />
+                        <circle cx="18" cy="18" r="2.500" />
+                        <path d="M8.200 11l7.600-4M8.200 13l7.600 4" />') }}
                     </span>
-
-                    <span>
-                        Redes sociais
-                    </span>
-
+                    <span>Redes sociais</span>
                 </a>
-
-
-                <!-- MINHA CONTA -->
-
-                <a href="{{ url_for('admin.conta') }}" class="link">
-
-                    <span class="icon">
-                        👤
+                <a href="{{ url_for('admin.conta') }}" class="link{% if ep == 'admin.conta' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />') }}
                     </span>
-
-                    <span>
-                        Minha conta
-                    </span>
-
+                    <span>Minha conta</span>
                 </a>
-
-
-                <!-- SEGURANÇA -->
-
-                <a href="{{ url_for('admin.seguranca') }}" class="link">
-
-                    <span class="icon">
-                        🔒
+                <a href="{{ url_for('admin.seguranca') }}"
+                    class="link{% if ep == 'admin.seguranca' %} active{% endif %}">
+                    <span class="icon">{{ ico('
+                        <rect x="5" y="11" width="14" height="10" rx="2" />
+                        <path d="M8 11V8a4 4 0 0 1 8 0v3" />') }}
                     </span>
-
-                    <span>
-                        Segurança
-                    </span>
-
+                    <span>Segurança</span>
                 </a>
-
             </div>
 
-
-
-            <!-- SUPORTE -->
-
-            <a href="{{ url_for('admin.suporte') }}" class="link">
-
-                <span class="icon">
-                    ?
+            <a href="{{ url_for('admin.suporte') }}" class="link{% if ep == 'admin.suporte' %} active{% endif %}">
+                <span class="icon">{{ ico('
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M9.500 9.500a2.500 2.500 0 1 1 3.500 2.300c-.6.300-1 .8-1 1.500M12 17h.01" />') }}
                 </span>
-
-                <span>
-                    Suporte
-                </span>
-
+                <span>Suporte</span>
             </a>
-
         </nav>
 
-
-
-        <!-- RODAPÉ -->
-
         <div class="side-bottom">
-
             {% if usuario %}
-
-            <strong>
-                {{ usuario.nome }}
-            </strong>
-
-            <small>
-                Administrador
-            </small>
-
+            <strong>{{ usuario.nome }}</strong>
+            <small>Administrador</small>
             {% endif %}
-
         </div>
-
     </aside>
-
-
-
-    <!-- =========================
-         CONTEÚDO
-    ========================== -->
 
     <main class="main">
 
-
-        <!-- =========================
-             MENSAGENS DO SISTEMA
-        ========================== -->
-
         {% with messages = get_flashed_messages(with_categories=true) %}
-
         {% if messages %}
-
         <div class="flash-container">
-
             {% for category, message in messages %}
-
             <div class="flash flash-{{ category }}">
-
-                <span class="flash-icon">
-
-                    {% if category == "success" %}
-                    ✓
-                    {% elif category == "error" %}
-                    !
-                    {% elif category == "warning" %}
-                    !
-                    {% else %}
-                    i
-                    {% endif %}
-
-                </span>
-
-                <span class="flash-message">
-                    {{ message }}
-                </span>
-
+                <span class="flash-icon">{% if category == "success" %}✓{% elif category == "error" or category ==
+                    "warning" %}!{% else %}i{% endif %}</span>
+                <span class="flash-message">{{ message }}</span>
             </div>
-
             {% endfor %}
-
         </div>
-
         {% endif %}
-
         {% endwith %}
 
-
         {% if assinatura_atrasada %}
-        <div
-            style="margin:18px 0;padding:15px 18px;border-radius:10px;background:#fff3cd;border:1px solid #ffe08a;color:#5f4700;line-height:1.5;">
+        <div class="aviso-assinatura" role="alert">
             <strong>Atenção: assinatura em atraso ou suspensa.</strong> O cardápio público está bloqueado até a
             regularização.
-            <a href="{{ url_for('payments.pagina_cliente') }}" style="font-weight:bold;color:#310505;">Ver pagamento</a>
+            <a href="{{ url_for('payments.pagina_cliente') }}">Ver pagamento</a>
         </div>
         {% endif %}
 
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
 
     </main>
 
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
     <footer class="footer">
-
-        <p>
-            © 2026 La Carta
-        </p>
-
-
+        <p>© 2026 La Carta</p>
         <div>
-
-            <a href="#">
-                Termos de Uso
-            </a>
-
-            <a href="#">
-                Privacidade
-            </a>
-
+            <a href="#">Termos de Uso</a>
+            <a href="#">Privacidade</a>
         </div>
-
     </footer>
 
+    <script>
+        document.querySelectorAll('form[method="POST" i]').forEach((form) => {
+            if (!form.querySelector('input[name="csrf_token"]')) {
+                const token = document.createElement('input');
+                token.type = 'hidden';
+                token.name = 'csrf_token';
+                token.value = '{{ csrf_token() }}';
+                form.appendChild(token);
+            }
+        });
+    </script>
 
 </body>
-
-<script>
-    document.querySelectorAll('form[method="POST" i]').forEach((form) => {
-        if (!form.querySelector('input[name="csrf_token"]')) {
-            const token = document.createElement('input');
-            token.type = 'hidden';
-            token.name = 'csrf_token';
-            token.value = '{{ csrf_token() }}';
-            form.appendChild(token);
-        }
-    });
-</script>
 
 </html>
